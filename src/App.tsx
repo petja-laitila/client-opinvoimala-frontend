@@ -1,7 +1,11 @@
-import './App.css';
+import React, { FC } from 'react';
 
-function App() {
-  return <div className="App">Opinvoimala</div>;
-}
+const App: FC = () => {
+  return <div className="App">Opinvoimala
+  
+  
+  
+  </div>;
+};
 
 export default App;
