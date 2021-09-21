@@ -1,0 +1,17 @@
+###########################################
+##                                       ##
+##        All envs here are used         ##
+##      in both stage and production     ##
+##                                       ##
+##               Remember:               ##
+##        "true" and "on" values         ##
+##   must always be wrapped in quotes!   ##
+##                                       ##
+###########################################
+
+version: "3.5"
+
+x-web:
+  &web
+    # CUSTOM - Add your custom project related envs here.
+    DUMMY: dummy
