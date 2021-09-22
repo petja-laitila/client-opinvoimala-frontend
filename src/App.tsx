@@ -1,11 +1,16 @@
-import React, { FC } from 'react';
+import React from 'react';
 import './i18n';
-import { useTranslation } from 'react-i18next';
+import { StoreProvider } from './store/storeContext';
+import { rootStore } from './store/RootStore';
+import { observer } from 'mobx-react-lite';
+import FrontPage from './views/FrontPage';
 
-const App: FC = () => {
-  const { t } = useTranslation();
-
-  return <div className="App">{t('app_name')}</div>;
-};
+const App: React.FC = observer(() => {
+  return (
+    <StoreProvider value={rootStore}>
+      <FrontPage />
+    </StoreProvider>
+  );
+});
 
 export default App;
