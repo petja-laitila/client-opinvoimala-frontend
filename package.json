@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "apisauce": "^2.1.1",
     "i18next": "^20.6.1",
     "luxon": "^2.0.2",
     "mobx": "^6.3.3",
