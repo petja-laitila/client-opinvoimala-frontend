@@ -19,10 +19,10 @@ const States = [
 
 const FrontPageModel = types.model({
   main_title: types.string,
-  main_image: types.maybe(ImageModel),
+  main_image: types.maybeNull(ImageModel),
   subtitle: types.string,
   description: types.string,
-  description_image: types.maybe(ImageModel),
+  description_image: types.maybeNull(ImageModel),
 });
 
 export interface IFrontPageModel extends Instance<typeof FrontPageModel> {}
