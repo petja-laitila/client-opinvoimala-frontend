@@ -7,8 +7,10 @@ const FrontPage: React.FC = observer(() => {
     frontPage: { state, frontPage, fetchFrontPage },
   } = useStore();
 
-  const { title, subtitle, description } = {
+  const { title, mainImage, subtitle, description, descriptionImage } = {
     title: frontPage?.main_title,
+    mainImage: frontPage?.main_image,
+    descriptionImage: frontPage?.description_image,
     subtitle: frontPage?.subtitle,
     description: frontPage?.description,
   };
@@ -22,8 +24,10 @@ const FrontPage: React.FC = observer(() => {
   return (
     <div>
       <h1>{title}</h1>
+      {mainImage && <img src={mainImage.url} alt="" />}
       {subtitle && <div>{subtitle}</div>}
       {description && <div dangerouslySetInnerHTML={{ __html: description }} />}
+      {descriptionImage && <img src={descriptionImage.url} alt="" />}
     </div>
   );
 });

@@ -8,6 +8,7 @@ import {
   SnapshotIn,
 } from 'mobx-state-tree';
 import api from '../../services/api/Api';
+import { ImageModel } from '../models';
 
 const States = [
   'NOT_FETCHED' as const,
@@ -18,8 +19,10 @@ const States = [
 
 const FrontPageModel = types.model({
   main_title: types.string,
+  main_image: types.maybe(ImageModel),
   subtitle: types.string,
   description: types.string,
+  description_image: types.maybe(ImageModel),
 });
 
 export interface IFrontPageModel extends Instance<typeof FrontPageModel> {}
