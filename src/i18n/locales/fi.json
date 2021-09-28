@@ -1,3 +1,5 @@
 {
-  "app_name": "Opinvoimala"
+  "app_name": "Opinvoimala",
+  "phone_abbrv": "Puh.",
+  "copyright_text": "\u00A9 {{year}} Mikkelin kaupungin liikelaitos Otavia"
 }

@@ -1,18 +1,25 @@
 import React, { useEffect } from 'react';
 import { observer } from 'mobx-react-lite';
 import { useStore } from '../store/storeContext';
+import Layout from '../components/Layout';
+import Columns from '../components/Layout/Columns';
+import Card from '../components/Card';
 
 const FrontPage: React.FC = observer(() => {
   const {
     frontPage: { state, frontPage, fetchFrontPage },
   } = useStore();
 
-  const { title, mainImage, subtitle, description, descriptionImage } = {
-    title: frontPage?.main_title,
-    mainImage: frontPage?.main_image,
+  const { description, descriptionImage, cards } = {
     descriptionImage: frontPage?.description_image,
-    subtitle: frontPage?.subtitle,
     description: frontPage?.description,
+    cards: frontPage?.cards,
+  };
+
+  const hero = {
+    title: frontPage?.main_title,
+    subtitle: frontPage?.subtitle,
+    image: frontPage?.main_image,
   };
 
   useEffect(() => {
@@ -22,13 +29,24 @@ const FrontPage: React.FC = observer(() => {
   }, [fetchFrontPage, frontPage, state]);
 
   return (
-    <div>
-      <h1>{title}</h1>
-      {mainImage && <img src={mainImage.url} alt="" />}
-      {subtitle && <div>{subtitle}</div>}
-      {description && <div dangerouslySetInnerHTML={{ __html: description }} />}
-      {descriptionImage && <img src={descriptionImage.url} alt="" />}
-    </div>
+    <Layout hero={hero}>
+      <Columns showTopWatermark={false}>
+        {cards?.map(card => (
+          <Card key={card.id} {...card} />
+        ))}
+      </Columns>
+
+      <Columns reverseOrderOnMobile showBottomWatermark>
+        {descriptionImage && (
+          <div style={{ marginLeft: 'auto', marginRight: 'auto' }}>
+            <img src={descriptionImage.url} alt="" />
+          </div>
+        )}
+        {description && (
+          <div dangerouslySetInnerHTML={{ __html: description }} />
+        )}
+      </Columns>
+    </Layout>
   );
 });
 
