@@ -1,8 +1,6 @@
 import React from 'react';
-import { render, screen, waitFor } from '../../utils/test-utils';
+import { render, screen } from '../../utils/test-utils';
 import FrontPage from '../FrontPage';
-
-export const waitForApi = (timeout = 1000) => waitFor(() => null, { timeout });
 
 describe('VIEWS: <FrontPage />', () => {
   it('renders main title', async () => {
