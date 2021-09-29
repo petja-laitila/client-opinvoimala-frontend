@@ -32,7 +32,7 @@ const Container = styled.div`
       line-height: 28px;
     }
     p {
-      ${p => p.theme.font.size.sm};
+      ${p => p.theme.font.size.md};
     }
   }
 

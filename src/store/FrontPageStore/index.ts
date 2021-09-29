@@ -18,11 +18,11 @@ const States = [
 ];
 
 const FrontPageModel = types.model({
-  main_title: types.maybeNull(types.string),
-  main_image: types.maybeNull(ImageModel),
+  title: types.maybeNull(types.string),
+  image: types.maybeNull(ImageModel),
   subtitle: types.maybeNull(types.string),
-  description: types.maybeNull(types.string),
-  description_image: types.maybeNull(ImageModel),
+  details: types.maybeNull(types.string),
+  details_image: types.maybeNull(ImageModel),
   cards: types.maybeNull(types.array(CardModel)),
 });
 

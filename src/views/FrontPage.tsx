@@ -4,22 +4,40 @@ import { useStore } from '../store/storeContext';
 import Layout from '../components/Layout';
 import Columns from '../components/Layout/Columns';
 import Card from '../components/Card';
+import styled from 'styled-components';
+
+const DetailsContainer = styled.div`
+  .details {
+    &__image-container {
+      margin-left: auto;
+      margin-right: auto;
+    }
+    &__text-container {
+      p {
+        ${p => p.theme.font.size.md};
+      }
+      h4 {
+        font-size: 20px;
+      }
+    }
+  }
+`;
 
 const FrontPage: React.FC = observer(() => {
   const {
     frontPage: { state, frontPage, fetchFrontPage },
   } = useStore();
 
-  const { description, descriptionImage, cards } = {
-    descriptionImage: frontPage?.description_image,
-    description: frontPage?.description,
+  const { details, detailsImage, cards } = {
+    detailsImage: frontPage?.details_image,
+    details: frontPage?.details,
     cards: frontPage?.cards,
   };
 
   const hero = {
-    title: frontPage?.main_title,
+    title: frontPage?.title,
     subtitle: frontPage?.subtitle,
-    image: frontPage?.main_image,
+    image: frontPage?.image,
   };
 
   useEffect(() => {
@@ -36,16 +54,21 @@ const FrontPage: React.FC = observer(() => {
         ))}
       </Columns>
 
-      <Columns reverseOrderOnMobile showBottomWatermark>
-        {descriptionImage && (
-          <div style={{ marginLeft: 'auto', marginRight: 'auto' }}>
-            <img src={descriptionImage.url} alt="" />
-          </div>
-        )}
-        {description && (
-          <div dangerouslySetInnerHTML={{ __html: description }} />
-        )}
-      </Columns>
+      <DetailsContainer>
+        <Columns reverseOrderOnMobile showBottomWatermark>
+          {detailsImage && (
+            <div className="details__image-container">
+              <img src={detailsImage.url} alt="" />
+            </div>
+          )}
+          {details && (
+            <div
+              className="details__text-container"
+              dangerouslySetInnerHTML={{ __html: details }}
+            />
+          )}
+        </Columns>
+      </DetailsContainer>
     </Layout>
   );
 });
