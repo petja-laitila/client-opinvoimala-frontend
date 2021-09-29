@@ -1,9 +1,10 @@
 import { observer } from 'mobx-react-lite';
 import React from 'react';
-import { Link, NavLink } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { useStore } from '../../store/storeContext';
 import NavBar from './NavBar';
+import UserMenu from './UserMenu';
 import Wrapper from './Wrapper';
 
 const HEADER_HEIGHT = 100; // px
@@ -43,7 +44,9 @@ const Header: React.FC = observer(() => {
           <NavBar />
         </div>
 
-        <div>USER MENU</div>
+        <div>
+          <UserMenu />
+        </div>
       </Wrapper>
     </StyledHeader>
   );
