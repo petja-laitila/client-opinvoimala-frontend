@@ -11,6 +11,9 @@ const Container = styled.div`
     &__hero {
       background-color: ${p => p.theme.color.primaryLight};
     }
+    &__hero {
+      padding-top: 50px;
+    }
   }
   main {
     background-color: ${p => p.theme.color.background};

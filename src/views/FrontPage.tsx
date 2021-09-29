@@ -28,11 +28,7 @@ export const FrontPage: React.FC = observer(() => {
     frontPage: { state, frontPage, fetchFrontPage },
   } = useStore();
 
-  const { details, detailsImage, cards } = {
-    detailsImage: frontPage?.detailsImage,
-    details: frontPage?.details,
-    cards: frontPage?.cards,
-  };
+  const { details, detailsImage, cards } = frontPage ?? {};
 
   const hero = {
     title: frontPage?.title,
