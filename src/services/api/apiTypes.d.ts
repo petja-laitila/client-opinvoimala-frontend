@@ -26,12 +26,14 @@ declare namespace API {
   /**
    * API REQUESTS
    */
+  type GetSettings = {};
   type GetFrontPage = {};
 
   /**
    * API RESPONSES
    */
   declare namespace RES {
+    type GetSettings = import('../store/SettingsStore').Settings;
     type GetFrontPage = import('../../store/FrontPageStore').FrontPage;
   }
 }

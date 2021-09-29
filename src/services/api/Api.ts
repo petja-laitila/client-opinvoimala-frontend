@@ -1,4 +1,3 @@
-import { ApiResponse } from 'apisauce';
 import BaseApi from './BaseApi';
 import { ApiConfig, DEFAULT_API_CONFIG } from './config';
 
@@ -9,18 +8,24 @@ export class Api extends BaseApi {
     super(config);
   }
 
+  /**
+   * Fetch app settings (app name, logo etc.)
+   */
+  async getSettings(
+    params: API.GetSettings
+  ): Promise<Response<API.RES.GetSettings>> {
+    const response = await this.api.get(`settings`, params, {});
+    return this.handleResponse(response);
+  }
+
+  /**
+   * Fetch data for the front page
+   */
   async getFrontPage(
     params: API.GetFrontPage
   ): Promise<Response<API.RES.GetFrontPage>> {
-    const response: ApiResponse<any> = await this.api.get(
-      `front-page`,
-      params,
-      {}
-    );
-
-    if (!response.ok) return this.handleError(response);
-
-    return { kind: 'ok', data: response.data };
+    const response = await this.api.get(`front-page`, params, {});
+    return this.handleResponse(response);
   }
 }
 

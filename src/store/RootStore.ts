@@ -1,9 +1,13 @@
 import { Instance, onSnapshot, SnapshotOut, types } from 'mobx-state-tree';
 // import STORAGE from '../services/storage';
 import { FrontPageStore } from './FrontPageStore';
+import { SettingsStore } from './SettingsStore';
 
 const RootStoreModel = types.model({
   frontPage: types.optional(FrontPageStore, {
+    state: 'NOT_FETCHED',
+  }),
+  settings: types.optional(SettingsStore, {
     state: 'NOT_FETCHED',
   }),
 });

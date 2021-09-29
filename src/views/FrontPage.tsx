@@ -29,7 +29,7 @@ export const FrontPage: React.FC = observer(() => {
   } = useStore();
 
   const { details, detailsImage, cards } = {
-    detailsImage: frontPage?.details_image,
+    detailsImage: frontPage?.detailsImage,
     details: frontPage?.details,
     cards: frontPage?.cards,
   };
