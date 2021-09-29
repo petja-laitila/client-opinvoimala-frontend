@@ -1,18 +1,43 @@
 import React, { useEffect } from 'react';
 import { observer } from 'mobx-react-lite';
 import { useStore } from '../store/storeContext';
+import Layout from '../components/Layout';
+import Columns from '../components/Layout/Columns';
+import Card from '../components/Card';
+import styled from 'styled-components';
+
+const DetailsContainer = styled.div`
+  .details {
+    &__image-container {
+      margin-left: auto;
+      margin-right: auto;
+    }
+    &__text-container {
+      p {
+        ${p => p.theme.font.size.md};
+      }
+      h4 {
+        font-size: 20px;
+      }
+    }
+  }
+`;
 
 const FrontPage: React.FC = observer(() => {
   const {
     frontPage: { state, frontPage, fetchFrontPage },
   } = useStore();
 
-  const { title, mainImage, subtitle, description, descriptionImage } = {
-    title: frontPage?.main_title,
-    mainImage: frontPage?.main_image,
-    descriptionImage: frontPage?.description_image,
+  const { details, detailsImage, cards } = {
+    detailsImage: frontPage?.details_image,
+    details: frontPage?.details,
+    cards: frontPage?.cards,
+  };
+
+  const hero = {
+    title: frontPage?.title,
     subtitle: frontPage?.subtitle,
-    description: frontPage?.description,
+    image: frontPage?.image,
   };
 
   useEffect(() => {
@@ -22,13 +47,29 @@ const FrontPage: React.FC = observer(() => {
   }, [fetchFrontPage, frontPage, state]);
 
   return (
-    <div>
-      <h1>{title}</h1>
-      {mainImage && <img src={mainImage.url} alt="" />}
-      {subtitle && <div>{subtitle}</div>}
-      {description && <div dangerouslySetInnerHTML={{ __html: description }} />}
-      {descriptionImage && <img src={descriptionImage.url} alt="" />}
-    </div>
+    <Layout hero={hero}>
+      <Columns showTopWatermark={false}>
+        {cards?.map(card => (
+          <Card key={card.id} {...card} />
+        ))}
+      </Columns>
+
+      <DetailsContainer>
+        <Columns reverseOrderOnMobile showBottomWatermark>
+          {detailsImage && (
+            <div className="details__image-container">
+              <img src={detailsImage.url} alt="" />
+            </div>
+          )}
+          {details && (
+            <div
+              className="details__text-container"
+              dangerouslySetInnerHTML={{ __html: details }}
+            />
+          )}
+        </Columns>
+      </DetailsContainer>
+    </Layout>
   );
 });
 

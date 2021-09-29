@@ -4,7 +4,7 @@ import { COLORS, fontSize } from './theme';
 export const GlobalStyle = createGlobalStyle`
   body {
     font-family: 'Open Sans', sans-serif;
-    background-color: ${COLORS.background};
+    background-color: ${COLORS.grey3};
     color: ${COLORS.text};
     ${fontSize(16, 20)};
     letter-spacing: -0.01em;
