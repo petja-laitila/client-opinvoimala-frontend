@@ -3,6 +3,7 @@ import { Link as RouterLink } from 'react-router-dom';
 import styled from 'styled-components';
 import { path } from '../routes/routes';
 import { Link } from '../store/models';
+import Icon from './Icon';
 
 const Container = styled.div`
   background-color: ${p => p.theme.color.background};
@@ -46,12 +47,18 @@ const Container = styled.div`
     text-align: center;
 
     a {
+      display: flex;
+      align-items: center;
+      justify-content: center;
       color: ${p => p.theme.color.secondary};
       font-family: ${p => p.theme.font.secondary};
       ${p => p.theme.font.size.md};
       text-decoration: none;
       :hover {
         text-decoration: underline;
+      }
+      svg {
+        margin-left: ${p => p.theme.spacing.md};
       }
     }
   }
@@ -75,6 +82,12 @@ const Card: React.FC<Props> = ({ title, text, link }) => {
         <footer>
           <RouterLink to={`/${path('content_page')}/${link.targetPage}`}>
             {link.label}
+            <Icon
+              type="ArrowRight"
+              strokeColor="secondary"
+              color="none"
+              width={22}
+            />
           </RouterLink>
         </footer>
       )}
