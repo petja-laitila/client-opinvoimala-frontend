@@ -17,15 +17,16 @@ const States = [
   'ERROR' as const,
 ];
 
-const NavItem = types.model({
+const NavItemModel = types.model({
   id: types.number,
   label: types.string,
   targetPage: types.maybeNull(types.number),
   links: types.array(LinkModel),
 });
+export interface NavItem extends SnapshotOut<typeof NavItemModel> {}
 
 const NavigationModel = types.model({
-  items: types.array(NavItem),
+  items: types.array(NavItemModel),
 });
 
 export interface INavigationModel extends Instance<typeof NavigationModel> {}
