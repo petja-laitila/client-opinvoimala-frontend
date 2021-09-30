@@ -8,7 +8,8 @@ const Section = styled.section<{ reverseOrderOnMobile: boolean }>`
   flex-wrap: wrap;
   align-items: stretch;
   position: relative;
-  margin-bottom: 100px;
+  margin-top: 60px;
+  margin-bottom: 60px;
   gap: 20px;
 
   @media ${p => p.theme.breakpoint.mobile} {

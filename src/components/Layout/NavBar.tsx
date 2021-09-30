@@ -1,9 +1,11 @@
-import { useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { observer } from 'mobx-react-lite';
 import { useStore } from '../../store/storeContext';
 import NavMenu from './NavMenu';
+import { path } from '../../routes/routes';
+import { Link } from '../../store/models';
 
-const NavBar = observer(() => {
+const NavBar: React.FC = observer(() => {
   const {
     navigation: { state, navigation, fetchNavigation },
   } = useStore();
@@ -14,10 +16,32 @@ const NavBar = observer(() => {
 
   const navItems = navigation?.items ?? [];
 
+  const getUrl = (page: number | null) => {
+    if (page) return `/${path('content_page')}/${page}`;
+    return undefined;
+  };
+
+  const getLinkItems = (links: Link[]) => {
+    return links
+      .filter(({ targetPage }) => !!targetPage)
+      .map(({ id, label, targetPage }) => ({
+        id,
+        label: label ?? '',
+        url: getUrl(targetPage) ?? '/',
+      }));
+  };
+
   return (
     <nav>
       {navItems.map(navItem => (
-        <NavMenu key={navItem.id} {...navItem} />
+        <NavMenu
+          key={navItem.id}
+          triggerLink={{
+            label: navItem.label,
+            url: getUrl(navItem.targetPage),
+          }}
+          items={getLinkItems(navItem.links)}
+        />
       ))}
     </nav>
   );

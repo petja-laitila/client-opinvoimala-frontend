@@ -34,6 +34,7 @@ export const FrontPage: React.FC = observer(() => {
     title: frontPage?.title,
     lead: frontPage?.lead,
     image: frontPage?.image,
+    align: 'center',
   };
 
   useEffect(() => {

@@ -63,10 +63,9 @@ const StyledButton = styled.button<{
     border: 1px solid transparent;
     color: ${p => p.theme.color[p.color]};
     opacity: 1;
-    text-decoration: underline;
-    font-weight: normal;
+    font-weight: bold;
     :hover:not(.disabled) {
-      font-weight: bold;
+      text-decoration: underline;
     }
   }
 

@@ -1,11 +1,9 @@
 import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import styled from 'styled-components';
-import { path } from '../../routes/routes';
-import { NavItem } from '../../store/NavigationStore';
 import { useOutsideClickAction } from '../../utils/hooks';
 
-const StyledNavMenu = styled.div`
+const StyledNavMenu = styled.div<{ verticalPosition: number }>`
   display: inline-block;
   position: relative;
 
@@ -31,8 +29,13 @@ const StyledNavMenu = styled.div`
 
     &__menu {
       position: absolute;
-      top: 35px;
-      left: 20px;
+      top: ${p => 35 + p.verticalPosition}px;
+      &.align-right {
+        right: 0;
+      }
+      &.align-left {
+        left: 10px;
+      }
       background-color: ${p => p.theme.color.background};
       ${p => p.theme.shadows[0]};
       border-radius: ${p => p.theme.borderRadius.sm};
@@ -56,7 +59,31 @@ const StyledNavMenu = styled.div`
   }
 `;
 
-const NavMenu: React.FC<NavItem> = ({ id, label, targetPage, links }) => {
+interface Props {
+  triggerLink?: {
+    label: string;
+    url?: string;
+  };
+  // Optional trigger element (e.g. Button) to toggle menu open
+  // (Will override possible label & url props above)
+  triggerEl?: JSX.Element;
+
+  items: {
+    id: number | string;
+    label: string;
+    url: string;
+  }[];
+  align?: 'left' | 'right';
+  verticalPosition?: number;
+}
+
+const NavMenu: React.FC<Props> = ({
+  triggerLink,
+  triggerEl,
+  items,
+  align = 'left',
+  verticalPosition = 0,
+}) => {
   const [isOpen, setIsOpen] = useState(false);
   const ref: React.RefObject<HTMLDivElement> = React.createRef();
 
@@ -67,38 +94,42 @@ const NavMenu: React.FC<NavItem> = ({ id, label, targetPage, links }) => {
   });
 
   const toggleMenu = () => {
-    if (links?.length) setIsOpen(!isOpen);
+    if (items?.length) setIsOpen(!isOpen);
   };
 
-  const pageUrl = (target?: number | null) => {
-    if (!target) return '/';
-    return `/${path('content_page')}/${target}`;
+  const renderTrigger = () => {
+    if (triggerEl) return triggerEl;
+    if (triggerLink) {
+      const { url, label } = triggerLink;
+      if (url) return <NavLink to={url}>{label}</NavLink>;
+      if (label) return <span>{label}</span>;
+    }
+    return null;
   };
 
-  const renderMainLink = () => {
-    if (targetPage)
-      return (
-        <NavLink key={id} to={pageUrl(targetPage)}>
-          {label}
-        </NavLink>
-      );
-    else return <span key={id}>{label}</span>;
+  const getMenuClassName = () => {
+    let className = 'navigation__menu';
+    className += ` align-${align}`;
+    if (isOpen) className += ' is-open';
+    return className;
   };
 
-  const showMenu = isOpen && links?.length;
+  const showMenu = isOpen && items?.length;
 
   return (
-    <StyledNavMenu onClick={toggleMenu} ref={ref}>
-      <div className="navigation__main-link">{renderMainLink()}</div>
-      <div className={`navigation__menu${isOpen ? ' is-open' : ''}`}>
+    <StyledNavMenu
+      onClick={toggleMenu}
+      ref={ref}
+      verticalPosition={verticalPosition}
+    >
+      <div className="navigation__main-link">{renderTrigger()}</div>
+      <div className={getMenuClassName()}>
         {showMenu &&
-          links
-            .filter(({ targetPage }) => targetPage)
-            .map(({ id, label, targetPage }) => (
-              <NavLink key={id} to={pageUrl(targetPage)}>
-                {label}
-              </NavLink>
-            ))}
+          items.map(({ id, label, url }) => (
+            <NavLink key={id} to={url}>
+              {label}
+            </NavLink>
+          ))}
       </div>
     </StyledNavMenu>
   );

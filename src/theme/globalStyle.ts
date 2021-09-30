@@ -48,6 +48,7 @@ export const GlobalStyle = createGlobalStyle`
 
   h1 {
     ${fontSize(36, 64)}
+    word-wrap: break-word;
   }
 
   h2 {

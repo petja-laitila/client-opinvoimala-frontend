@@ -18,7 +18,7 @@ const Container = styled.div`
   main {
     background-color: ${p => p.theme.color.background};
     position: relative;
-    padding-bottom: 100px;
+    padding-bottom: 60px;
   }
 `;
 

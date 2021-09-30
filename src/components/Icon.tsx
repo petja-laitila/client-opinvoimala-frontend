@@ -4,10 +4,12 @@ import { Colors } from '../theme/styled';
 
 import { ReactComponent as ArrowRight } from '../assets/icons/arrow-right.svg';
 import { ReactComponent as SignIn } from '../assets/icons/sign-in.svg';
+import { ReactComponent as User } from '../assets/icons/md-person.svg';
 
 const Icons = {
   ArrowRight,
   SignIn,
+  User,
 };
 
 export type IconType = keyof typeof Icons;
