@@ -20,7 +20,7 @@ const States = [
 const FrontPageModel = types.model({
   title: types.maybeNull(types.string),
   image: types.maybeNull(ImageModel),
-  subtitle: types.maybeNull(types.string),
+  lead: types.maybeNull(types.string),
   details: types.maybeNull(types.string),
   details_image: types.maybeNull(ImageModel),
   cards: types.maybeNull(types.array(CardModel)),

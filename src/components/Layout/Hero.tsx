@@ -58,18 +58,18 @@ const Container = styled.div`
 
 export interface HeroProps {
   title?: string | null;
-  subtitle?: string | null;
+  lead?: string | null;
   image?: Image | null;
 }
 
-const Hero: React.FC<HeroProps> = ({ title, subtitle, image }) => {
+const Hero: React.FC<HeroProps> = ({ title, lead, image }) => {
   return (
     <Container>
       <Watermark isNegative left={-220} top={40} />
 
       <div className="hero__main-column">
         <h1>{title}</h1>
-        <div>{subtitle}</div>
+        <div>{lead}</div>
       </div>
 
       {image && (

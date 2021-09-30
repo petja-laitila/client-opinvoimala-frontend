@@ -1,5 +1,7 @@
 import React from 'react';
+import { Link as RouterLink } from 'react-router-dom';
 import styled from 'styled-components';
+import { path } from '../routes/routes';
 import { Link } from '../store/models';
 
 const Container = styled.div`
@@ -71,7 +73,9 @@ const Card: React.FC<Props> = ({ title, text, link }) => {
 
       {link && (
         <footer>
-          <a href="/TODO">{link.label}</a>
+          <RouterLink to={`/${path('content_page')}/${link.target_page}`}>
+            {link.label}
+          </RouterLink>
         </footer>
       )}
     </Container>

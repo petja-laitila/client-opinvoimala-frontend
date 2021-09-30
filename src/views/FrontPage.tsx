@@ -23,7 +23,7 @@ const DetailsContainer = styled.div`
   }
 `;
 
-const FrontPage: React.FC = observer(() => {
+export const FrontPage: React.FC = observer(() => {
   const {
     frontPage: { state, frontPage, fetchFrontPage },
   } = useStore();
@@ -36,7 +36,7 @@ const FrontPage: React.FC = observer(() => {
 
   const hero = {
     title: frontPage?.title,
-    subtitle: frontPage?.subtitle,
+    lead: frontPage?.lead,
     image: frontPage?.image,
   };
 
@@ -72,5 +72,3 @@ const FrontPage: React.FC = observer(() => {
     </Layout>
   );
 });
-
-export default FrontPage;
