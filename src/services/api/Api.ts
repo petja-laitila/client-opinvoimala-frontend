@@ -19,12 +19,33 @@ export class Api extends BaseApi {
   }
 
   /**
+   * Fetch main navigation
+   */
+  async getNavigation(
+    params: API.GetNavigation
+  ): Promise<Response<API.RES.GetNavigation>> {
+    const response = await this.api.get(`navigation`, params, {});
+    return this.handleResponse(response);
+  }
+
+  /**
    * Fetch data for the front page
    */
   async getFrontPage(
     params: API.GetFrontPage
   ): Promise<Response<API.RES.GetFrontPage>> {
     const response = await this.api.get(`front-page`, params, {});
+    return this.handleResponse(response);
+  }
+
+  /**
+   * Fetch data for the front page
+   */
+  async getContentPage({
+    id,
+    ...params
+  }: API.GetContentPage): Promise<Response<API.RES.GetContentPage>> {
+    const response = await this.api.get(`pages/${id}`, params, {});
     return this.handleResponse(response);
   }
 }

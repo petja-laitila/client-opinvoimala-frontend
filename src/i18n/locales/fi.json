@@ -6,5 +6,8 @@
   "route": {
     "front_page": "Etusivu",
     "content_page": "Sisältösivu"
+  },
+  "error": {
+    "page_not_found": "Virhe! Sivua ei löytynyt."
   }
 }

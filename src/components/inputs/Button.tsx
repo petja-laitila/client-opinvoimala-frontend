@@ -14,8 +14,11 @@ const StyledButton = styled.button<{
   min-width: ${p => (p.isSmall ? undefined : '140px')};
   border-radius: ${p => (p.isSmall ? p.theme.borderRadius.md : '40px')};
   margin: ${p => (p.noMargin ? 0 : p.theme.spacing.sm)} auto;
-  padding: ${p => (p.isSmall ? p.theme.spacing.sm : p.theme.spacing.md)}
-    ${p => p.theme.spacing.lg};
+
+  padding-top: ${p => (p.isSmall ? p.theme.spacing.sm : p.theme.spacing.md)};
+  padding-bottom: ${p => (p.isSmall ? p.theme.spacing.sm : p.theme.spacing.md)};
+  padding-left: ${p => p.theme.spacing.lg};
+  padding-right: ${p => p.theme.spacing.lg};
 
   font-family: ${p => p.theme.font.secondary};
   ${p => (p.isSmall ? p.theme.font.size.sm : p.theme.font.size.md)};
