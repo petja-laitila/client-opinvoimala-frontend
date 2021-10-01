@@ -12,6 +12,7 @@ const DrawerContainer = styled.div<{ isOpen: boolean }>`
   padding: ${p => p.theme.spacing.lg};
   background-color: ${p => p.theme.color.background};
   ${p => p.theme.shadows[0]};
+  overflow-y: auto;
 
   opacity: ${p => (p.isOpen ? 1 : 0)};
 

@@ -8,7 +8,8 @@ import NavBar from './NavBar';
 import UserMenu from './UserMenu';
 import Wrapper from './Wrapper';
 
-const HEADER_HEIGHT = 100; // px
+export const HEADER_HEIGHT = 100; // px
+export const HEADER_HEIGHT_MOBILE = 70; // px
 
 const StyledHeader = styled.header`
   .header__wrapper {
@@ -17,10 +18,20 @@ const StyledHeader = styled.header`
     align-items: center;
     justify-content: space-between;
 
+    @media ${p => p.theme.breakpoint.mobile} {
+      height: ${HEADER_HEIGHT_MOBILE}px;
+    }
+
     & > div {
       display: flex;
       gap: ${p => p.theme.spacing.lg};
     }
+  }
+
+  .mobile-header__menus {
+    position: fixed;
+    z-index: 98;
+    right: ${p => p.theme.spacing.xl};
   }
 `;
 
@@ -31,6 +42,7 @@ const Header: React.FC = observer(() => {
   } = useStore();
 
   const { logo } = settings ?? {};
+  const logoHeight = isMobile ? HEADER_HEIGHT_MOBILE - 10 : HEADER_HEIGHT - 20;
 
   return (
     <StyledHeader>
@@ -38,17 +50,13 @@ const Header: React.FC = observer(() => {
         <div>
           {logo && (
             <Link to="/">
-              <img
-                src={logo.url}
-                height={`${HEADER_HEIGHT - (isMobile ? 40 : 20)}px`}
-                alt="logo"
-              />
+              <img src={logo.url} height={`${logoHeight}px`} alt="logo" />
             </Link>
           )}
         </div>
 
         {isTablet ? (
-          <div>
+          <div className="mobile-header__menus">
             <UserMenu />
             <NavBar />
           </div>

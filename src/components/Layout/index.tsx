@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import Footer from './Footer';
-import Header from './Header';
+import Header, { HEADER_HEIGHT, HEADER_HEIGHT_MOBILE } from './Header';
 import Hero, { HeroProps } from './Hero';
 import Wrapper from './Wrapper';
 import LoadingPlaceholder from '../LoadingPlaceholder';
@@ -13,7 +13,10 @@ const Container = styled.div`
       background-color: ${p => p.theme.color.primaryLight};
     }
     &__hero {
-      padding-top: 50px;
+      padding-top: ${HEADER_HEIGHT + 50}px;
+      @media ${p => p.theme.breakpoint.mobile} {
+        padding-top: ${HEADER_HEIGHT_MOBILE + 30}px;
+      }
     }
   }
   main {
