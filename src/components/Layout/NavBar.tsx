@@ -53,17 +53,19 @@ const NavBar: React.FC = observer(() => {
       >
         <ul>
           {navItems.map(({ id, label, targetPage, links }) => (
-            <AccordionMenu
-              key={id}
-              id={id}
-              label={label}
-              url={getUrl(targetPage)}
-              items={links.map(({ id, label, targetPage }) => ({
-                id,
-                label: label ?? '',
-                url: getUrl(targetPage) ?? '/',
-              }))}
-            />
+            <li>
+              <AccordionMenu
+                key={id}
+                id={id}
+                label={label}
+                url={getUrl(targetPage)}
+                items={links.map(({ id, label, targetPage }) => ({
+                  id,
+                  label: label ?? '',
+                  url: getUrl(targetPage) ?? '/',
+                }))}
+              />
+            </li>
           ))}
         </ul>
       </Drawer>

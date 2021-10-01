@@ -5,7 +5,7 @@ import { path } from '../routes/routes';
 import { Link } from '../store/models';
 import Icon from './Icon';
 
-const Container = styled.div`
+const Container = styled.article`
   background-color: ${p => p.theme.color.background};
   border-radius: ${p => p.theme.borderRadius.sm};
   display: flex;

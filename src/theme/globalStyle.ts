@@ -11,6 +11,10 @@ export const GlobalStyle = createGlobalStyle`
     line-height: 160%;
   }
 
+  *:focus {
+    outline-color: ${p => p.theme.color.accent};
+  }
+  
   hr {
     border: 1px solid rgba(0, 0, 0, 0.1);
     margin-top: 20px;
@@ -69,5 +73,10 @@ export const GlobalStyle = createGlobalStyle`
     display: block;
     margin-left: auto;
     margin-right: auto;
+  }
+
+  button {
+    background-color: transparent;
+    border: none;
   }
 `;

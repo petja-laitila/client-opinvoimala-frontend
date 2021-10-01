@@ -5,7 +5,7 @@ import { useOutsideClickAction } from '../utils/hooks';
 import Icon from './Icon';
 import Button from './inputs/Button';
 
-const DrawerContainer = styled.div<{ isOpen: boolean }>`
+const DrawerContainer = styled.aside<{ isOpen: boolean }>`
   z-index: 99;
   position: fixed;
   top: 0;
@@ -46,7 +46,9 @@ const DrawerContainer = styled.div<{ isOpen: boolean }>`
         justify-content: space-between;
         align-items: center;
         a,
-        span {
+        span,
+        button {
+          text-align: left;
           display: block;
           padding: ${p => p.theme.spacing.md} ${p => p.theme.spacing.lg};
           color: ${p => p.theme.color.secondary};
@@ -54,7 +56,10 @@ const DrawerContainer = styled.div<{ isOpen: boolean }>`
           font-family: ${p => p.theme.font.secondary};
           user-select: none;
         }
-        a {
+        a,
+        span,
+        button {
+          cursor: pointer;
           text-decoration: none;
           :hover {
             text-decoration: underline;
@@ -98,18 +103,22 @@ const Drawer: React.FC<Props> = ({ triggerEl, children }) => {
     <div>
       <div onClick={toggleDrawer}>{triggerEl}</div>
       <DrawerContainer ref={ref} isOpen={isOpen}>
-        <header className="drawer__header">
-          <div>
-            <Button
-              id="drawer__close-button"
-              variant="filled"
-              icon={<Icon type="Close" color="background" />}
-              onClick={toggleDrawer}
-              noMargin
-            />
-          </div>
-        </header>
-        <main className="drawer__main-content">{children}</main>
+        {isOpen && (
+          <>
+            <header className="drawer__header">
+              <div>
+                <Button
+                  id="drawer__close-button"
+                  variant="filled"
+                  icon={<Icon type="Close" color="background" />}
+                  onClick={toggleDrawer}
+                  noMargin
+                />
+              </div>
+            </header>
+            <main className="drawer__main-content">{children}</main>
+          </>
+        )}
       </DrawerContainer>
     </div>
   );

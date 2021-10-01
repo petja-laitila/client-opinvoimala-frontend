@@ -5,8 +5,14 @@ import { NavLink } from 'react-router-dom';
 import styled from 'styled-components';
 
 const Container = styled.div`
+  width: 100%;
+  .accordion__trigger-button {
+    padding-right: ${p => p.theme.spacing.lg};
+    display: flex;
+  }
   a,
-  span {
+  span,
+  button {
     width: 100%;
   }
 
@@ -21,7 +27,8 @@ const Container = styled.div`
 
     li.accordion__item {
       a,
-      span {
+      span,
+      button {
         padding-left: ${p => p.theme.spacing.xl};
         ${p => p.theme.font.size.lg};
       }
@@ -47,17 +54,27 @@ const AccordionMenu: React.FC<Props> = ({ id, label, url, items }) => {
 
   return (
     <Container>
-      <li onClick={toggleAccordion}>
-        {url ? <NavLink to={url}>{label}</NavLink> : <span>{label}</span>}
+      <div className="accordion__trigger-button">
+        {url ? (
+          <NavLink to={url}>{label}</NavLink>
+        ) : (
+          <button onClick={toggleAccordion}>{label}</button>
+        )}
         {!!items?.length && <Icon type="Plus" color="primary" />}
-      </li>
+      </div>
+
       {!!items?.length && (
         <ul className={`accordion__menu${isOpen ? ' is-open' : ''}`}>
-          {items.map(({ id, label, url }) => (
-            <li key={`accordion-item-${id}`} className="accordion__item">
-              {url ? <NavLink to={url}>{label}</NavLink> : <span>{label}</span>}
-            </li>
-          ))}
+          {isOpen &&
+            items.map(({ id, label, url }) => (
+              <li key={`accordion-item-${id}`} className="accordion__item">
+                {url ? (
+                  <NavLink to={url}>{label}</NavLink>
+                ) : (
+                  <span>{label}</span>
+                )}
+              </li>
+            ))}
         </ul>
       )}
     </Container>

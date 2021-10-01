@@ -11,7 +11,8 @@ const StyledDropdownMenu = styled.div<{ verticalPosition: number }>`
     &__trigger,
     &__menu {
       a,
-      span {
+      span,
+      button {
         color: ${p => p.theme.color.secondary};
         font-family: ${p => p.theme.font.secondary};
         ${p => p.theme.font.size.md};
@@ -42,10 +43,12 @@ const StyledDropdownMenu = styled.div<{ verticalPosition: number }>`
       z-index: 99;
       width: 230px;
 
-      transition: all 0.2s ease-in-out;
+      transition: all 0.4s ease-in-out;
 
+      max-height: 0;
       opacity: 0;
       &.is-open {
+        max-height: 1000px;
         opacity: 1;
       }
 
@@ -104,7 +107,7 @@ const DropdownMenu: React.FC<Props> = ({
     if (triggerLink) {
       const { url, label } = triggerLink;
       if (url) return <NavLink to={url}>{label}</NavLink>;
-      if (label) return <span>{label}</span>;
+      if (label) return <button>{label}</button>;
     }
     return null;
   };
