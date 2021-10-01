@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { observer } from 'mobx-react-lite';
 import { useStore } from '../../store/storeContext';
-import NavMenu from './NavMenu';
+import NavMenu from '../DropdownMenu';
 import { path } from '../../routes/routes';
 import { Link } from '../../store/models';
 

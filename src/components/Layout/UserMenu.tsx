@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { path, rt } from '../../routes/routes';
 import Icon from '../Icon';
 import Button from '../inputs/Button';
-import NavMenu from './NavMenu';
+import NavMenu from '../DropdownMenu';
 
 const UserMenu: React.FC = () => {
   const { t } = useTranslation();

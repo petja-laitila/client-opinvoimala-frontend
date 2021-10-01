@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import styled from 'styled-components';
-import { useOutsideClickAction } from '../../utils/hooks';
+import { useOutsideClickAction } from '../utils/hooks';
 
-const StyledNavMenu = styled.div<{ verticalPosition: number }>`
+const StyledDropdownMenu = styled.div<{ verticalPosition: number }>`
   display: inline-block;
   position: relative;
 
-  .navigation {
-    &__main-link,
+  .dropdown {
+    &__trigger,
     &__menu {
       a,
       span {
@@ -77,7 +77,7 @@ interface Props {
   verticalPosition?: number;
 }
 
-const NavMenu: React.FC<Props> = ({
+const DropdownMenu: React.FC<Props> = ({
   triggerLink,
   triggerEl,
   items,
@@ -108,7 +108,7 @@ const NavMenu: React.FC<Props> = ({
   };
 
   const getMenuClassName = () => {
-    let className = 'navigation__menu';
+    let className = 'dropdown__menu';
     className += ` align-${align}`;
     if (isOpen) className += ' is-open';
     return className;
@@ -117,12 +117,12 @@ const NavMenu: React.FC<Props> = ({
   const showMenu = isOpen && items?.length;
 
   return (
-    <StyledNavMenu
+    <StyledDropdownMenu
       onClick={toggleMenu}
       ref={ref}
       verticalPosition={verticalPosition}
     >
-      <div className="navigation__main-link">{renderTrigger()}</div>
+      <div className="dropdown__trigger">{renderTrigger()}</div>
       <div className={getMenuClassName()}>
         {showMenu &&
           items.map(({ id, label, url }) => (
@@ -131,8 +131,8 @@ const NavMenu: React.FC<Props> = ({
             </NavLink>
           ))}
       </div>
-    </StyledNavMenu>
+    </StyledDropdownMenu>
   );
 };
 
-export default NavMenu;
+export default DropdownMenu;
