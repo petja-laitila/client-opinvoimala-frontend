@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react';
 import { observer } from 'mobx-react-lite';
 import Layout from '../components/Layout';
-import Columns from '../components/Layout/Columns';
 import { useParams } from '../routes/hooks';
 import { useStore } from '../store/storeContext';
+import Watermark from '../components/Layout/Watermark';
 
 export const ContentPage = observer(() => {
   const { id: paramId } = useParams();
@@ -28,11 +28,10 @@ export const ContentPage = observer(() => {
 
   return (
     <Layout wrapperSize="sm" hero={hero} isLoading={isLoading}>
-      <Columns>
-        {page?.content && (
-          <div dangerouslySetInnerHTML={{ __html: page.content }}></div>
-        )}
-      </Columns>
+      <Watermark right={-80} top={-40} />
+      {page?.content && (
+        <div dangerouslySetInnerHTML={{ __html: page.content }}></div>
+      )}
     </Layout>
   );
 });

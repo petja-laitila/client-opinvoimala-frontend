@@ -9,7 +9,7 @@ const Container = styled.div<{ position: string }>`
 
   @media ${p => p.theme.breakpoint.tablet} {
     top: -50px;
-    right: 0px;
+    right: 30px;
     left: auto;
     bottom: auto;
     svg {
@@ -32,10 +32,10 @@ interface Props extends Position {
 
 const getPositionCss = ({ top, right, bottom, left }: Position) => {
   let css = '';
-  if (top && !isNaN(top)) css += `top: ${top}px;`;
-  if (right && !isNaN(right)) css += `right: ${right}px;`;
-  if (bottom && !isNaN(bottom)) css += `bottom: ${bottom}px;`;
-  if (left && !isNaN(left)) css += `left: ${left}px;`;
+  if (top !== undefined && !isNaN(top)) css += `top: ${top}px;`;
+  if (right !== undefined && !isNaN(right)) css += `right: ${right}px;`;
+  if (bottom !== undefined && !isNaN(bottom)) css += `bottom: ${bottom}px;`;
+  if (left !== undefined && !isNaN(left)) css += `left: ${left}px;`;
   return css;
 };
 

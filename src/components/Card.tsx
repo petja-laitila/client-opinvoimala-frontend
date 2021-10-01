@@ -13,18 +13,6 @@ const Container = styled.article`
   justify-content: flex-start;
   z-index: 1;
   ${p => p.theme.shadows[0]};
-  min-width: 22%;
-  max-width: 24%;
-
-  @media ${p => p.theme.breakpoint.tablet} {
-    min-width: 47%;
-    max-width: 49%;
-  }
-
-  @media ${p => p.theme.breakpoint.mobile} {
-    min-width: 100%;
-    max-width: 100%;
-  }
 
   main {
     border-top-left-radius: ${p => p.theme.borderRadius.sm};

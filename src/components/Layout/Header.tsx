@@ -31,7 +31,7 @@ const StyledHeader = styled.header`
   .mobile-header__menus {
     position: fixed;
     z-index: 98;
-    right: ${p => p.theme.spacing.xl};
+    right: ${p => p.theme.spacing.lg};
   }
 `;
 
