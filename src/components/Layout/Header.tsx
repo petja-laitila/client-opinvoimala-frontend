@@ -3,6 +3,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { useStore } from '../../store/storeContext';
+import useWindowDimensions from '../../utils/hooks';
 import NavBar from './NavBar';
 import UserMenu from './UserMenu';
 import Wrapper from './Wrapper';
@@ -15,10 +16,16 @@ const StyledHeader = styled.header`
     display: flex;
     align-items: center;
     justify-content: space-between;
+
+    & > div {
+      display: flex;
+      gap: ${p => p.theme.spacing.lg};
+    }
   }
 `;
 
 const Header: React.FC = observer(() => {
+  const { isMobile, isTablet } = useWindowDimensions();
   const {
     settings: { settings },
   } = useStore();
@@ -33,20 +40,28 @@ const Header: React.FC = observer(() => {
             <Link to="/">
               <img
                 src={logo.url}
-                height={`${HEADER_HEIGHT - 20}px`}
+                height={`${HEADER_HEIGHT - (isMobile ? 40 : 20)}px`}
                 alt="logo"
               />
             </Link>
           )}
         </div>
 
-        <div>
-          <NavBar />
-        </div>
-
-        <div>
-          <UserMenu />
-        </div>
+        {isTablet ? (
+          <div>
+            <UserMenu />
+            <NavBar />
+          </div>
+        ) : (
+          <>
+            <div>
+              <NavBar />
+            </div>
+            <div>
+              <UserMenu />
+            </div>
+          </>
+        )}
       </Wrapper>
     </StyledHeader>
   );

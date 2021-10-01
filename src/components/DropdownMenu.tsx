@@ -59,6 +59,12 @@ const StyledDropdownMenu = styled.div<{ verticalPosition: number }>`
   }
 `;
 
+export interface MenuItem {
+  id: number | string;
+  label: string;
+  url: string;
+}
+
 interface Props {
   triggerLink?: {
     label: string;
@@ -68,11 +74,7 @@ interface Props {
   // (Will override possible label & url props above)
   triggerEl?: JSX.Element;
 
-  items: {
-    id: number | string;
-    label: string;
-    url: string;
-  }[];
+  items: MenuItem[];
   align?: 'left' | 'right';
   verticalPosition?: number;
 }

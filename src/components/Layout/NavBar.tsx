@@ -1,11 +1,23 @@
 import React, { useEffect } from 'react';
 import { observer } from 'mobx-react-lite';
 import { useStore } from '../../store/storeContext';
-import NavMenu from '../DropdownMenu';
+import DropdownMenu from '../DropdownMenu';
 import { path } from '../../routes/routes';
 import { Link } from '../../store/models';
+import useWindowDimensions from '../../utils/hooks';
+import Drawer from '../Drawer';
+import Button from '../inputs/Button';
+import Icon from '../Icon';
+import AccordionMenu from '../AccordionMenu';
+
+const getUrl = (page: number | null) => {
+  if (page) return `/${path('content_page')}/${page}`;
+  return undefined;
+};
 
 const NavBar: React.FC = observer(() => {
+  const { isTablet, isMobile } = useWindowDimensions();
+
   const {
     navigation: { state, navigation, fetchNavigation },
   } = useStore();
@@ -15,11 +27,6 @@ const NavBar: React.FC = observer(() => {
   }, [fetchNavigation, state]);
 
   const navItems = navigation?.items ?? [];
-
-  const getUrl = (page: number | null) => {
-    if (page) return `/${path('content_page')}/${page}`;
-    return undefined;
-  };
 
   const getLinkItems = (links: Link[]) => {
     return links
@@ -31,10 +38,42 @@ const NavBar: React.FC = observer(() => {
       }));
   };
 
+  if (isTablet || isMobile) {
+    return (
+      <Drawer
+        triggerEl={
+          <Button
+            id="user-menu__button"
+            variant="outlined"
+            color="primary"
+            icon={<Icon type="Menu" strokeColor="primary" />}
+            onClick={() => {}}
+          />
+        }
+      >
+        <ul>
+          {navItems.map(({ id, label, targetPage, links }) => (
+            <AccordionMenu
+              key={id}
+              id={id}
+              label={label}
+              url={getUrl(targetPage)}
+              items={links.map(({ id, label, targetPage }) => ({
+                id,
+                label: label ?? '',
+                url: getUrl(targetPage) ?? '/',
+              }))}
+            />
+          ))}
+        </ul>
+      </Drawer>
+    );
+  }
+
   return (
     <nav>
       {navItems.map(navItem => (
-        <NavMenu
+        <DropdownMenu
           key={navItem.id}
           triggerLink={{
             label: navItem.label,

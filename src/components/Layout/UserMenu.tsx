@@ -3,10 +3,60 @@ import { useTranslation } from 'react-i18next';
 import { path, rt } from '../../routes/routes';
 import Icon from '../Icon';
 import Button from '../inputs/Button';
-import NavMenu from '../DropdownMenu';
+import DropdownMenu, { MenuItem } from '../DropdownMenu';
+import useWindowDimensions from '../../utils/hooks';
+import Drawer from '../Drawer';
+import { NavLink } from 'react-router-dom';
+
+const DesktopMenu: React.FC<{ items: MenuItem[] }> = ({ items }) => {
+  const { t } = useTranslation();
+  return (
+    <DropdownMenu
+      items={items}
+      align="right"
+      verticalPosition={20}
+      triggerEl={
+        <Button
+          id="user-menu__button"
+          text={t('student')}
+          icon={<Icon type="User" color="primary" />}
+          color="primary"
+          variant="link"
+          onClick={() => {}}
+        />
+      }
+    />
+  );
+};
+
+const MobileMenu: React.FC<{ items: MenuItem[] }> = ({ items }) => {
+  return (
+    <Drawer
+      triggerEl={
+        <Button
+          id="user-menu__button"
+          variant="outlined"
+          color="primary"
+          icon={<Icon type="User" color="primary" />}
+          onClick={() => {}}
+        />
+      }
+    >
+      <ul>
+        {items.map(({ id, label, url }) => (
+          <li key={id}>
+            {url ? <NavLink to={url}>{label}</NavLink> : <span>{label}</span>}
+          </li>
+        ))}
+      </ul>
+    </Drawer>
+  );
+};
 
 const UserMenu: React.FC = () => {
   const { t } = useTranslation();
+
+  const { isTablet } = useWindowDimensions();
 
   const isLoggedIn = false; // TODO
 
@@ -16,47 +66,41 @@ const UserMenu: React.FC = () => {
 
   if (isLoggedIn) {
     const items = [
-      { id: 'my_profile', label: rt('my_profile'), url: path('my_profile') },
-      { id: 'tests', label: rt('tests'), url: path('tests') },
+      {
+        id: 'my_profile',
+        label: rt('my_profile'),
+        url: `/${path('my_profile')}`,
+      },
+      { id: 'tests', label: rt('tests'), url: `/${path('tests')}` },
       {
         id: 'appointments',
         label: rt('appointments'),
-        url: path('appointments'),
+        url: `/${path('appointments')}`,
       },
       {
         id: 'change_password',
         label: rt('change_password'),
-        url: path('change_password'),
+        url: `/${path('change_password')}`,
       },
-      { id: 'logout', label: rt('logout'), url: path('logout') },
+      { id: 'logout', label: rt('logout'), url: `/${path('logout')}` },
     ];
 
-    return (
-      <div>
-        <NavMenu
-          items={items}
-          align="right"
-          verticalPosition={20}
-          triggerEl={
-            <Button
-              id="user-menu__button"
-              text={t('student')}
-              icon={<Icon type="User" color="primary" />}
-              color="primary"
-              variant="link"
-              onClick={() => {}}
-            />
-          }
-        />
-      </div>
+    return isTablet ? (
+      <MobileMenu items={items} />
+    ) : (
+      <DesktopMenu items={items} />
     );
   } else {
-    // User is not logged in!
+    // User is not logged in, show login button.
     return (
       <Button
         id="user-menu__login__button"
-        text={t('login')}
-        icon={<Icon type="SignIn" color="background" />}
+        text={isTablet ? undefined : t('login')}
+        variant={isTablet ? 'outlined' : 'filled'}
+        color={isTablet ? 'primary' : 'secondary'}
+        icon={
+          <Icon type="SignIn" color={isTablet ? 'primary' : 'background'} />
+        }
         onClick={handleLoginClick}
       />
     );

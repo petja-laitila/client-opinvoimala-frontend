@@ -1,4 +1,5 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
+import { BREAKPOINTS } from '../theme';
 
 interface UseOutsideClickActionProps {
   ref: React.RefObject<HTMLDivElement>;
@@ -27,3 +28,30 @@ export const useOutsideClickAction = ({
     };
   }, [action, condition, ref]);
 };
+
+function getWindowDimensions() {
+  const { innerWidth: width, innerHeight: height } = window;
+  const isMobile = width < BREAKPOINTS.mobile;
+  const isTablet = width < BREAKPOINTS.tablet;
+  return { width, height, isMobile, isTablet };
+}
+
+/**
+ * Hook to detect window dimensions (width, height)
+ */
+export default function useWindowDimensions() {
+  const [windowDimensions, setWindowDimensions] = useState(
+    getWindowDimensions()
+  );
+
+  useEffect(() => {
+    function handleResize() {
+      setWindowDimensions(getWindowDimensions());
+    }
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  return windowDimensions;
+}
