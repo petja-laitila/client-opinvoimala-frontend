@@ -1,4 +1,5 @@
 import { ApisauceInstance, create, ApiResponse } from 'apisauce';
+import { keysToCamelCase } from '../../utils/objects';
 import STORAGE from '../storage';
 import { ApiConfig, DEFAULT_API_CONFIG } from './config';
 
@@ -25,9 +26,18 @@ export abstract class BaseApi {
     };
   }
 
+  protected handleSuccess(response: ApiResponse<any>): API.Success<any> {
+    return { kind: 'ok', data: keysToCamelCase(response.data) };
+  }
+
   protected handleError(response: ApiResponse<any>) {
     const apiError = this.composeApiError(response);
     return apiError;
+  }
+
+  protected handleResponse(response: ApiResponse<any>) {
+    if (!response.ok) return this.handleError(response);
+    return this.handleSuccess(response);
   }
 
   private composeApiError(response: ApiResponse<any>): API.Problem {

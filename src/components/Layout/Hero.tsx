@@ -43,6 +43,9 @@ const Container = styled.div`
         h1 {
           line-height: 43px;
         }
+        &.align-center {
+          text-align: center;
+        }
       }
       &__side-column {
         text-align: center;
@@ -60,14 +63,15 @@ export interface HeroProps {
   title?: string | null;
   lead?: string | null;
   image?: Image | null;
+  align?: string;
 }
 
-const Hero: React.FC<HeroProps> = ({ title, lead, image }) => {
+const Hero: React.FC<HeroProps> = ({ title, lead, image, align = 'left' }) => {
   return (
     <Container>
       <Watermark isNegative left={-220} top={40} />
 
-      <div className="hero__main-column">
+      <div className={`hero__main-column align-${align}`}>
         <h1>{title}</h1>
         <div>{lead}</div>
       </div>

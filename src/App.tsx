@@ -1,19 +1,26 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import './i18n';
-import { StoreProvider } from './store/storeContext';
-import { rootStore } from './store/RootStore';
+import { useStore } from './store/storeContext';
 import { observer } from 'mobx-react-lite';
 import { GlobalStyle, theme, ThemeProvider } from './theme';
 import AppRouter from './routes/AppRouter';
 
 const App: React.FC = observer(() => {
+  const {
+    settings: { state, fetchSettings },
+  } = useStore();
+
+  useEffect(() => {
+    if (state === 'NOT_FETCHED') {
+      fetchSettings({});
+    }
+  }, [fetchSettings, state]);
+
   return (
-    <StoreProvider value={rootStore}>
+    <ThemeProvider theme={theme}>
       <GlobalStyle />
-      <ThemeProvider theme={theme}>
-        <AppRouter />
-      </ThemeProvider>
-    </StoreProvider>
+      <AppRouter />
+    </ThemeProvider>
   );
 });
 

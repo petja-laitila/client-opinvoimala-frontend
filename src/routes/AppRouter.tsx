@@ -7,6 +7,7 @@ import {
   Switch,
 } from 'react-router-dom';
 import appRoutes, { Route } from './routes';
+import ScrollToTop from './ScrollToTop';
 
 interface Props {
   routes?: Route[];
@@ -18,6 +19,7 @@ const AppRouter: FC<Props> = observer(({ routes = appRoutes, children }) => {
 
   return (
     <Router>
+      <ScrollToTop />
       <Switch>
         {publicRoutes.map(route => (
           <RouterRoute

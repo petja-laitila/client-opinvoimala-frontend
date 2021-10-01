@@ -28,16 +28,13 @@ export const FrontPage: React.FC = observer(() => {
     frontPage: { state, frontPage, fetchFrontPage },
   } = useStore();
 
-  const { details, detailsImage, cards } = {
-    detailsImage: frontPage?.details_image,
-    details: frontPage?.details,
-    cards: frontPage?.cards,
-  };
+  const { details, detailsImage, cards } = frontPage ?? {};
 
   const hero = {
     title: frontPage?.title,
     lead: frontPage?.lead,
     image: frontPage?.image,
+    align: 'center',
   };
 
   useEffect(() => {

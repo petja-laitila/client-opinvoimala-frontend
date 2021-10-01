@@ -1,21 +1,36 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { observer } from 'mobx-react-lite';
 import Layout from '../components/Layout';
 import Columns from '../components/Layout/Columns';
 import { useParams } from '../routes/hooks';
+import { useStore } from '../store/storeContext';
 
-export const ContentPage = () => {
-  const { id } = useParams();
+export const ContentPage = observer(() => {
+  const { id: paramId } = useParams();
+  const id = Number(paramId);
+
+  const {
+    contentPages: { state, getPage, fetchPage },
+  } = useStore();
+
+  const page = getPage(id);
+
+  useEffect(() => {
+    if (!page && state !== 'FETCHING') fetchPage({ id });
+  }, [fetchPage, id, page, state]);
 
   const hero = {
-    title: 'Content page placeholder',
-    lead: 'TODO: Fetch data from API and present it here',
+    title: page?.title,
+    lead: page?.lead,
   };
 
   return (
     <Layout wrapperSize="sm" hero={hero}>
       <Columns>
-        <div>TODO: Some content here (id={id})</div>
+        {page?.content && (
+          <div dangerouslySetInnerHTML={{ __html: page.content }}></div>
+        )}
       </Columns>
     </Layout>
   );
-};
+});

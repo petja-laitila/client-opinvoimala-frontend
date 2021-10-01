@@ -22,7 +22,7 @@ const FrontPageModel = types.model({
   image: types.maybeNull(ImageModel),
   lead: types.maybeNull(types.string),
   details: types.maybeNull(types.string),
-  details_image: types.maybeNull(ImageModel),
+  detailsImage: types.maybeNull(ImageModel),
   cards: types.maybeNull(types.array(CardModel)),
 });
 

@@ -11,11 +11,14 @@ const Container = styled.div`
     &__hero {
       background-color: ${p => p.theme.color.primaryLight};
     }
+    &__hero {
+      padding-top: 50px;
+    }
   }
   main {
     background-color: ${p => p.theme.color.background};
     position: relative;
-    padding-bottom: 100px;
+    padding-bottom: 60px;
   }
 `;
 
