@@ -15,6 +15,8 @@ export const ContentPage = observer(() => {
 
   const page = getPage(id);
 
+  const isLoading = state === 'FETCHING';
+
   useEffect(() => {
     if (!page && state !== 'FETCHING') fetchPage({ id });
   }, [fetchPage, id, page, state]);
@@ -25,7 +27,7 @@ export const ContentPage = observer(() => {
   };
 
   return (
-    <Layout wrapperSize="sm" hero={hero}>
+    <Layout wrapperSize="sm" hero={hero} isLoading={isLoading}>
       <Columns>
         {page?.content && (
           <div dangerouslySetInnerHTML={{ __html: page.content }}></div>

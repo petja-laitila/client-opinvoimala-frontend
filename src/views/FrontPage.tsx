@@ -30,6 +30,8 @@ export const FrontPage: React.FC = observer(() => {
 
   const { details, detailsImage, cards } = frontPage ?? {};
 
+  const isLoading = state === 'NOT_FETCHED' || state === 'FETCHING';
+
   const hero = {
     title: frontPage?.title,
     lead: frontPage?.lead,
@@ -44,7 +46,7 @@ export const FrontPage: React.FC = observer(() => {
   }, [fetchFrontPage, frontPage, state]);
 
   return (
-    <Layout hero={hero}>
+    <Layout hero={hero} isLoading={isLoading}>
       <Columns showTopWatermark={false}>
         {cards?.map(card => (
           <Card key={card.id} {...card} />
