@@ -75,6 +75,12 @@ export const GlobalStyle = createGlobalStyle`
     margin-right: auto;
   }
 
+  iframe {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
   button {
     background-color: transparent;
     border: none;

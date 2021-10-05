@@ -30,11 +30,11 @@ const NavBar: React.FC = observer(() => {
 
   const getLinkItems = (links: Link[]) => {
     return links
-      .filter(({ targetPage }) => !!targetPage)
-      .map(({ id, label, targetPage }) => ({
+      .filter(({ page }) => !!page)
+      .map(({ id, label, page }) => ({
         id,
         label: label ?? '',
-        url: getUrl(targetPage) ?? '/',
+        url: getUrl(page) ?? '/',
       }));
   };
 
@@ -52,17 +52,17 @@ const NavBar: React.FC = observer(() => {
         }
       >
         <ul>
-          {navItems.map(({ id, label, targetPage, links }) => (
+          {navItems.map(({ id, label, page, links }) => (
             <li>
               <AccordionMenu
                 key={id}
                 id={id}
                 label={label}
-                url={getUrl(targetPage)}
-                items={links.map(({ id, label, targetPage }) => ({
+                url={getUrl(page)}
+                items={links.map(({ id, label, page }) => ({
                   id,
                   label: label ?? '',
-                  url: getUrl(targetPage) ?? '/',
+                  url: getUrl(page) ?? '/',
                 }))}
               />
             </li>
@@ -79,7 +79,7 @@ const NavBar: React.FC = observer(() => {
           key={navItem.id}
           triggerLink={{
             label: navItem.label,
-            url: getUrl(navItem.targetPage),
+            url: getUrl(navItem.page),
           }}
           items={getLinkItems(navItem.links)}
         />

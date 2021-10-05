@@ -55,7 +55,7 @@ const AccordionMenu: React.FC<Props> = ({ id, label, url, items }) => {
   return (
     <Container>
       <div className="accordion__trigger-button">
-        {url ? (
+        {url && !items?.length ? (
           <NavLink to={url}>{label}</NavLink>
         ) : (
           <button onClick={toggleAccordion}>{label}</button>

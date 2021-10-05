@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
-import { ReactComponent as ImageWhite } from '../../assets/hearts-white.svg';
-import { ReactComponent as ImageColor } from '../../assets/hearts-color.svg';
+import { ReactComponent as WatermarkNegativeSvg } from '../../assets/watermark-negative.svg';
+import { ReactComponent as WatermarkDefaultSvg } from '../../assets/watermark.svg';
 
 const Container = styled.div<{ position: string }>`
   position: absolute;
@@ -49,7 +49,7 @@ const Watermark: React.FC<Props> = ({
 }) => {
   const positionCss = getPositionCss({ top, right, bottom, left });
 
-  const Image = isNegative ? ImageWhite : ImageColor;
+  const Image = isNegative ? WatermarkNegativeSvg : WatermarkDefaultSvg;
 
   return (
     <Container position={positionCss}>

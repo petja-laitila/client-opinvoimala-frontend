@@ -106,7 +106,7 @@ const DropdownMenu: React.FC<Props> = ({
     if (triggerEl) return triggerEl;
     if (triggerLink) {
       const { url, label } = triggerLink;
-      if (url) return <NavLink to={url}>{label}</NavLink>;
+      if (url && !items?.length) return <NavLink to={url}>{label}</NavLink>;
       if (label) return <button>{label}</button>;
     }
     return null;

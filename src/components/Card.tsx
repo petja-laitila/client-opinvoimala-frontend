@@ -68,7 +68,7 @@ const Card: React.FC<Props> = ({ title, text, link }) => {
 
       {link && (
         <footer>
-          <RouterLink to={`/${path('content_page')}/${link.targetPage}`}>
+          <RouterLink to={`/${path('content_page')}/${link.page}`}>
             {link.label}
             <Icon
               type="ArrowRight"
