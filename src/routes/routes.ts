@@ -1,5 +1,5 @@
 import i18n from '../i18n';
-import { FrontPage, ContentPage } from '../views';
+import { FrontPage, ContentPage, Register } from '../views';
 import { slug } from '../utils/string';
 
 export interface Route {
@@ -24,6 +24,12 @@ export const userMenuRoutes: NavLinkRoute[] = [];
 
 const appRoutes: (Route | NavLinkRoute)[] = [
   { path: '/', component: FrontPage, exact: true, isPublic: true },
+  {
+    path: `/${path('register')}`,
+    component: Register,
+    exact: true,
+    isPublic: true,
+  },
   {
     path: `/${path('content_page')}/:id`,
     component: ContentPage,

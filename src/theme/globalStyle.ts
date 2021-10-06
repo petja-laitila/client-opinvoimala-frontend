@@ -22,7 +22,12 @@ export const GlobalStyle = createGlobalStyle`
   }
   
   a {
-    color: ${COLORS.accent};
+    color: ${p => p.theme.color.accent};
+
+    :hover {
+      color: ${p => p.theme.color.accent};
+      text-decoration: underline;
+    }
   }
 
   ul, ol {
@@ -84,5 +89,16 @@ export const GlobalStyle = createGlobalStyle`
   button {
     background-color: transparent;
     border: none;
+  }
+
+  label {
+    user-select: none;
+    ${p => p.theme.font.size.md};
+  }
+
+  input {
+    &:focus {
+      border-color: ${p => p.theme.color.accent} !important;
+    }
   }
 `;

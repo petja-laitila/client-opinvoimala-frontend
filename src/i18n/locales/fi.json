@@ -2,16 +2,36 @@
   "app_name": "Opinvoimala",
   "phone_abbrv": "Puh.",
   "copyright_text": "\u00A9 {{year}} Mikkelin kaupungin liikelaitos Otavia",
-  "login": "Kirjaudu",
   "student": "Opiskelija",
+  "action": {
+    "register": "Rekisteröidy",
+    "login": "Kirjaudu"
+  },
+  "label": {
+    "email": "Sähköpostiosoite",
+    "password": "Salasana",
+    "password_confirm": "Salasana uudelleen"
+  },
   "route": {
+    "register": "Rekisteröidy",
     "front_page": "Etusivu",
     "content_page": "Sisältösivu",
     "my_profile": "Oma profiili",
     "tests": "Testit",
     "appointments": "Varaukset",
     "change_password": "Vaihda salasana",
-    "logout": "Kirjaudu ulos"
+    "logout": "Kirjaudu ulos",
+    "terms": "Käyttöehdot",
+    "conditions": "Tietosuojaseloste"
+  },
+  "view": {
+    "register": {
+      "email_title": "Syötä sähköpostiosoite",
+      "email_info": "Sähköpostiosoite toimii käyttäjätunnuksenasi palveluun.",
+      "password_title": "Valitse salasana",
+      "password_info": "Käytä ainoastaan vahvaa salasanaa (sisältää vähintään 8 merkkiä ja numeron).",
+      "terms_and_conditions_text": "Olen tutustunut ja hyväksyn <1>palvelun käyttöehdot</1> ja tietojani koskevan <3>tietosuojaselosteen</3>."
+    }
   },
   "error": {
     "page_not_found": "Virhe! Sivua ei löytynyt."
