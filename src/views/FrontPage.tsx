@@ -34,7 +34,7 @@ export const FrontPage: React.FC = observer(() => {
 
       <Grid columns={4} stackable doubling centered stretched>
         {cards?.map(card => (
-          <Grid.Column>
+          <Grid.Column key={card.id}>
             <Card key={card.id} {...card} />
           </Grid.Column>
         ))}

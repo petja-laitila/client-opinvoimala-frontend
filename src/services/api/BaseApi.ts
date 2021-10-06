@@ -26,6 +26,11 @@ export abstract class BaseApi {
     };
   }
 
+  protected setToken(token?: string) {
+    this.token = token;
+    STORAGE.write({ key: 'AUTH_TOKEN', value: token ?? null });
+  }
+
   protected handleSuccess(response: ApiResponse<any>): API.Success<any> {
     return { kind: 'ok', data: keysToCamelCase(response.data) };
   }

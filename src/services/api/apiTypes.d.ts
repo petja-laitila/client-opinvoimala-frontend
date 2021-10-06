@@ -26,6 +26,17 @@ declare namespace API {
   /**
    * API REQUESTS
    */
+
+  type AuthRegister = {
+    email: string;
+    password: string;
+  };
+
+  type AuthLogin = {
+    identifier: string;
+    password: string;
+  };
+
   type GetSettings = {};
   type GetNavigation = {};
   type GetFrontPage = {};
@@ -37,6 +48,13 @@ declare namespace API {
    * API RESPONSES
    */
   declare namespace RES {
+    type Auth = {
+      jwt: string;
+      user: {
+        id: number;
+      };
+    };
+
     type GetSettings = import('../store/SettingsStore').Settings;
     type GetNavigation = import('../store/NavigationStore').Navigation;
     type GetFrontPage = import('../../store/FrontPageStore').FrontPage;

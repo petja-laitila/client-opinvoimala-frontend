@@ -8,20 +8,26 @@ import {
 } from 'react-router-dom';
 import appRoutes, { Route } from './routes';
 import ScrollToTop from './ScrollToTop';
+import { useStore } from '../store/storeContext';
 
 interface Props {
   routes?: Route[];
 }
 
 const AppRouter: FC<Props> = observer(({ routes = appRoutes, children }) => {
-  // TODO: Add some authentication logic here
+  const {
+    auth: { isLoggedIn },
+  } = useStore();
+
   const publicRoutes = routes.filter(({ isPublic }) => isPublic);
+
+  const allowedRoutes = isLoggedIn ? routes : publicRoutes;
 
   return (
     <Router>
       <ScrollToTop />
       <Switch>
-        {publicRoutes.map(route => (
+        {allowedRoutes.map(route => (
           <RouterRoute
             key={route.path}
             path={route.path}

@@ -1,24 +1,33 @@
 import React, { ChangeEvent, Dispatch, SetStateAction, useState } from 'react';
+import { observer } from 'mobx-react-lite';
 import { Trans, useTranslation } from 'react-i18next';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { Divider } from 'semantic-ui-react';
 import { Checkbox, Input } from '../components/inputs';
 import Button from '../components/inputs/Button';
 import Layout from '../components/Layout';
 import { path } from '../routes/routes';
+import { useStore } from '../store/storeContext';
 import { validatePassword } from '../utils/string';
 
 interface Props {}
 
-export const Register: React.FC<Props> = () => {
+export const Register: React.FC<Props> = observer(() => {
+  const history = useHistory();
   const { t } = useTranslation();
+
+  const {
+    auth: { state, register },
+  } = useStore();
 
   const [email, setEmail] = useState('');
   const [password1, setPassword1] = useState('');
   const [password2, setPassword2] = useState('');
 
   const isValidForm =
-    !!email.length || password1 === password2 || validatePassword(password1);
+    !!email.length && password1 === password2 && validatePassword(password1);
+
+  const isBusy = state === 'PROCESSING';
 
   const handleChange =
     (setter: Dispatch<SetStateAction<string>>) =>
@@ -26,11 +35,16 @@ export const Register: React.FC<Props> = () => {
       setter(event.currentTarget.value);
     };
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    if (isValidForm) {
+    if (isValidForm && !isBusy) {
       const params = { email, password: password1 };
-      console.log('Register user!', params);
+      const success = await register(params);
+      if (success) {
+        history.push('/');
+      } else {
+        // TODO: Registration failed!
+      }
     }
   };
 
@@ -90,10 +104,10 @@ export const Register: React.FC<Props> = () => {
           id="register-view__register-button"
           text={t('action.register')}
           type="submit"
-          disabled={isValidForm}
+          disabled={!isValidForm || isBusy}
           noMargin
         />
       </form>
     </Layout>
   );
-};
+});

@@ -31,6 +31,10 @@
       "password_title": "Valitse salasana",
       "password_info": "Käytä ainoastaan vahvaa salasanaa (sisältää vähintään 8 merkkiä ja numeron).",
       "terms_and_conditions_text": "Olen tutustunut ja hyväksyn <1>palvelun käyttöehdot</1> ja tietojani koskevan <3>tietosuojaselosteen</3>."
+    },
+    "logout": {
+      "in_progress": "Kirjaudutaan ulos...",
+      "success": "Sinut on nyt kirjattu ulos. Siirry <1>etusivulle</1>."
     }
   },
   "error": {
