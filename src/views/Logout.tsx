@@ -1,9 +1,10 @@
 import React, { useEffect } from 'react';
 import { observer } from 'mobx-react-lite';
+import { Link } from 'react-router-dom';
 import { Trans, useTranslation } from 'react-i18next';
 import Layout from '../components/Layout';
 import { useStore } from '../store/storeContext';
-import { Link } from 'react-router-dom';
+import Message from '../components/Message';
 
 interface Props {}
 
@@ -43,7 +44,7 @@ export const Logout: React.FC<Props> = observer(() => {
 
   return (
     <Layout hero={hero} wrapperSize="sm">
-      {getMessage()}
+      <Message>{getMessage()}</Message>
     </Layout>
   );
 });

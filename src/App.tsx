@@ -8,15 +8,19 @@ import AppRouter from './routes/AppRouter';
 
 const App: React.FC = observer(() => {
   const {
+    auth: { state: authState },
     settings: { state: settingsState, fetchSettings },
     navigation: { state: navigationState },
   } = useStore();
 
-  const isFetching = (state: string) => {
-    return state === 'NOT_FETCHED' || state === 'FETCHING';
+  const isFetching = (...states: string[]) => {
+    const fetchingStates = states.filter(state =>
+      ['NOT_FETCHED', 'FETCHING', 'PROCESSING'].includes(state)
+    );
+    return !!fetchingStates.length;
   };
 
-  const appIsLoading = isFetching(settingsState) || isFetching(navigationState);
+  const appIsLoading = isFetching(settingsState, navigationState, authState);
 
   useEffect(() => {
     if (settingsState === 'NOT_FETCHED') {
@@ -26,7 +30,7 @@ const App: React.FC = observer(() => {
 
   return (
     <ThemeProvider theme={theme}>
-      <Dimmer inverted active={appIsLoading}>
+      <Dimmer inverted active={appIsLoading} style={{ position: 'fixed' }}>
         <Loader size="massive" />
       </Dimmer>
       <GlobalStyle />

@@ -9,6 +9,8 @@ import Layout from '../components/Layout';
 import { path } from '../routes/routes';
 import { useStore } from '../store/storeContext';
 import { validatePassword } from '../utils/string';
+import { getApiErrorMessages } from '../utils/api';
+import Message from '../components/Message';
 
 interface Props {}
 
@@ -23,9 +25,11 @@ export const Register: React.FC<Props> = observer(() => {
   const [email, setEmail] = useState('');
   const [password1, setPassword1] = useState('');
   const [password2, setPassword2] = useState('');
+  const [termsAccepted, setTermsAccepted] = useState(false);
+  const [errorMsgs, setErrorMsgs] = useState([]);
 
-  const isValidForm =
-    !!email.length && password1 === password2 && validatePassword(password1);
+  const isValidPw = password1 === password2 && validatePassword(password1);
+  const isValidForm = !!email.length && isValidPw && termsAccepted;
 
   const isBusy = state === 'PROCESSING';
 
@@ -38,12 +42,15 @@ export const Register: React.FC<Props> = observer(() => {
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (isValidForm && !isBusy) {
+      setErrorMsgs([]);
       const params = { email, password: password1 };
-      const success = await register(params);
+
+      const { success, error } = await register(params);
+
       if (success) {
         history.push('/');
       } else {
-        // TODO: Registration failed!
+        setErrorMsgs(getApiErrorMessages(error.data));
       }
     }
   };
@@ -99,7 +106,17 @@ export const Register: React.FC<Props> = observer(() => {
         <Checkbox
           id="register-view__terms_and_conditions_checkbox"
           label={getTermsAndConditionsLabel()}
+          checked={termsAccepted}
+          onChange={() => setTermsAccepted(!termsAccepted)}
         />
+        {!!errorMsgs.length && (
+          <Message
+            error
+            icon="warning sign"
+            header={t('view.register.error_message_header')}
+            list={errorMsgs}
+          />
+        )}
         <Button
           id="register-view__register-button"
           text={t('action.register')}

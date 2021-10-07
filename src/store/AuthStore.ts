@@ -46,10 +46,10 @@ export const AuthStore = types
         self.user = cast(response.data.user);
         self.jwt = cast(response.data.jwt);
         self.state = 'IDLE';
-        return true;
+        return { success: true };
       } else {
         self.state = 'ERROR';
-        return false;
+        return { success: false, error: response.data };
       }
     });
 

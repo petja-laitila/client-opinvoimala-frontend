@@ -30,7 +30,8 @@
       "email_info": "Sähköpostiosoite toimii käyttäjätunnuksenasi palveluun.",
       "password_title": "Valitse salasana",
       "password_info": "Käytä ainoastaan vahvaa salasanaa (sisältää vähintään 8 merkkiä ja numeron).",
-      "terms_and_conditions_text": "Olen tutustunut ja hyväksyn <1>palvelun käyttöehdot</1> ja tietojani koskevan <3>tietosuojaselosteen</3>."
+      "terms_and_conditions_text": "Olen tutustunut ja hyväksyn <1>palvelun käyttöehdot</1> ja tietojani koskevan <3>tietosuojaselosteen</3>.",
+      "error_message_header": "Rekisteröityminen ei onnistunut"
     },
     "logout": {
       "in_progress": "Kirjaudutaan ulos...",
@@ -38,6 +39,34 @@
     }
   },
   "error": {
-    "page_not_found": "Virhe! Sivua ei löytynyt."
+    "page_not_found": "Virhe! Sivua ei löytynyt.",
+    "Auth": {
+      "form": {
+        "error": {
+          "invalid": "Sähköpostiosoite tai salasana on virheellinen",
+          "confirmed": "Sähköpostiosoitettasi ei ole vahvistettu",
+          "blocked": "Käyttäjätilisi on estetty ylläpitäjän toimesta",
+          "email": {
+            "taken": "Sähköpostiosoite on jo käytössä",
+            "provide": "Anna sähköpostiosoite",
+            "format": "Sähköpostiosoite on virheellinen",
+            "not-exist": "Sähköpostiosoitetta ei löydy"
+          },
+          "password": {
+            "provide": "Anna salasana",
+            "format": "Salasanassa voi olla maksimissaan kolme `$` symbolia"
+          },
+          "role": {
+            "notFound": "Oletusroolia ei löydy"
+          },
+          "user": {
+            "blocked": "Tämä käyttäjä on estetty"
+          }
+        }
+      },
+      "advanced": {
+        "allow_register": "Rekisteröinti on väliaikaisesti pois käytöstä"
+      }
+    }
   }
 }
