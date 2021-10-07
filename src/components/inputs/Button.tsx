@@ -20,6 +20,17 @@ const StyledButton = styled.button<{
   padding-left: ${p => p.theme.spacing.lg};
   padding-right: ${p => p.theme.spacing.lg};
 
+  svg {
+    margin-left: 8px;
+  }
+
+  &.icon-button {
+    padding: ${p => p.theme.spacing.md};
+    svg {
+      margin-left: 0;
+    }
+  }
+
   font-family: ${p => p.theme.font.secondary};
   ${p => (p.isSmall ? p.theme.font.size.sm : p.theme.font.size.md)};
   font-weight: bold;
@@ -28,13 +39,9 @@ const StyledButton = styled.button<{
 
   transition: all 0.2s ease-in-out;
 
-  svg {
-    margin-left: 8px;
-  }
-
   :active {
     box-shadow: none;
-    opacity: 0.7;
+    opacity: 0.8;
   }
 
   &.button-filled {
@@ -42,19 +49,25 @@ const StyledButton = styled.button<{
     background-color: ${p => p.theme.color[p.color]};
     color: ${p =>
       p.negativeText ? p.theme.color.secondary : p.theme.color.background};
+
     opacity: 1;
     :hover {
-      opacity: 0.7;
+      opacity: 0.8;
     }
   }
 
   &.button-outlined {
     background-color: transparent;
-    border: 1px solid ${p => p.theme.color[p.color]};
     color: ${p => p.theme.color[p.color]};
-    opacity: 0.7;
+    border: 1px solid ${p => p.theme.color[p.color]};
+
+    &.icon-button {
+      border-width: 2px;
+    }
+
+    opacity: 1;
     :hover {
-      opacity: 1;
+      opacity: 0.8;
     }
   }
 
@@ -71,7 +84,7 @@ const StyledButton = styled.button<{
 
   &.disabled {
     cursor: not-allowed;
-    opacity: 0.7;
+    opacity: 0.8;
   }
 `;
 
@@ -105,17 +118,26 @@ export const Button: FC<Props> = ({
   isSmall = false,
   noMargin = false,
 }) => {
+  const isIconButton = !!icon && !text;
+
+  const getClassName = () => {
+    let className = `button-${variant}`;
+    className += disabled ? ' disabled' : '';
+    className += isIconButton ? ' icon-button' : '';
+    return className;
+  };
+
   return (
     <StyledButton
       id={id}
       data-testid={id}
       type={type}
       onClick={onClick}
-      className={`button-${variant} ${disabled ? ' disabled' : ''}`}
+      className={getClassName()}
       disabled={disabled}
       color={color}
       negativeText={negativeText}
-      isSmall={isSmall}
+      isSmall={isSmall || isIconButton}
       noMargin={noMargin}
     >
       {text}

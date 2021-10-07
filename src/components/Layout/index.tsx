@@ -4,6 +4,7 @@ import Footer from './Footer';
 import Header from './Header';
 import Hero, { HeroProps } from './Hero';
 import Wrapper from './Wrapper';
+import LoadingPlaceholder from '../LoadingPlaceholder';
 
 const Container = styled.div`
   .header {
@@ -47,11 +48,13 @@ const DiagonalSeparator = styled.div`
 interface Props {
   wrapperSize?: 'sm' | 'normal';
   hero?: HeroProps;
+  isLoading?: boolean;
 }
 
 const Layout: React.FC<Props> = ({
   hero,
   wrapperSize = 'normal',
+  isLoading = false,
   children,
 }) => {
   return (
@@ -65,13 +68,17 @@ const Layout: React.FC<Props> = ({
           <div className="header__hero">
             <Wrapper size={wrapperSize}>
               <Hero {...hero} />
+              {isLoading && <LoadingPlaceholder.Hero />}
             </Wrapper>
           </div>
         )}
 
         <DiagonalSeparator />
 
-        <Wrapper size={wrapperSize}>{children}</Wrapper>
+        <Wrapper size={wrapperSize}>
+          {children}
+          {isLoading && <LoadingPlaceholder.Content />}
+        </Wrapper>
       </main>
 
       <Footer />

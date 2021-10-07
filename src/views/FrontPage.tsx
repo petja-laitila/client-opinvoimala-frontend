@@ -2,26 +2,9 @@ import React, { useEffect } from 'react';
 import { observer } from 'mobx-react-lite';
 import { useStore } from '../store/storeContext';
 import Layout from '../components/Layout';
-import Columns from '../components/Layout/Columns';
 import Card from '../components/Card';
-import styled from 'styled-components';
-
-const DetailsContainer = styled.div`
-  .details {
-    &__image-container {
-      margin-left: auto;
-      margin-right: auto;
-    }
-    &__text-container {
-      p {
-        ${p => p.theme.font.size.md};
-      }
-      h4 {
-        font-size: 20px;
-      }
-    }
-  }
-`;
+import { Divider, Grid } from 'semantic-ui-react';
+import Watermark from '../components/Layout/Watermark';
 
 export const FrontPage: React.FC = observer(() => {
   const {
@@ -29,6 +12,8 @@ export const FrontPage: React.FC = observer(() => {
   } = useStore();
 
   const { details, detailsImage, cards } = frontPage ?? {};
+
+  const isLoading = state === 'NOT_FETCHED' || state === 'FETCHING';
 
   const hero = {
     title: frontPage?.title,
@@ -44,28 +29,43 @@ export const FrontPage: React.FC = observer(() => {
   }, [fetchFrontPage, frontPage, state]);
 
   return (
-    <Layout hero={hero}>
-      <Columns showTopWatermark={false}>
-        {cards?.map(card => (
-          <Card key={card.id} {...card} />
-        ))}
-      </Columns>
+    <Layout hero={hero} isLoading={isLoading}>
+      <Divider section hidden />
 
-      <DetailsContainer>
-        <Columns reverseOrderOnMobile showBottomWatermark>
-          {detailsImage && (
-            <div className="details__image-container">
-              <img src={detailsImage.url} alt="" />
-            </div>
-          )}
+      <Grid columns={4} stackable doubling centered stretched>
+        {cards?.map(card => (
+          <Grid.Column>
+            <Card key={card.id} {...card} />
+          </Grid.Column>
+        ))}
+      </Grid>
+
+      <Divider section hidden />
+
+      <Grid
+        stackable
+        centered
+        reversed="computer tablet mobile"
+        style={{ position: 'relative' }}
+      >
+        <Watermark right={-80} />
+        <Watermark bottom={-10} left={-80} />
+        <Grid.Row columns={2}>
           {details && (
-            <div
-              className="details__text-container"
-              dangerouslySetInnerHTML={{ __html: details }}
-            />
+            <Grid.Column>
+              <div
+                className="details__text-container"
+                dangerouslySetInnerHTML={{ __html: details }}
+              />
+            </Grid.Column>
           )}
-        </Columns>
-      </DetailsContainer>
+          {detailsImage && (
+            <Grid.Column>
+              <img src={detailsImage.url} alt="" />
+            </Grid.Column>
+          )}
+        </Grid.Row>
+      </Grid>
     </Layout>
   );
 });

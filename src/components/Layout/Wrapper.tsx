@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 
 const Wrapper = styled.div<{ size?: 'sm' | 'normal' }>`
+  position: relative;
   margin: auto;
   max-width: ${p => (p.size === 'sm' ? 900 : 1200)}px;
   padding-left: ${p => p.theme.spacing.xl};

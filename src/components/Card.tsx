@@ -5,7 +5,7 @@ import { path } from '../routes/routes';
 import { Link } from '../store/models';
 import Icon from './Icon';
 
-const Container = styled.div`
+const Container = styled.article`
   background-color: ${p => p.theme.color.background};
   border-radius: ${p => p.theme.borderRadius.sm};
   display: flex;
@@ -13,18 +13,6 @@ const Container = styled.div`
   justify-content: flex-start;
   z-index: 1;
   ${p => p.theme.shadows[0]};
-  min-width: 22%;
-  max-width: 24%;
-
-  @media ${p => p.theme.breakpoint.tablet} {
-    min-width: 47%;
-    max-width: 49%;
-  }
-
-  @media ${p => p.theme.breakpoint.mobile} {
-    min-width: 100%;
-    max-width: 100%;
-  }
 
   main {
     border-top-left-radius: ${p => p.theme.borderRadius.sm};
@@ -80,7 +68,7 @@ const Card: React.FC<Props> = ({ title, text, link }) => {
 
       {link && (
         <footer>
-          <RouterLink to={`/${path('content_page')}/${link.targetPage}`}>
+          <RouterLink to={`/${path('content_page')}/${link.page}`}>
             {link.label}
             <Icon
               type="ArrowRight"
