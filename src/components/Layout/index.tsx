@@ -5,6 +5,7 @@ import Header from './Header';
 import Hero, { HeroProps } from './Hero';
 import Wrapper from './Wrapper';
 import LoadingPlaceholder from '../LoadingPlaceholder';
+import LoginModal from '../LoginModal';
 
 const Container = styled.div`
   .header {
@@ -59,6 +60,8 @@ const Layout: React.FC<Props> = ({
 }) => {
   return (
     <Container>
+      <LoginModal />
+
       <div className="header__header">
         <Header />
       </div>

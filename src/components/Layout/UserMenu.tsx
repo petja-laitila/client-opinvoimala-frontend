@@ -61,11 +61,11 @@ const UserMenu: React.FC = observer(() => {
   const { isTablet } = useWindowDimensions();
 
   const {
-    auth: { isLoggedIn },
+    auth: { isLoggedIn, openLoginModal },
   } = useStore();
 
   const handleLoginClick = () => {
-    console.log('TODO: Open login form!');
+    openLoginModal();
   };
 
   if (isLoggedIn) {

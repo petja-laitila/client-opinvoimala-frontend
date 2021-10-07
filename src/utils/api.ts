@@ -7,6 +7,8 @@ export const getApiErrorMessages = (data: any) => {
   let messages = data?.[0]?.messages ?? [];
   if (messages.length) {
     messages = messages.map((msg: any) => i18n.t(`error.${msg.id}`));
+  } else {
+    messages = [i18n.t('error.unknown_error')];
   }
   return messages;
 };

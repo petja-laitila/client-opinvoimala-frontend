@@ -28,10 +28,14 @@ export const AuthStore = types
       Storage.read({ key: 'AUTH_TOKEN' })
     ),
     user: types.maybeNull(UserModel),
+    isLoginModalOpen: types.optional(types.boolean, false),
   })
   .views(self => ({
     get isLoggedIn() {
       return !!self.jwt?.length;
+    },
+    get showLoginModal() {
+      return self.isLoginModalOpen && !this.isLoggedIn;
     },
   }))
   .actions(self => {
@@ -39,6 +43,34 @@ export const AuthStore = types
       self.state = 'PROCESSING';
 
       const response: API.GeneralResponse<API.RES.Auth> = yield api.register(
+        params
+      );
+
+      if (response.kind === 'ok') {
+        self.user = cast(response.data.user);
+        self.jwt = cast(response.data.jwt);
+        self.state = 'IDLE';
+        return { success: true };
+      } else {
+        self.state = 'ERROR';
+        return { success: false, error: response.data };
+      }
+    });
+
+    const openLoginModal = () => {
+      if (!self.isLoggedIn) {
+        self.isLoginModalOpen = true;
+      }
+    };
+
+    const closeLoginModal = () => {
+      self.isLoginModalOpen = false;
+    };
+
+    const login = flow(function* (params: API.AuthLogin) {
+      self.state = 'PROCESSING';
+
+      const response: API.GeneralResponse<API.RES.Auth> = yield api.login(
         params
       );
 
@@ -71,7 +103,6 @@ export const AuthStore = types
 
     const logout = flow(function* () {
       self.state = 'PROCESSING';
-      console.log('HELLO');
       self.jwt = null;
       self.user = null;
       Storage.write({ key: 'AUTH_TOKEN', value: null });
@@ -81,6 +112,9 @@ export const AuthStore = types
 
     return {
       register,
+      openLoginModal,
+      closeLoginModal,
+      login,
       changePassword,
       logout,
     };

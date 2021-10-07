@@ -36,6 +36,7 @@ export const Register: React.FC<Props> = observer(() => {
   const handleChange =
     (setter: Dispatch<SetStateAction<string>>) =>
     (event: ChangeEvent<HTMLInputElement>) => {
+      setErrorMsgs([]);
       setter(event.currentTarget.value);
     };
 

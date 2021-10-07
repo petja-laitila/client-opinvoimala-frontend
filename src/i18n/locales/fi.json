@@ -21,6 +21,8 @@
     "tests": "Testit",
     "appointments": "Varaukset",
     "change_password": "Vaihda salasana",
+    "forgot_password": "Salasana unohtunut",
+    "reset_password": "Salasanan palautus",
     "logout": "Kirjaudu ulos",
     "terms": "Käyttöehdot",
     "conditions": "Tietosuojaseloste"
@@ -42,9 +44,15 @@
       "password_changed": "Salasana vaihdettu",
       "error_message_header": "Salasanan vaihtaminen ei onnistunut"
     },
+    "login": {
+      "title": "Kirjaudu sisään",
+      "forgot_password_link": "<0>Salasana unohtunut?</0>",
+      "register_link": "Ei vielä tunnuksia? <1>Rekisteröidy tästä</1>.",
+      "error_message_header": "Kirjautuminen epäonnistui"
+    },
     "logout": {
       "in_progress": "Kirjaudutaan ulos...",
-      "success": "Sinut on nyt kirjattu ulos. Siirry <1>etusivulle</1>."
+      "success": "Sinut on nyt kirjattu ulos. Siirrytään <1>etusivulle</1>..."
     }
   },
   "error": {

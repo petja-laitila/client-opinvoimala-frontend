@@ -32,6 +32,11 @@ declare namespace API {
     password: string;
   };
 
+  type AuthLogin = {
+    identifier: string;
+    password: string;
+  };
+
   type AuthChangePassword = {
     currentPassword: string;
     newPassword: string;

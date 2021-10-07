@@ -37,7 +37,7 @@ export class Api extends BaseApi {
   /**
    * User login
    */
-  async login(params: API.AuthRegister): Promise<Response<API.RES.Auth>> {
+  async login(params: API.AuthLogin): Promise<Response<API.RES.Auth>> {
     const response = await this.api.post(`auth/local`, params, {});
 
     if (!response.ok) return this.handleError(response);
