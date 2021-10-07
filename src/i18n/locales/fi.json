@@ -42,6 +42,11 @@
       "info_text": "Anna sähköpostiosoitteesi niin lähetämme sinulle linkin salasanasi palauttamiseksi.",
       "link_sent": "Linkki lähetetty, tarkista sähköpostisi"
     },
+    "reset_password": {
+      "info_text": "Anna uusi salasana",
+      "password_changed": "Salasana vaihdettu",
+      "error_message_header": "Salasanan vaihtaminen ei onnistunut"
+    },
     "change_password": {
       "current_password_title": "Nykyinen salasanasi",
       "new_password_title": "Uusi salasana",
@@ -77,6 +82,7 @@
           },
           "password": {
             "provide": "Anna salasana",
+            "matching": "Salasanat ei täsmää",
             "format": "Salasanassa voi olla maksimissaan kolme `$` symbolia"
           },
           "role": {
@@ -85,6 +91,9 @@
           "user": {
             "blocked": "Tämä käyttäjä on estetty",
             "not-exist": "Käyttäjää ei löydy"
+          },
+          "code": {
+            "provide": "Salasanan palautus ei onnistunut"
           }
         }
       },

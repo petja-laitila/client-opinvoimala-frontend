@@ -39,6 +39,7 @@ export const ForgotPassword: React.FC = () => {
       if (success) {
         setEmail('');
         setLinkSent(true);
+        window.scrollTo(0, 0);
       } else {
         setErrorMsgs(getApiErrorMessages(error.data));
       }

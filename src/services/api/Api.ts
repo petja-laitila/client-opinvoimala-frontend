@@ -46,6 +46,16 @@ export class Api extends BaseApi {
   }
 
   /**
+   * Resets user's password
+   */
+  async resetPassword(
+    params: API.AuthResetPassword
+  ): Promise<Response<API.RES.Auth>> {
+    const response = await this.api.post('auth/reset-password', params, {});
+    return this.handleResponse(response);
+  }
+
+  /**
    * User login
    */
   async login(params: API.AuthLogin): Promise<Response<API.RES.Auth>> {

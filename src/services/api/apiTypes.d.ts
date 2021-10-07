@@ -47,6 +47,12 @@ declare namespace API {
     email: string;
   };
 
+  type AuthResetPassword = {
+    code: string;
+    password: string;
+    passwordConfirmation: string;
+  };
+
   type AuthLogin = {
     identifier: string;
     password: string;
