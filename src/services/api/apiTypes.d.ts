@@ -43,6 +43,10 @@ declare namespace API {
     newPasswordConfirm: string;
   };
 
+  type AuthForgotPassword = {
+    email: string;
+  };
+
   type AuthLogin = {
     identifier: string;
     password: string;
@@ -67,6 +71,8 @@ declare namespace API {
       jwt: string;
       user: User;
     };
+
+    type AuthForgotPassword = { ok: boolean };
 
     type GetSettings = import('../store/SettingsStore').Settings;
     type GetNavigation = import('../store/NavigationStore').Navigation;

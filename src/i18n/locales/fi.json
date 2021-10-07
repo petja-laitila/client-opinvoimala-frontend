@@ -6,7 +6,8 @@
   "action": {
     "register": "Rekisteröidy",
     "login": "Kirjaudu",
-    "change_password": "Vaihda salasana"
+    "change_password": "Vaihda salasana",
+    "send_link": "Lähetä linkki"
   },
   "label": {
     "email": "Sähköpostiosoite",
@@ -36,6 +37,10 @@
       "terms_and_conditions_text": "Olen tutustunut ja hyväksyn <1>palvelun käyttöehdot</1> ja tietojani koskevan <3>tietosuojaselosteen</3>.",
       "error_message_header": "Rekisteröityminen ei onnistunut",
       "already_logged_in": "Olet jo kirjautuneena sisään."
+    },
+    "forgot_password": {
+      "info_text": "Anna sähköpostiosoitteesi niin lähetämme sinulle linkin salasanasi palauttamiseksi.",
+      "link_sent": "Linkki lähetetty, tarkista sähköpostisi"
     },
     "change_password": {
       "current_password_title": "Nykyinen salasanasi",
@@ -78,7 +83,8 @@
             "notFound": "Oletusroolia ei löydy"
           },
           "user": {
-            "blocked": "Tämä käyttäjä on estetty"
+            "blocked": "Tämä käyttäjä on estetty",
+            "not-exist": "Käyttäjää ei löydy"
           }
         }
       },

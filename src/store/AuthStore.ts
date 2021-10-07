@@ -101,6 +101,21 @@ export const AuthStore = types
       }
     });
 
+    const forgotPassword = flow(function* (params: API.AuthForgotPassword) {
+      self.state = 'PROCESSING';
+
+      const response: API.GeneralResponse<API.RES.AuthForgotPassword> =
+        yield api.forgotPassword(params);
+
+      if (response.kind === 'ok') {
+        self.state = 'IDLE';
+        return { success: true };
+      } else {
+        self.state = 'ERROR';
+        return { success: false, error: response.data };
+      }
+    });
+
     const logout = flow(function* () {
       self.state = 'PROCESSING';
       self.jwt = null;
@@ -116,6 +131,7 @@ export const AuthStore = types
       closeLoginModal,
       login,
       changePassword,
+      forgotPassword,
       logout,
     };
   });

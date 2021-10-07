@@ -5,6 +5,7 @@ import {
   Register,
   Logout,
   ChangePassword,
+  ForgotPassword,
 } from '../views';
 import { slug } from '../utils/string';
 
@@ -33,6 +34,12 @@ const appRoutes: (Route | NavLinkRoute)[] = [
   {
     path: `/${path('register')}`,
     component: Register,
+    exact: true,
+    isPublic: true,
+  },
+  {
+    path: `/${path('forgot_password')}`,
+    component: ForgotPassword,
     exact: true,
     isPublic: true,
   },

@@ -35,6 +35,17 @@ export class Api extends BaseApi {
   }
 
   /**
+   * Sends a link via email to reset user's password
+   */
+  async forgotPassword(
+    params: API.AuthForgotPassword
+  ): Promise<Response<API.RES.AuthForgotPassword>> {
+    const url = 'auth/forgot-password';
+    const response = await this.api.post(url, params, {});
+    return this.handleResponse(response);
+  }
+
+  /**
    * User login
    */
   async login(params: API.AuthLogin): Promise<Response<API.RES.Auth>> {
