@@ -1,5 +1,11 @@
 import i18n from '../i18n';
-import { FrontPage, ContentPage, Register, Logout } from '../views';
+import {
+  FrontPage,
+  ContentPage,
+  Register,
+  Logout,
+  ChangePassword,
+} from '../views';
 import { slug } from '../utils/string';
 
 export interface Route {
@@ -29,6 +35,12 @@ const appRoutes: (Route | NavLinkRoute)[] = [
     component: Register,
     exact: true,
     isPublic: true,
+  },
+  {
+    path: `/${path('change_password')}`,
+    component: ChangePassword,
+    exact: true,
+    isPublic: false,
   },
   {
     path: `/${path('logout')}`,

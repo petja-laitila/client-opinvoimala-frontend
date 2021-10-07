@@ -2,7 +2,7 @@ import React, { ChangeEvent, Dispatch, SetStateAction, useState } from 'react';
 import { observer } from 'mobx-react-lite';
 import { Trans, useTranslation } from 'react-i18next';
 import { Link, useHistory } from 'react-router-dom';
-import { Divider } from 'semantic-ui-react';
+import { Divider, Transition } from 'semantic-ui-react';
 import { Checkbox, Input } from '../components/inputs';
 import Button from '../components/inputs/Button';
 import Layout from '../components/Layout';
@@ -19,7 +19,7 @@ export const Register: React.FC<Props> = observer(() => {
   const { t } = useTranslation();
 
   const {
-    auth: { state, register },
+    auth: { state, isLoggedIn, register },
   } = useStore();
 
   const [email, setEmail] = useState('');
@@ -71,6 +71,17 @@ export const Register: React.FC<Props> = observer(() => {
     );
   };
 
+  if (isLoggedIn) {
+    return (
+      <Layout hero={hero} wrapperSize="sm">
+        <Message
+          header={t('view.register.already_logged_in')}
+          content={<Link to={path('logout')}>{t('route.logout')}</Link>}
+        />
+      </Layout>
+    );
+  }
+
   return (
     <Layout hero={hero} wrapperSize="sm">
       <form onSubmit={handleSubmit}>
@@ -109,14 +120,19 @@ export const Register: React.FC<Props> = observer(() => {
           checked={termsAccepted}
           onChange={() => setTermsAccepted(!termsAccepted)}
         />
-        {!!errorMsgs.length && (
-          <Message
-            error
-            icon="warning sign"
-            header={t('view.register.error_message_header')}
-            list={errorMsgs}
-          />
-        )}
+        <Transition.Group>
+          {!!errorMsgs.length && (
+            <div>
+              <Message
+                error
+                icon="warning sign"
+                header={t('view.register.error_message_header')}
+                list={errorMsgs}
+              />
+            </div>
+          )}
+        </Transition.Group>
+        <Divider hidden />
         <Button
           id="register-view__register-button"
           text={t('action.register')}

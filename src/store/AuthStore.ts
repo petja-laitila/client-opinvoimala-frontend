@@ -53,6 +53,22 @@ export const AuthStore = types
       }
     });
 
+    const changePassword = flow(function* (params: API.AuthChangePassword) {
+      self.state = 'PROCESSING';
+
+      const response: API.GeneralResponse<API.RES.User> =
+        yield api.changePassword(params);
+
+      if (response.kind === 'ok') {
+        self.user = cast(response.data);
+        self.state = 'IDLE';
+        return { success: true };
+      } else {
+        self.state = 'ERROR';
+        return { success: false, error: response.data };
+      }
+    });
+
     const logout = flow(function* () {
       self.state = 'PROCESSING';
       console.log('HELLO');
@@ -65,6 +81,7 @@ export const AuthStore = types
 
     return {
       register,
+      changePassword,
       logout,
     };
   });

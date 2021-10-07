@@ -32,6 +32,12 @@ declare namespace API {
     password: string;
   };
 
+  type AuthChangePassword = {
+    currentPassword: string;
+    newPassword: string;
+    newPasswordConfirm: string;
+  };
+
   type AuthLogin = {
     identifier: string;
     password: string;
@@ -48,11 +54,13 @@ declare namespace API {
    * API RESPONSES
    */
   declare namespace RES {
+    type User = {
+      id: number;
+    };
+
     type Auth = {
       jwt: string;
-      user: {
-        id: number;
-      };
+      user: User;
     };
 
     type GetSettings = import('../store/SettingsStore').Settings;

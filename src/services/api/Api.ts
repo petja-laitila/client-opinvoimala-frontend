@@ -24,6 +24,17 @@ export class Api extends BaseApi {
   }
 
   /**
+   * Change password for the authenticated user
+   */
+  async changePassword(
+    params: API.AuthChangePassword
+  ): Promise<Response<API.RES.User>> {
+    const url = 'users/change-password';
+    const response = await this.api.put(url, params, this.auth());
+    return this.handleResponse(response);
+  }
+
+  /**
    * User login
    */
   async login(params: API.AuthRegister): Promise<Response<API.RES.Auth>> {
