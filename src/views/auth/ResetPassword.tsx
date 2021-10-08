@@ -2,34 +2,33 @@ import React, { ChangeEvent, Dispatch, SetStateAction, useState } from 'react';
 import { observer } from 'mobx-react-lite';
 import { useTranslation } from 'react-i18next';
 import { Divider, Transition } from 'semantic-ui-react';
-import { Input, Button } from '../components/inputs';
-import Layout from '../components/Layout';
-import { useStore } from '../store/storeContext';
-import { validatePassword } from '../utils/string';
-import Message from '../components/Message';
+import { Input, Button } from '../../components/inputs';
+import Layout from '../../components/Layout';
+import { useStore } from '../../store/storeContext';
+import { validatePassword } from '../../utils/string';
+import Message from '../../components/Message';
+import { useQueryParams } from '../../routes/hooks';
+import { getApiErrorMessages } from '../../utils/api';
 
 interface Props {}
 
-export const ChangePassword: React.FC<Props> = observer(() => {
+export const ResetPassword: React.FC<Props> = observer(() => {
   const { t } = useTranslation();
+  const { code } = useQueryParams('code');
 
   const {
-    auth: { state, changePassword },
+    auth: { state, resetPassword },
   } = useStore();
 
-  const [currentPassword, setCurrentPassword] = useState('');
   const [password1, setPassword1] = useState('');
   const [password2, setPassword2] = useState('');
   const [errorMsgs, setErrorMsgs] = useState<string[]>([]);
   const [passwordChanged, setPasswordChanged] = useState(false);
 
-  const isValidPw = password1 === password2 && validatePassword(password1);
-  const isValidForm = !!currentPassword.length && isValidPw;
-
+  const isValidForm = password1 === password2 && validatePassword(password1);
   const isBusy = state === 'PROCESSING';
 
   const clearInputs = () => {
-    setCurrentPassword('');
     setPassword1('');
     setPassword2('');
   };
@@ -49,27 +48,25 @@ export const ChangePassword: React.FC<Props> = observer(() => {
       setPasswordChanged(false);
 
       const params = {
-        currentPassword,
-        newPassword: password1,
-        newPasswordConfirm: password2,
+        code: code ?? '404',
+        password: password1,
+        passwordConfirmation: password2,
       };
 
-      const { success, error } = await changePassword(params);
+      const { success, error } = await resetPassword(params);
 
       if (success) {
         clearInputs();
         setPasswordChanged(true);
         window.scrollTo(0, 0);
-      } else if (error.message) {
-        setErrorMsgs([t(`error.${error.message}`)]);
       } else {
-        setErrorMsgs([t(`error.unknown_error`)]);
+        setErrorMsgs(getApiErrorMessages(error.data));
       }
     }
   };
 
   const hero = {
-    title: t('route.change_password'),
+    title: t('route.reset_password'),
   };
 
   return (
@@ -81,25 +78,16 @@ export const ChangePassword: React.FC<Props> = observer(() => {
               <Message
                 success
                 icon="check circle"
-                content={`${t('view.change_password.password_changed')}!`}
+                content={`${t('view.reset_password.password_changed')}!`}
               />
             </div>
           )}
         </Transition.Group>
-        <h3>{t('view.change_password.current_password_title')}</h3>
+
+        <h3>{t('view.reset_password.info_text')}</h3>
+
         <Input
-          id="change-password-view__current-password-input"
-          label={t('label.password')}
-          name="password"
-          type="password"
-          value={currentPassword}
-          onChange={handleChange(setCurrentPassword)}
-        />
-        <Divider hidden />
-        <h3>{t('view.change_password.new_password_title')}</h3>
-        <p>{t('view.change_password.new_password_info')}</p>
-        <Input
-          id="change-password-view__password-input"
+          id="reset-password-view__password-input"
           label={t('label.password')}
           name="password"
           type="password"
@@ -107,28 +95,31 @@ export const ChangePassword: React.FC<Props> = observer(() => {
           onChange={handleChange(setPassword1)}
         />
         <Input
-          id="change-password-view__confirm-password-input"
+          id="reset-password-view__confirm-password-input"
           label={t('label.password_confirm')}
           name="confirm-password"
           type="password"
           value={password2}
           onChange={handleChange(setPassword2)}
         />
+
         <Transition.Group>
           {!!errorMsgs.length && (
             <div>
               <Message
                 error
                 icon="warning sign"
-                header={t('view.change_password.error_message_header')}
+                header={t('view.reset_password.error_message_header')}
                 list={errorMsgs}
               />
             </div>
           )}
         </Transition.Group>
+
         <Divider hidden />
+
         <Button
-          id="change-password-view__change_password-button"
+          id="reset-password-view__reset_password-button"
           text={t('action.change_password')}
           type="submit"
           disabled={!isValidForm || isBusy}

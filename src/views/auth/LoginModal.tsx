@@ -1,15 +1,15 @@
 import { observer } from 'mobx-react-lite';
 import React, { ChangeEvent, Dispatch, SetStateAction, useState } from 'react';
 import { Trans, useTranslation } from 'react-i18next';
-import { Link, useHistory } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { Divider, Loader, Transition } from 'semantic-ui-react';
 import styled from 'styled-components';
-import { path } from '../routes/routes';
-import { useStore } from '../store/storeContext';
-import { getApiErrorMessages } from '../utils/api';
-import { Button, Input } from './inputs';
-import Message from './Message';
-import Modal, { Props as ModalProps } from './Modal';
+import { path } from '../../routes/routes';
+import { useStore } from '../../store/storeContext';
+import { getApiErrorMessages } from '../../utils/api';
+import { Button, Input } from '../../components/inputs';
+import Message from '../../components/Message';
+import Modal, { Props as ModalProps } from '../../components/Modal';
 
 const Container = styled.div`
   text-align: center;
@@ -35,8 +35,7 @@ const Container = styled.div`
 
 interface Props extends ModalProps {}
 
-const LoginModal: React.FC<Props> = observer(({ ...props }) => {
-  const history = useHistory();
+export const LoginModal: React.FC<Props> = observer(({ ...props }) => {
   const { t } = useTranslation();
 
   const {

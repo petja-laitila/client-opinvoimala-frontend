@@ -5,7 +5,7 @@ import Header from './Header';
 import Hero, { HeroProps } from './Hero';
 import Wrapper from './Wrapper';
 import LoadingPlaceholder from '../LoadingPlaceholder';
-import LoginModal from '../LoginModal';
+import { LoginModal } from '../../views';
 
 const Container = styled.div`
   .header {

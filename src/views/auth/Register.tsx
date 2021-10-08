@@ -3,14 +3,14 @@ import { observer } from 'mobx-react-lite';
 import { Trans, useTranslation } from 'react-i18next';
 import { Link, useHistory } from 'react-router-dom';
 import { Divider, Transition } from 'semantic-ui-react';
-import { Checkbox, Input } from '../components/inputs';
-import Button from '../components/inputs/Button';
-import Layout from '../components/Layout';
-import { path } from '../routes/routes';
-import { useStore } from '../store/storeContext';
-import { validatePassword } from '../utils/string';
-import { getApiErrorMessages } from '../utils/api';
-import Message from '../components/Message';
+import { Checkbox, Input } from '../../components/inputs';
+import Button from '../../components/inputs/Button';
+import Layout from '../../components/Layout';
+import { path } from '../../routes/routes';
+import { useStore } from '../../store/storeContext';
+import { validatePassword } from '../../utils/string';
+import { getApiErrorMessages } from '../../utils/api';
+import Message from '../../components/Message';
 
 interface Props {}
 
@@ -88,6 +88,7 @@ export const Register: React.FC<Props> = observer(() => {
       <form onSubmit={handleSubmit}>
         <h3>{t('view.register.email_title')}</h3>
         <p>{t('view.register.email_info')}</p>
+
         <Input
           id="register-view__email-input"
           label={t('label.email')}
@@ -96,9 +97,13 @@ export const Register: React.FC<Props> = observer(() => {
           value={email}
           onChange={handleChange(setEmail)}
         />
+
         <Divider hidden />
+
         <h3>{t('view.register.password_title')}</h3>
+
         <p>{t('view.register.password_info')}</p>
+
         <Input
           id="register-view__password-input"
           label={t('label.password')}
@@ -121,6 +126,7 @@ export const Register: React.FC<Props> = observer(() => {
           checked={termsAccepted}
           onChange={() => setTermsAccepted(!termsAccepted)}
         />
+
         <Transition.Group>
           {!!errorMsgs.length && (
             <div>
@@ -133,7 +139,9 @@ export const Register: React.FC<Props> = observer(() => {
             </div>
           )}
         </Transition.Group>
+
         <Divider hidden />
+
         <Button
           id="register-view__register-button"
           text={t('action.register')}

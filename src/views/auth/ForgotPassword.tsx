@@ -1,11 +1,11 @@
 import React, { ChangeEvent, Dispatch, SetStateAction, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Divider, Transition } from 'semantic-ui-react';
-import { Button, Input } from '../components/inputs';
-import Layout from '../components/Layout';
-import Message from '../components/Message';
-import { useStore } from '../store/storeContext';
-import { getApiErrorMessages } from '../utils/api';
+import { Button, Input } from '../../components/inputs';
+import Layout from '../../components/Layout';
+import Message from '../../components/Message';
+import { useStore } from '../../store/storeContext';
+import { getApiErrorMessages } from '../../utils/api';
 
 export const ForgotPassword: React.FC = () => {
   const { t } = useTranslation();

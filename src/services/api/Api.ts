@@ -10,6 +10,10 @@ export class Api extends BaseApi {
 
   /**
    * User registration
+   *
+   * Note:
+   * "local" in the url means we are using Strapi's default register method/user management
+   * and not some external OAuth provider (e.g. Github, Google, etc.).
    */
   async register(params: API.AuthRegister): Promise<Response<API.RES.Auth>> {
     const response = await this.api.post(`auth/local/register`, params, {});
@@ -57,6 +61,10 @@ export class Api extends BaseApi {
 
   /**
    * User login
+   *
+   * Note:
+   * "local" in the url means we are using Strapi's default login method/user management
+   * and not some external OAuth provider (e.g. Github, Google, etc.).
    */
   async login(params: API.AuthLogin): Promise<Response<API.RES.Auth>> {
     const response = await this.api.post(`auth/local`, params, {});

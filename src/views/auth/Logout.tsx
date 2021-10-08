@@ -2,9 +2,9 @@ import React, { useEffect } from 'react';
 import { observer } from 'mobx-react-lite';
 import { Link, useHistory } from 'react-router-dom';
 import { Trans, useTranslation } from 'react-i18next';
-import Layout from '../components/Layout';
-import { useStore } from '../store/storeContext';
-import Message from '../components/Message';
+import Layout from '../../components/Layout';
+import { useStore } from '../../store/storeContext';
+import Message from '../../components/Message';
 import { Loader } from 'semantic-ui-react';
 
 interface Props {}

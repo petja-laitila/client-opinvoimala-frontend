@@ -7,8 +7,8 @@ import {
   SnapshotOut,
   SnapshotIn,
 } from 'mobx-state-tree';
-import api from '../../services/api/Api';
-import { CardModel, ImageModel } from '../models';
+import api from '../services/api/Api';
+import { CardModel, ImageModel } from './models';
 
 const States = [
   'NOT_FETCHED' as const,
