@@ -21,7 +21,7 @@ export const ChangePassword: React.FC<Props> = observer(() => {
   const [password1, setPassword1] = useState('');
   const [password2, setPassword2] = useState('');
   const [errorMsgs, setErrorMsgs] = useState<string[]>([]);
-  const [passwordChanged, setPasswordChanged] = useState(true);
+  const [passwordChanged, setPasswordChanged] = useState(false);
 
   const isValidPw = password1 === password2 && validatePassword(password1);
   const isValidForm = !!currentPassword.length && isValidPw;

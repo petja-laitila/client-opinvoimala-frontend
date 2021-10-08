@@ -11,6 +11,10 @@ export const GlobalStyle = createGlobalStyle`
     line-height: 160%;
   }
 
+  .dimmer {
+    background-color: rgba(206, 229, 216, .85) !important;
+  }
+
   *:focus {
     outline-color: ${p => p.theme.color.accent};
   }
