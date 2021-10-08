@@ -5,7 +5,8 @@
   "student": "Opiskelija",
   "action": {
     "register": "Rekisteröidy",
-    "login": "Kirjaudu"
+    "login": "Kirjaudu",
+    "change_password": "Vaihda salasana"
   },
   "label": {
     "email": "Sähköpostiosoite",
@@ -31,7 +32,15 @@
       "password_title": "Valitse salasana",
       "password_info": "Käytä ainoastaan vahvaa salasanaa (sisältää vähintään 8 merkkiä ja numeron).",
       "terms_and_conditions_text": "Olen tutustunut ja hyväksyn <1>palvelun käyttöehdot</1> ja tietojani koskevan <3>tietosuojaselosteen</3>.",
-      "error_message_header": "Rekisteröityminen ei onnistunut"
+      "error_message_header": "Rekisteröityminen ei onnistunut",
+      "already_logged_in": "Olet jo kirjautuneena sisään."
+    },
+    "change_password": {
+      "current_password_title": "Nykyinen salasanasi",
+      "new_password_title": "Uusi salasana",
+      "new_password_info": "Käytä ainoastaan vahvaa salasanaa (sisältää vähintään 8 merkkiä ja numeron).",
+      "password_changed": "Salasana vaihdettu",
+      "error_message_header": "Salasanan vaihtaminen ei onnistunut"
     },
     "logout": {
       "in_progress": "Kirjaudutaan ulos...",
@@ -39,6 +48,7 @@
     }
   },
   "error": {
+    "unknown_error": "Jotain meni pieleen",
     "page_not_found": "Virhe! Sivua ei löytynyt.",
     "Auth": {
       "form": {
@@ -66,6 +76,19 @@
       },
       "advanced": {
         "allow_register": "Rekisteröinti on väliaikaisesti pois käytöstä"
+      }
+    },
+    "User": {
+      "change_password": {
+        "user": {
+          "no_match": "Käyttäjää ei löydy"
+        },
+        "old_password": {
+          "no_match": "Vanha salasana on virheellinen"
+        },
+        "new_password": {
+          "no_match": "Uusi salasana on virheellinen"
+        }
       }
     }
   }
