@@ -4,8 +4,10 @@ import { FrontPageStore } from './FrontPageStore';
 import { SettingsStore } from './SettingsStore';
 import { NavigationStore } from './NavigationStore';
 import { ContentPageStore } from './ContentPageStore';
+import { AuthStore } from './AuthStore';
 
 const RootStoreModel = types.model({
+  auth: types.optional(AuthStore, { state: 'IDLE' }),
   settings: types.optional(SettingsStore, {
     state: 'NOT_FETCHED',
   }),

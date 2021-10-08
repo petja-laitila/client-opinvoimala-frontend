@@ -26,6 +26,11 @@ export abstract class BaseApi {
     };
   }
 
+  protected setToken(token?: string) {
+    this.token = token;
+    STORAGE.write({ key: 'AUTH_TOKEN', value: token ?? null });
+  }
+
   protected handleSuccess(response: ApiResponse<any>): API.Success<any> {
     return { kind: 'ok', data: keysToCamelCase(response.data) };
   }
@@ -55,13 +60,13 @@ export abstract class BaseApi {
       case 'CLIENT_ERROR':
         switch (response.status) {
           case 401:
-            return { kind: 'unauthorized' };
+            return { kind: 'unauthorized', data: response.data };
           case 403:
-            return { kind: 'forbidden' };
+            return { kind: 'forbidden', data: response.data };
           case 404:
-            return { kind: 'not-found' };
+            return { kind: 'not-found', data: response.data };
           default:
-            return { kind: 'rejected' };
+            return { kind: 'rejected', data: response.data };
         }
       default:
         return { kind: 'unknown', temporary: true };

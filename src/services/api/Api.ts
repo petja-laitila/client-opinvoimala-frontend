@@ -9,6 +9,44 @@ export class Api extends BaseApi {
   }
 
   /**
+   * User registration
+   */
+  async register(params: API.AuthRegister): Promise<Response<API.RES.Auth>> {
+    const response = await this.api.post(`auth/local/register`, params, {});
+
+    if (!response.ok) return this.handleError(response);
+
+    const successResponse = this.handleSuccess(response);
+    if (successResponse.data?.jwt.length) {
+      this.setToken(successResponse.data?.jwt);
+    }
+    return successResponse;
+  }
+
+  /**
+   * User login
+   */
+  async login(params: API.AuthRegister): Promise<Response<API.RES.Auth>> {
+    const response = await this.api.post(`auth/local`, params, {});
+
+    if (!response.ok) return this.handleError(response);
+
+    const successResponse = this.handleSuccess(response);
+    if (successResponse.data?.jwt.length) {
+      this.setToken(successResponse.data?.jwt);
+    }
+    return successResponse;
+  }
+
+  /**
+   * User logout
+   */
+  async logout() {
+    // Currently no logout endpoint available in Strapi backend, just clear token:
+    this.setToken(undefined);
+  }
+
+  /**
    * Fetch app settings (app name, logo etc.)
    */
   async getSettings(

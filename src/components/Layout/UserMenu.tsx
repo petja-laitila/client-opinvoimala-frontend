@@ -1,5 +1,6 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
+import { observer } from 'mobx-react-lite';
 import { path, rt } from '../../routes/routes';
 import Icon from '../Icon';
 import Button from '../inputs/Button';
@@ -7,6 +8,7 @@ import DropdownMenu, { MenuItem } from '../DropdownMenu';
 import useWindowDimensions from '../../utils/hooks';
 import Drawer from '../Drawer';
 import { NavLink } from 'react-router-dom';
+import { useStore } from '../../store/storeContext';
 
 const DesktopMenu: React.FC<{ items: MenuItem[] }> = ({ items }) => {
   const { t } = useTranslation();
@@ -53,12 +55,14 @@ const MobileMenu: React.FC<{ items: MenuItem[] }> = ({ items }) => {
   );
 };
 
-const UserMenu: React.FC = () => {
+const UserMenu: React.FC = observer(() => {
   const { t } = useTranslation();
 
   const { isTablet } = useWindowDimensions();
 
-  const isLoggedIn = false; // TODO
+  const {
+    auth: { isLoggedIn },
+  } = useStore();
 
   const handleLoginClick = () => {
     console.log('TODO: Open login form!');
@@ -82,7 +86,11 @@ const UserMenu: React.FC = () => {
         label: rt('change_password'),
         url: `/${path('change_password')}`,
       },
-      { id: 'logout', label: rt('logout'), url: `/${path('logout')}` },
+      {
+        id: 'logout',
+        label: rt('logout'),
+        url: `/${path('logout')}`,
+      },
     ];
 
     return isTablet ? (
@@ -95,7 +103,7 @@ const UserMenu: React.FC = () => {
     return (
       <Button
         id="user-menu__login__button"
-        text={isTablet ? undefined : t('login')}
+        text={isTablet ? undefined : t('action.login')}
         variant={isTablet ? 'outlined' : 'filled'}
         color={isTablet ? 'primary' : 'secondary'}
         icon={
@@ -105,6 +113,6 @@ const UserMenu: React.FC = () => {
       />
     );
   }
-};
+});
 
 export default UserMenu;

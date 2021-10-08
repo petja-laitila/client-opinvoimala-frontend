@@ -53,9 +53,8 @@ const NavBar: React.FC = observer(() => {
       >
         <ul>
           {navItems.map(({ id, label, page, links }) => (
-            <li>
+            <li key={id}>
               <AccordionMenu
-                key={id}
                 id={id}
                 label={label}
                 url={getUrl(page)}

@@ -13,7 +13,7 @@ const StyledButton = styled.button<{
   align-items: center;
   min-width: ${p => (p.isSmall ? undefined : '140px')};
   border-radius: ${p => (p.isSmall ? p.theme.borderRadius.md : '40px')};
-  margin: ${p => (p.noMargin ? 0 : p.theme.spacing.sm)} auto;
+  margin: ${p => (p.noMargin ? 0 : p.theme.spacing.sm)} 0;
 
   padding-top: ${p => (p.isSmall ? p.theme.spacing.sm : p.theme.spacing.md)};
   padding-bottom: ${p => (p.isSmall ? p.theme.spacing.sm : p.theme.spacing.md)};
@@ -51,7 +51,7 @@ const StyledButton = styled.button<{
       p.negativeText ? p.theme.color.secondary : p.theme.color.background};
 
     opacity: 1;
-    :hover {
+    :hover:not(.disabled) {
       opacity: 0.8;
     }
   }
@@ -84,7 +84,7 @@ const StyledButton = styled.button<{
 
   &.disabled {
     cursor: not-allowed;
-    opacity: 0.8;
+    opacity: 0.5;
   }
 `;
 
@@ -95,7 +95,7 @@ interface Props {
   id: string;
   text?: string | JSX.Element;
   icon?: JSX.Element;
-  onClick: (event: React.MouseEvent<HTMLElement, MouseEvent>) => void;
+  onClick?: (event: React.MouseEvent<HTMLElement, MouseEvent>) => void;
   type?: 'button' | 'submit' | 'reset';
   color?: ColorType;
   negativeText?: boolean;
