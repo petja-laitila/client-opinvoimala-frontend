@@ -6,7 +6,8 @@
   "action": {
     "register": "Rekisteröidy",
     "login": "Kirjaudu",
-    "change_password": "Vaihda salasana"
+    "change_password": "Vaihda salasana",
+    "send_link": "Lähetä linkki"
   },
   "label": {
     "email": "Sähköpostiosoite",
@@ -36,6 +37,15 @@
       "terms_and_conditions_text": "Olen tutustunut ja hyväksyn <1>palvelun käyttöehdot</1> ja tietojani koskevan <3>tietosuojaselosteen</3>.",
       "error_message_header": "Rekisteröityminen ei onnistunut",
       "already_logged_in": "Olet jo kirjautuneena sisään."
+    },
+    "forgot_password": {
+      "info_text": "Anna sähköpostiosoitteesi niin lähetämme sinulle linkin salasanasi palauttamiseksi.",
+      "link_sent": "Linkki lähetetty, tarkista sähköpostisi"
+    },
+    "reset_password": {
+      "info_text": "Anna uusi salasana",
+      "password_changed": "Salasana vaihdettu",
+      "error_message_header": "Salasanan vaihtaminen ei onnistunut"
     },
     "change_password": {
       "current_password_title": "Nykyinen salasanasi",
@@ -72,13 +82,18 @@
           },
           "password": {
             "provide": "Anna salasana",
+            "matching": "Salasanat ei täsmää",
             "format": "Salasanassa voi olla maksimissaan kolme `$` symbolia"
           },
           "role": {
             "notFound": "Oletusroolia ei löydy"
           },
           "user": {
-            "blocked": "Tämä käyttäjä on estetty"
+            "blocked": "Tämä käyttäjä on estetty",
+            "not-exist": "Käyttäjää ei löydy"
+          },
+          "code": {
+            "provide": "Salasanan palautus ei onnistunut"
           }
         }
       },

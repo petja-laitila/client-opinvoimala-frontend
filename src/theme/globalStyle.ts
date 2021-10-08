@@ -85,6 +85,8 @@ export const GlobalStyle = createGlobalStyle`
   }
 
   iframe {
+    max-width: 100%;
+    object-fit: contain;
     display: block;
     margin-left: auto;
     margin-right: auto;
