@@ -18,7 +18,7 @@ export const ContentPage = observer(() => {
   const isLoading = state === 'FETCHING';
 
   useEffect(() => {
-    if (!page && state !== 'FETCHING') fetchPage({ id });
+    if (!page && !isNaN(id) && state !== 'FETCHING') fetchPage({ id });
   }, [fetchPage, id, page, state]);
 
   const hero = {

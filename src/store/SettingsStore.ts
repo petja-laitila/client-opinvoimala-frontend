@@ -8,7 +8,7 @@ import {
   SnapshotIn,
 } from 'mobx-state-tree';
 import api from '../services/api/Api';
-import { ImageModel } from './models';
+import { ImageModel, LinkModel } from './models';
 
 const States = [
   'NOT_FETCHED' as const,
@@ -19,9 +19,21 @@ const States = [
 
 const SettingsModel = types.model({
   appName: types.string,
+  organisation: types.maybeNull(types.string),
+  description: types.maybeNull(types.string),
   logo: ImageModel,
   phone: types.maybeNull(types.string),
   email: types.maybeNull(types.string),
+  socialMedia: types.array(
+    types.model({
+      id: types.number,
+      platform: types.maybeNull(types.string),
+      label: types.maybeNull(types.string),
+      url: types.maybeNull(types.string),
+    })
+  ),
+  links: types.array(LinkModel),
+  logos: types.array(ImageModel),
 });
 
 export interface ISettingsModel extends Instance<typeof SettingsModel> {}

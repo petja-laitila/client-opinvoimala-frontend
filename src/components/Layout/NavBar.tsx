@@ -2,18 +2,13 @@ import React, { useEffect } from 'react';
 import { observer } from 'mobx-react-lite';
 import { useStore } from '../../store/storeContext';
 import DropdownMenu from '../DropdownMenu';
-import { path } from '../../routes/routes';
 import { Link } from '../../store/models';
 import useWindowDimensions from '../../utils/hooks';
 import Drawer from '../Drawer';
 import Button from '../inputs/Button';
 import Icon from '../Icon';
 import AccordionMenu from '../AccordionMenu';
-
-const getUrl = (page: number | null) => {
-  if (page) return `/${path('content_page')}/${page}`;
-  return undefined;
-};
+import { contentPageUrl } from '../../routes/routes';
 
 const NavBar: React.FC = observer(() => {
   const { isTablet, isMobile } = useWindowDimensions();
@@ -34,7 +29,7 @@ const NavBar: React.FC = observer(() => {
       .map(({ id, label, page }) => ({
         id,
         label: label ?? '',
-        url: getUrl(page) ?? '/',
+        url: contentPageUrl(page),
       }));
   };
 
@@ -57,11 +52,11 @@ const NavBar: React.FC = observer(() => {
               <AccordionMenu
                 id={id}
                 label={label}
-                url={getUrl(page)}
+                url={contentPageUrl(page)}
                 items={links.map(({ id, label, page }) => ({
                   id,
                   label: label ?? '',
-                  url: getUrl(page) ?? '/',
+                  url: contentPageUrl(page),
                 }))}
               />
             </li>
@@ -78,7 +73,7 @@ const NavBar: React.FC = observer(() => {
           key={navItem.id}
           triggerLink={{
             label: navItem.label,
-            url: getUrl(navItem.page),
+            url: contentPageUrl(navItem.page),
           }}
           items={getLinkItems(navItem.links)}
         />
