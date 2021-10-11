@@ -136,7 +136,7 @@ export const LoginModal: React.FC<Props> = observer(({ ...props }) => {
 
         <div>
           <Trans i18nKey="view.login.forgot_password_link">
-            <Link to={path('forgot_password')} onClick={handleClose}>
+            <Link to={`/${path('forgot_password')}`} onClick={handleClose}>
               Forgot password?
             </Link>
           </Trans>
@@ -145,7 +145,7 @@ export const LoginModal: React.FC<Props> = observer(({ ...props }) => {
         <div>
           <Trans i18nKey="view.login.register_link">
             No account yet?
-            <Link to={path('register')} onClick={handleClose}>
+            <Link to={`/${path('register')}`} onClick={handleClose}>
               Register.
             </Link>
           </Trans>
