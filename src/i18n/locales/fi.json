@@ -19,7 +19,7 @@
     "front_page": "Etusivu",
     "content_page": "Sisältösivu",
     "my_profile": "Oma profiili",
-    "tests": "Testit",
+    "tests": "Testit ja harjoitukset",
     "appointments": "Varaukset",
     "change_password": "Vaihda salasana",
     "forgot_password": "Salasana unohtunut",
@@ -83,7 +83,8 @@
           "password": {
             "provide": "Anna salasana",
             "matching": "Salasanat ei täsmää",
-            "format": "Salasanassa voi olla maksimissaan kolme `$` symbolia"
+            "format": "Salasanassa voi olla maksimissaan kolme `$` symbolia",
+            "not_valid": "Salasana ei kelpaa"
           },
           "role": {
             "notFound": "Oletusroolia ei löydy"
@@ -94,6 +95,9 @@
           },
           "code": {
             "provide": "Salasanan palautus ei onnistunut"
+          },
+          "terms": {
+            "not_accepted": "Ehtoja ei ole hyväksytty"
           }
         }
       },

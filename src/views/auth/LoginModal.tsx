@@ -17,6 +17,10 @@ const Container = styled.div`
   a {
     color: ${p => p.theme.color.secondary};
     text-decoration: underline;
+    :hover {
+      color: ${p => p.theme.color.secondary};
+      text-decoration: none;
+    }
   }
 
   button {

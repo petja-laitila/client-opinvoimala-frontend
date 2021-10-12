@@ -69,9 +69,10 @@ const DrawerContainer = styled.aside<{ isOpen: boolean }>`
     }
   }
 `;
+type OnClick = (event: React.MouseEvent<HTMLElement, MouseEvent>) => void;
 
 interface Props {
-  triggerEl: JSX.Element;
+  triggerEl: (isOpen: boolean, onClick: OnClick) => JSX.Element;
 }
 
 const Drawer: React.FC<Props> = ({ triggerEl, children }) => {
@@ -101,13 +102,14 @@ const Drawer: React.FC<Props> = ({ triggerEl, children }) => {
 
   return (
     <div>
-      <div onClick={toggleDrawer}>{triggerEl}</div>
+      <div>{triggerEl(isOpen, toggleDrawer)}</div>
       <DrawerContainer ref={ref} isOpen={isOpen}>
         {isOpen && (
-          <>
+          <section aria-label="aside content" aria-hidden={!isOpen}>
             <header className="drawer__header">
               <div>
                 <Button
+                  aria-label="close"
                   id="drawer__close-button"
                   variant="filled"
                   icon={<Icon type="Close" color="background" />}
@@ -117,7 +119,7 @@ const Drawer: React.FC<Props> = ({ triggerEl, children }) => {
               </div>
             </header>
             <main className="drawer__main-content">{children}</main>
-          </>
+          </section>
         )}
       </DrawerContainer>
     </div>

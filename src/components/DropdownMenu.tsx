@@ -1,9 +1,13 @@
 import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import styled from 'styled-components';
+import { Colors } from '../theme/styled';
 import { useOutsideClickAction } from '../utils/hooks';
 
-const StyledDropdownMenu = styled.div<{ verticalPosition: number }>`
+const StyledDropdownMenu = styled.div<{
+  color: keyof Colors;
+  verticalPosition: number;
+}>`
   display: inline-block;
   position: relative;
 
@@ -13,7 +17,7 @@ const StyledDropdownMenu = styled.div<{ verticalPosition: number }>`
       a,
       span,
       button {
-        color: ${p => p.theme.color.secondary};
+        color: ${p => p.theme.color[p.color]};
         font-family: ${p => p.theme.font.secondary};
         ${p => p.theme.font.size.md};
         font-weight: bold;
@@ -68,14 +72,16 @@ export interface MenuItem {
   url: string;
 }
 
+type OnClick = (event: React.MouseEvent<HTMLElement, MouseEvent>) => void;
+
 interface Props {
-  triggerLink?: {
+  color?: keyof Colors;
+  triggerButton?: {
     label: string;
-    url?: string;
   };
   // Optional trigger element (e.g. Button) to toggle menu open
   // (Will override possible label & url props above)
-  triggerEl?: JSX.Element;
+  triggerEl?: (isOpen: boolean, onClick: OnClick) => JSX.Element;
 
   items: MenuItem[];
   align?: 'left' | 'right';
@@ -83,7 +89,8 @@ interface Props {
 }
 
 const DropdownMenu: React.FC<Props> = ({
-  triggerLink,
+  color = 'secondary',
+  triggerButton,
   triggerEl,
   items,
   align = 'left',
@@ -103,11 +110,19 @@ const DropdownMenu: React.FC<Props> = ({
   };
 
   const renderTrigger = () => {
-    if (triggerEl) return triggerEl;
-    if (triggerLink) {
-      const { url, label } = triggerLink;
-      if (url && !items?.length) return <NavLink to={url}>{label}</NavLink>;
-      if (label) return <button>{label}</button>;
+    if (triggerEl) return triggerEl(isOpen, toggleMenu);
+    if (triggerButton) {
+      const { label } = triggerButton;
+      if (label)
+        return (
+          <button
+            aria-label="dropdown menu"
+            aria-expanded={isOpen}
+            aria-haspopup={true}
+          >
+            {label}
+          </button>
+        );
     }
     return null;
   };
@@ -119,17 +134,24 @@ const DropdownMenu: React.FC<Props> = ({
     return className;
   };
 
-  const showMenu = isOpen && items?.length;
+  if (!items?.length) {
+    return null;
+  }
 
   return (
     <StyledDropdownMenu
+      color={color}
       onClick={toggleMenu}
       ref={ref}
       verticalPosition={verticalPosition}
     >
       <div className="dropdown__trigger">{renderTrigger()}</div>
-      <div className={getMenuClassName()}>
-        {showMenu &&
+      <div
+        aria-label="submenu"
+        aria-hidden={!isOpen}
+        className={getMenuClassName()}
+      >
+        {isOpen &&
           items.map(({ id, label, url }) => (
             <NavLink key={id} to={url}>
               {label}

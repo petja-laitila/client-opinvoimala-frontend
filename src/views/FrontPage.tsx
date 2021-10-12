@@ -1,10 +1,29 @@
 import React, { useEffect } from 'react';
 import { observer } from 'mobx-react-lite';
+import styled from 'styled-components';
 import { useStore } from '../store/storeContext';
 import Layout from '../components/Layout';
 import Card from '../components/Card';
 import { Divider, Grid } from 'semantic-ui-react';
 import Watermark from '../components/Layout/Watermark';
+
+const Details = styled.div`
+  p {
+    ${p => p.theme.font.size.md}
+  }
+  h1 {
+    ${p => p.theme.font.h2};
+  }
+  h2 {
+    ${p => p.theme.font.h3};
+  }
+  h3 {
+    ${p => p.theme.font.h4};
+  }
+  h4 {
+    ${p => p.theme.font.h5};
+  }
+`;
 
 export const FrontPage: React.FC = observer(() => {
   const {
@@ -53,10 +72,7 @@ export const FrontPage: React.FC = observer(() => {
         <Grid.Row columns={2}>
           {details && (
             <Grid.Column>
-              <div
-                className="details__text-container"
-                dangerouslySetInnerHTML={{ __html: details }}
-              />
+              <Details dangerouslySetInnerHTML={{ __html: details }} />
             </Grid.Column>
           )}
           {detailsImage && (

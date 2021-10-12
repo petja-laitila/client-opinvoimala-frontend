@@ -17,16 +17,18 @@ const DesktopMenu: React.FC<{ items: MenuItem[] }> = ({ items }) => {
       items={items}
       align="right"
       verticalPosition={20}
-      triggerEl={
+      color="primary"
+      triggerEl={(isOpen, onClick) => (
         <Button
+          aria-expanded={isOpen}
+          aria-haspopup={true}
           id="user-menu__button"
           text={t('student')}
           icon={<Icon type="User" color="primary" />}
-          color="primary"
           variant="link"
-          onClick={() => {}}
+          onClick={onClick}
         />
-      }
+      )}
     />
   );
 };
@@ -34,15 +36,17 @@ const DesktopMenu: React.FC<{ items: MenuItem[] }> = ({ items }) => {
 const MobileMenu: React.FC<{ items: MenuItem[] }> = ({ items }) => {
   return (
     <Drawer
-      triggerEl={
+      triggerEl={(isOpen, onClick) => (
         <Button
+          aria-label="user menu"
+          aria-expanded={isOpen}
           id="user-menu__button"
           variant="outlined"
-          color="primary"
-          icon={<Icon type="User" color="primary" />}
-          onClick={() => {}}
+          color="secondary"
+          icon={<Icon type="User" color="secondary" />}
+          onClick={onClick}
         />
-      }
+      )}
     >
       <ul>
         {items.map(({ id, label, url }) => (
@@ -105,9 +109,9 @@ const UserMenu: React.FC = observer(() => {
         id="user-menu__login__button"
         text={isTablet ? undefined : t('action.login')}
         variant={isTablet ? 'outlined' : 'filled'}
-        color={isTablet ? 'primary' : 'secondary'}
+        color={isTablet ? 'secondary' : 'secondary'}
         icon={
-          <Icon type="SignIn" color={isTablet ? 'primary' : 'background'} />
+          <Icon type="SignIn" color={isTablet ? 'secondary' : 'background'} />
         }
         onClick={handleLoginClick}
       />

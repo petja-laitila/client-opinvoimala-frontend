@@ -57,7 +57,7 @@ const StyledButton = styled.button<{
   }
 
   &.button-outlined {
-    background-color: transparent;
+    background-color: ${p => p.theme.color.primaryLight};
     color: ${p => p.theme.color[p.color]};
     border: 1px solid ${p => p.theme.color[p.color]};
 

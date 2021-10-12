@@ -7,7 +7,7 @@ export const COLORS = Object.freeze({
   primary: primaryColor,
   primaryLight: '#CEE5D8',
   secondary: secondaryColor,
-  accent: '#EB5A96',
+  accent: '#DC0058',
   grey: '#555555',
   grey2: '#4F4F4F',
   grey3: '#F4F5F7',
@@ -20,9 +20,9 @@ export const COLORS = Object.freeze({
 });
 
 export const BREAKPOINTS = Object.freeze({
-  mobile: 800,
-  tablet: 1100,
-  laptop: 1400,
+  mobile: 768,
+  tablet: 992,
+  laptop: 1200,
 });
 
 export const fontSize = (sm: number, md: number) => {
@@ -73,6 +73,12 @@ export const theme: DefaultTheme = {
       lg: fontSize(18, 22),
       xl: fontSize(22, 28),
     },
+    h1: fontSize(36, 64),
+    h2: fontSize(28, 36),
+    h3: fontSize(24, 28),
+    h4: fontSize(20, 22),
+    h5: fontSize(18, 20),
+    h6: fontSize(16, 18),
   },
 };
 
