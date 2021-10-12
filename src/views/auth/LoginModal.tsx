@@ -102,6 +102,7 @@ export const LoginModal: React.FC<Props> = observer(({ ...props }) => {
           </Transition.Group>
 
           <Input
+            autoFocus
             id="login-modal__email-input"
             placeholder={t('label.email')}
             label={t('label.email')}

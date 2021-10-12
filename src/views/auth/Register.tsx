@@ -117,6 +117,7 @@ export const Register: React.FC<Props> = observer(() => {
         <p>{t('view.register.email_info')}</p>
 
         <Input
+          autoFocus
           id="register-view__email-input"
           label={t('label.email')}
           name="email"

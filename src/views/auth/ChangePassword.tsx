@@ -88,6 +88,7 @@ export const ChangePassword: React.FC<Props> = observer(() => {
         </Transition.Group>
         <h3>{t('view.change_password.current_password_title')}</h3>
         <Input
+          autoFocus
           id="change-password-view__current-password-input"
           label={t('label.password')}
           name="password"
