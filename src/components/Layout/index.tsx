@@ -70,8 +70,7 @@ const Layout: React.FC<Props> = ({
         {hero && (
           <div className="header__hero">
             <Wrapper size={wrapperSize}>
-              <Hero {...hero} />
-              {isLoading && <LoadingPlaceholder.Hero />}
+              {isLoading ? <LoadingPlaceholder.Hero /> : <Hero {...hero} />}
             </Wrapper>
           </div>
         )}
@@ -79,8 +78,7 @@ const Layout: React.FC<Props> = ({
         <DiagonalSeparator />
 
         <Wrapper size={wrapperSize}>
-          {children}
-          {isLoading && <LoadingPlaceholder.Content />}
+          {isLoading ? <LoadingPlaceholder.Content /> : children}
         </Wrapper>
       </main>
 

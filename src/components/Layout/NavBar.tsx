@@ -18,7 +18,7 @@ const NavBar: React.FC = observer(() => {
   } = useStore();
 
   useEffect(() => {
-    if (state === 'NOT_FETCHED') fetchNavigation({});
+    if (state === 'NOT_FETCHED') fetchNavigation();
   }, [fetchNavigation, state]);
 
   const navItems = navigation?.items ?? [];

@@ -109,7 +109,7 @@ const UserMenu: React.FC = observer(() => {
         id="user-menu__login__button"
         text={isTablet ? undefined : t('action.login')}
         variant={isTablet ? 'outlined' : 'filled'}
-        color={isTablet ? 'secondary' : 'secondary'}
+        color="secondary"
         icon={
           <Icon type="SignIn" color={isTablet ? 'secondary' : 'background'} />
         }

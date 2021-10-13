@@ -24,7 +24,7 @@ const App: React.FC = observer(() => {
 
   useEffect(() => {
     if (settingsState === 'NOT_FETCHED') {
-      fetchSettings({});
+      fetchSettings();
     }
   }, [fetchSettings, settingsState]);
 
