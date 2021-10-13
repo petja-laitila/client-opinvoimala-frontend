@@ -8,7 +8,7 @@ import NavBar from './NavBar';
 import UserMenu from './UserMenu';
 import Wrapper from './Wrapper';
 
-export const HEADER_HEIGHT = 100; // px
+export const HEADER_HEIGHT = 120; // px
 export const HEADER_HEIGHT_MOBILE = 70; // px
 
 const StyledHeader = styled.header`
@@ -36,13 +36,13 @@ const StyledHeader = styled.header`
 `;
 
 const Header: React.FC = observer(() => {
-  const { isMobile, isTablet } = useWindowDimensions();
+  const { isTablet } = useWindowDimensions();
   const {
     settings: { settings },
   } = useStore();
 
   const { logo } = settings ?? {};
-  const logoHeight = isMobile ? HEADER_HEIGHT_MOBILE - 10 : HEADER_HEIGHT - 20;
+  const logoHeight = isTablet ? HEADER_HEIGHT_MOBILE - 10 : HEADER_HEIGHT - 20;
 
   return (
     <StyledHeader>

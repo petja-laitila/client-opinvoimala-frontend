@@ -27,10 +27,11 @@ export const GlobalStyle = createGlobalStyle`
   
   a {
     color: ${p => p.theme.color.accent};
+    text-decoration: underline;
 
     :hover {
       color: ${p => p.theme.color.accent};
-      text-decoration: underline;
+      text-decoration: none;
     }
   }
 

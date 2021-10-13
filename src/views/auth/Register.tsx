@@ -26,7 +26,7 @@ export const Register: React.FC<Props> = observer(() => {
   const [password1, setPassword1] = useState('');
   const [password2, setPassword2] = useState('');
   const [termsAccepted, setTermsAccepted] = useState(false);
-  const [errorMsgs, setErrorMsgs] = useState([]);
+  const [errorMsgs, setErrorMsgs] = useState<string[]>([]);
 
   const isValidPw = password1 === password2 && validatePassword(password1);
   const isValidForm = !!email.length && isValidPw && termsAccepted;
@@ -40,10 +40,24 @@ export const Register: React.FC<Props> = observer(() => {
       setter(event.currentTarget.value);
     };
 
+  const getClientErrors = () => {
+    const errors: string[] = [];
+    const tPrefix = 'error.Auth.form.error';
+
+    if (!validatePassword(password1))
+      errors.push(t(`${tPrefix}.password.not_valid`));
+    else if (password1 !== password2)
+      errors.push(t(`${tPrefix}.password.matching`));
+    if (!termsAccepted) errors.push(t(`${tPrefix}.terms.not_accepted`));
+    if (!email.length) errors.push(t(`${tPrefix}.email.provide`));
+
+    return errors;
+  };
+
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    setErrorMsgs([]);
     if (isValidForm && !isBusy) {
-      setErrorMsgs([]);
       const params = { email, password: password1 };
 
       const { success, error } = await register(params);
@@ -53,6 +67,8 @@ export const Register: React.FC<Props> = observer(() => {
       } else {
         setErrorMsgs(getApiErrorMessages(error.data));
       }
+    } else if (!isBusy) {
+      setErrorMsgs(getClientErrors());
     }
   };
 
@@ -61,9 +77,20 @@ export const Register: React.FC<Props> = observer(() => {
   };
 
   const getTermsAndConditionsLabel = () => {
-    const termsLink = <Link to={`/${path('terms')}`}>terms</Link>;
+    const origin = window.location.origin.toString();
+    const termsLink = (
+      <a href={`${origin}/${path('terms')}`} target="_blank" rel="noreferrer">
+        terms
+      </a>
+    );
     const conditionsLink = (
-      <Link to={`/${path('conditions')}`}>conditions</Link>
+      <a
+        href={`${origin}/${path('conditions')}`}
+        target="_blank"
+        rel="noreferrer"
+      >
+        conditions
+      </a>
     );
     return (
       <Trans i18nKey="view.register.terms_and_conditions_text">
@@ -90,6 +117,7 @@ export const Register: React.FC<Props> = observer(() => {
         <p>{t('view.register.email_info')}</p>
 
         <Input
+          autoFocus
           id="register-view__email-input"
           label={t('label.email')}
           name="email"
@@ -146,7 +174,7 @@ export const Register: React.FC<Props> = observer(() => {
           id="register-view__register-button"
           text={t('action.register')}
           type="submit"
-          disabled={!isValidForm || isBusy}
+          disabled={isBusy}
           noMargin
         />
       </form>

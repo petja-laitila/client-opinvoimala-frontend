@@ -19,7 +19,8 @@ const Container = styled.article`
     border-top-right-radius: ${p => p.theme.borderRadius.sm};
     flex: 1;
     padding: ${p => p.theme.spacing.md} ${p => p.theme.spacing.lg};
-    h4 {
+    h1 {
+      ${p => p.theme.font.h4};
       line-height: 28px;
     }
     p {
@@ -41,10 +42,6 @@ const Container = styled.article`
       color: ${p => p.theme.color.secondary};
       font-family: ${p => p.theme.font.secondary};
       ${p => p.theme.font.size.md};
-      text-decoration: none;
-      :hover {
-        text-decoration: underline;
-      }
       svg {
         margin-left: ${p => p.theme.spacing.md};
       }
@@ -62,7 +59,7 @@ const Card: React.FC<Props> = ({ title, text, link }) => {
   return (
     <Container>
       <main>
-        {title && <h4>{title}</h4>}
+        {title && <h1>{title}</h1>}
         {text && <p>{text}</p>}
       </main>
 

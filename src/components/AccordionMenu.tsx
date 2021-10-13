@@ -39,11 +39,10 @@ const Container = styled.div`
 interface Props {
   id: number | string;
   label: string;
-  url?: string;
   items?: MenuItem[];
 }
 
-const AccordionMenu: React.FC<Props> = ({ id, label, url, items }) => {
+const AccordionMenu: React.FC<Props> = ({ id, label, items }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleAccordion = () => {
@@ -52,31 +51,35 @@ const AccordionMenu: React.FC<Props> = ({ id, label, url, items }) => {
     }
   };
 
+  if (!items?.length) {
+    return null;
+  }
+
   return (
     <Container>
       <div className="accordion__trigger-button">
-        {url && !items?.length ? (
-          <NavLink to={url}>{label}</NavLink>
-        ) : (
-          <button onClick={toggleAccordion}>{label}</button>
-        )}
-        {!!items?.length && <Icon type="Plus" color="primary" />}
+        <button
+          aria-expanded={isOpen}
+          aria-haspopup={true}
+          onClick={toggleAccordion}
+        >
+          {label}
+        </button>
+        <Icon type="Plus" color="primary" />
       </div>
 
-      {!!items?.length && (
-        <ul className={`accordion__menu${isOpen ? ' is-open' : ''}`}>
-          {isOpen &&
-            items.map(({ id, label, url }) => (
-              <li key={`accordion-item-${id}`} className="accordion__item">
-                {url ? (
-                  <NavLink to={url}>{label}</NavLink>
-                ) : (
-                  <span>{label}</span>
-                )}
-              </li>
-            ))}
-        </ul>
-      )}
+      <ul
+        aria-label="submenu"
+        aria-hidden={!isOpen}
+        className={`accordion__menu${isOpen ? ' is-open' : ''}`}
+      >
+        {isOpen &&
+          items.map(({ id, label, url }) => (
+            <li key={`accordion-item-${id}`} className="accordion__item">
+              {url ? <NavLink to={url}>{label}</NavLink> : <span>{label}</span>}
+            </li>
+          ))}
+      </ul>
     </Container>
   );
 };

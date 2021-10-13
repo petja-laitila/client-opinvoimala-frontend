@@ -20,7 +20,6 @@ const States = [
 const NavItemModel = types.model({
   id: types.number,
   label: types.string,
-  page: types.maybeNull(types.number),
   links: types.array(LinkModel),
 });
 export interface NavItem extends SnapshotOut<typeof NavItemModel> {}

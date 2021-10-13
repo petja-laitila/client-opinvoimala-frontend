@@ -36,23 +36,24 @@ const NavBar: React.FC = observer(() => {
   if (isTablet || isMobile) {
     return (
       <Drawer
-        triggerEl={
+        triggerEl={(isOpen, onClick) => (
           <Button
-            id="user-menu__button"
+            aria-label="main navigation"
+            aria-expanded={isOpen}
+            id="navigation-menu__button"
             variant="outlined"
-            color="primary"
-            icon={<Icon type="Menu" strokeColor="primary" />}
-            onClick={() => {}}
+            color="secondary"
+            icon={<Icon type="Menu" strokeColor="secondary" />}
+            onClick={onClick}
           />
-        }
+        )}
       >
         <ul>
-          {navItems.map(({ id, label, page, links }) => (
+          {navItems.map(({ id, label, links }) => (
             <li key={id}>
               <AccordionMenu
                 id={id}
                 label={label}
-                url={contentPageUrl(page)}
                 items={links.map(({ id, label, page }) => ({
                   id,
                   label: label ?? '',
@@ -71,9 +72,8 @@ const NavBar: React.FC = observer(() => {
       {navItems.map(navItem => (
         <DropdownMenu
           key={navItem.id}
-          triggerLink={{
+          triggerButton={{
             label: navItem.label,
-            url: contentPageUrl(navItem.page),
           }}
           items={getLinkItems(navItem.links)}
         />

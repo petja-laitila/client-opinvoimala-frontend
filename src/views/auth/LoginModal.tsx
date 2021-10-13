@@ -17,6 +17,10 @@ const Container = styled.div`
   a {
     color: ${p => p.theme.color.secondary};
     text-decoration: underline;
+    :hover {
+      color: ${p => p.theme.color.secondary};
+      text-decoration: none;
+    }
   }
 
   button {
@@ -98,6 +102,7 @@ export const LoginModal: React.FC<Props> = observer(({ ...props }) => {
           </Transition.Group>
 
           <Input
+            autoFocus
             id="login-modal__email-input"
             placeholder={t('label.email')}
             label={t('label.email')}
