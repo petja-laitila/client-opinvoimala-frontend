@@ -64,6 +64,7 @@ declare namespace API {
   type GetContentPage = {
     id: number;
   };
+  type GetAppointments = {};
 
   /**
    * API RESPONSES
@@ -80,9 +81,11 @@ declare namespace API {
 
     type AuthForgotPassword = { ok: boolean };
 
-    type GetSettings = import('../store/SettingsStore').Settings;
-    type GetNavigation = import('../store/NavigationStore').Navigation;
+    type GetSettings = import('../../store/SettingsStore').Settings;
+    type GetNavigation = import('../../store/NavigationStore').Navigation;
     type GetFrontPage = import('../../store/FrontPageStore').FrontPage;
     type GetContentPage = import('../../store/ContentPageStore').Page;
+    type GetAppointments =
+      import('../../store/AppointmentsStore').Appointment[];
   }
 }

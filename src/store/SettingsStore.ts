@@ -52,7 +52,7 @@ export const SettingsStore = types
     },
   }))
   .actions(self => {
-    const fetchSettings = flow(function* (params: API.GetSettings) {
+    const fetchSettings = flow(function* (params: API.GetSettings = {}) {
       self.state = 'FETCHING';
 
       const response: API.GeneralResponse<API.RES.GetSettings> =

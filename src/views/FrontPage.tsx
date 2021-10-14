@@ -43,7 +43,7 @@ export const FrontPage: React.FC = observer(() => {
 
   useEffect(() => {
     if (!frontPage && state === 'NOT_FETCHED') {
-      fetchFrontPage({});
+      fetchFrontPage();
     }
   }, [fetchFrontPage, frontPage, state]);
 

@@ -5,6 +5,7 @@ import { SettingsStore } from './SettingsStore';
 import { NavigationStore } from './NavigationStore';
 import { ContentPageStore } from './ContentPageStore';
 import { AuthStore } from './AuthStore';
+import { AppointmentsStore } from './AppointmentsStore';
 
 const RootStoreModel = types.model({
   auth: types.optional(AuthStore, { state: 'IDLE' }),
@@ -19,6 +20,9 @@ const RootStoreModel = types.model({
   }),
   contentPages: types.optional(ContentPageStore, {
     state: 'IDLE',
+  }),
+  appointments: types.optional(AppointmentsStore, {
+    state: 'NOT_FETCHED',
   }),
 });
 

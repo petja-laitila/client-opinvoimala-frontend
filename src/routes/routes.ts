@@ -7,6 +7,7 @@ import {
   ChangePassword,
   ForgotPassword,
   ResetPassword,
+  UserAppointments,
 } from '../views';
 import { slug } from '../utils/string';
 
@@ -54,6 +55,12 @@ const appRoutes: (Route | NavLinkRoute)[] = [
     component: ResetPassword,
     exact: true,
     isPublic: true,
+  },
+  {
+    path: `/${path('appointments')}`,
+    component: UserAppointments,
+    exact: true,
+    isPublic: false,
   },
   {
     path: `/${path('change_password')}`,

@@ -42,7 +42,7 @@ export const FrontPageStore = types
     },
   }))
   .actions(self => {
-    const fetchFrontPage = flow(function* (params: API.GetFrontPage) {
+    const fetchFrontPage = flow(function* (params: API.GetFrontPage = {}) {
       self.state = 'FETCHING';
 
       const response: API.GeneralResponse<API.RES.GetFrontPage> =

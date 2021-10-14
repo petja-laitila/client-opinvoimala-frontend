@@ -29,6 +29,18 @@
     "conditions": "Tietosuojaseloste"
   },
   "view": {
+    "appointments": {
+      "no_appointments": "Ei vielä varauksia.",
+      "title": {
+        "upcoming": "Tulevat varaukset",
+        "past": "Menneet varaukset"
+      },
+      "action": {
+        "new_appointment": "Uusi varaus",
+        "cancel_appointment": "Peruuta varaus",
+        "join_meeting": "Liity kokoukseen"
+      }
+    },
     "register": {
       "email_title": "Syötä sähköpostiosoite",
       "email_info": "Sähköpostiosoite toimii käyttäjätunnuksenasi palveluun.",

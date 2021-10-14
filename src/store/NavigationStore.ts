@@ -43,7 +43,7 @@ export const NavigationStore = types
     },
   }))
   .actions(self => {
-    const fetchNavigation = flow(function* (params: API.GetNavigation) {
+    const fetchNavigation = flow(function* (params: API.GetNavigation = {}) {
       self.state = 'FETCHING';
 
       const response: API.GeneralResponse<API.RES.GetNavigation> =
