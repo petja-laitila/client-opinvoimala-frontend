@@ -1,26 +1,33 @@
 import { observer } from 'mobx-react-lite';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Message } from 'semantic-ui-react';
+import { Divider, Loader, Message, Transition } from 'semantic-ui-react';
 import AppointmentsList from '../components/AppointmentsList';
 import Layout from '../components/Layout';
 import { useStore } from '../store/storeContext';
+import { getApiErrorMessages } from '../utils/api';
 
 interface Props {}
 
 export const UserAppointments: React.FC<Props> = observer(() => {
   const { t } = useTranslation();
 
+  const [errorMsgs, setErrorMsgs] = useState<string[]>([]);
+  const [successMsg, setSuccessMsg] = useState<string>();
+
   const {
     appointments: {
       state,
+      appointmentState,
       upcomingAppointments,
       pastAppointments,
       fetchAppointments,
+      cancelAppointment,
     },
   } = useStore();
 
   const isLoading = state === 'FETCHING';
+  const showLoader = !['IDLE', 'ERROR'].includes(appointmentState);
 
   const noAppointments =
     !upcomingAppointments.length && !pastAppointments.length;
@@ -31,8 +38,19 @@ export const UserAppointments: React.FC<Props> = observer(() => {
     }
   }, [fetchAppointments, state]);
 
-  const handleCancel = (id: number) => {
-    alert(`TODO: Cancel appointment (OPI-45): ${id}`);
+  const clearMessages = () => {
+    setErrorMsgs([]);
+    setSuccessMsg(undefined);
+  };
+
+  const handleCancel = async (id: number) => {
+    clearMessages();
+    const { success, error } = await cancelAppointment({ id });
+    if (success) {
+      setSuccessMsg(t('view.appointments.appointment_cancelled'));
+    } else {
+      setErrorMsgs(getApiErrorMessages(error.data));
+    }
   };
 
   const handleJoinMeeting = (link: string) => {
@@ -45,9 +63,34 @@ export const UserAppointments: React.FC<Props> = observer(() => {
 
   return (
     <Layout hero={hero} isLoading={isLoading}>
+      <Loader active={showLoader} size="massive" />
+
       {noAppointments && (
         <Message content={t('view.appointments.no_appointments')} />
       )}
+
+      <Transition.Group>
+        {!!successMsg && (
+          <div>
+            <Message success icon="check circle" content={successMsg} />
+            <Divider hidden />
+          </div>
+        )}
+      </Transition.Group>
+
+      <Transition.Group>
+        {!!errorMsgs.length && (
+          <div>
+            <Message
+              error
+              icon="warning sign"
+              header={t('view.appointments.title.cancel_error')}
+              list={errorMsgs}
+            />
+            <Divider hidden />
+          </div>
+        )}
+      </Transition.Group>
 
       {!!upcomingAppointments.length && (
         <AppointmentsList

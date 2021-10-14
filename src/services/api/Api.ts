@@ -137,6 +137,18 @@ export class Api extends BaseApi {
     const response = await this.api.get(url, params, this.auth());
     return this.handleResponse(response);
   }
+
+  /**
+   * Cancel appointment
+   */
+  async cancelAppointment({
+    id,
+    ...params
+  }: API.CancelAppointment): Promise<Response<API.RES.CancelAppointment>> {
+    const url = `appointments/${id}/cancel`;
+    const response = await this.api.post(url, params, this.auth());
+    return this.handleResponse(response);
+  }
 }
 
 export const api = new Api();

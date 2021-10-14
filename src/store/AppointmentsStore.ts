@@ -17,6 +17,13 @@ const States = [
   'ERROR' as const,
 ];
 
+const AppointmentStates = [
+  'IDLE' as const,
+  'CANCELLING' as const,
+  'BOOKING' as const,
+  'ERROR' as const,
+];
+
 const SpecialistModel = types.model({
   name: types.string,
   role: types.string,
@@ -40,6 +47,8 @@ export const AppointmentsStore = types
   .model({
     state: types.enumeration('State', States),
     data: types.maybe(types.array(AppointmentModel)),
+
+    appointmentState: types.enumeration('State', AppointmentStates),
   })
   .views(self => ({
     get appointments() {
@@ -79,8 +88,26 @@ export const AppointmentsStore = types
       }
     });
 
+    const cancelAppointment = flow(function* (params: API.CancelAppointment) {
+      self.appointmentState = 'CANCELLING';
+
+      const response: API.GeneralResponse<API.RES.CancelAppointment> =
+        yield api.cancelAppointment(params);
+
+      if (response.kind === 'ok') {
+        const data = self.data ? getSnapshot(self.data) : undefined;
+        self.data = cast(data?.filter(({ id }) => id !== params.id));
+        self.appointmentState = 'IDLE';
+        return { success: true };
+      } else {
+        self.appointmentState = 'ERROR';
+        return { success: false, error: response.data };
+      }
+    });
+
     return {
       fetchAppointments,
+      cancelAppointment,
     };
   });
 

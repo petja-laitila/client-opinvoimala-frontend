@@ -31,9 +31,11 @@
   "view": {
     "appointments": {
       "no_appointments": "Ei vielä varauksia.",
+      "appointment_cancelled": "Varaus peruttu onnistuneesti.",
       "title": {
         "upcoming": "Tulevat varaukset",
-        "past": "Menneet varaukset"
+        "past": "Menneet varaukset",
+        "cancel_error": "Varauksen peruminen ei onnistunut"
       },
       "action": {
         "new_appointment": "Uusi varaus",
@@ -128,6 +130,11 @@
         "new_password": {
           "no_match": "Uusi salasana on virheellinen"
         }
+      }
+    },
+    "appointment": {
+      "cancel": {
+        "too_late": "Varausta ei voi perua alle 24 tuntia ennen varauksen alkamisaikaa"
       }
     }
   }
