@@ -1,9 +1,10 @@
 import { observer } from 'mobx-react-lite';
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Divider, Loader, Message, Transition } from 'semantic-ui-react';
+import { Loader, Transition } from 'semantic-ui-react';
 import AppointmentsList from '../components/AppointmentsList';
 import Layout from '../components/Layout';
+import Message from '../components/Message';
 import { useStore } from '../store/storeContext';
 import { getApiErrorMessages } from '../utils/api';
 
@@ -72,13 +73,14 @@ export const UserAppointments: React.FC<Props> = observer(() => {
       <Transition.Group>
         {!!successMsg && (
           <div>
-            <Message success icon="check circle" content={successMsg} />
-            <Divider hidden />
+            <Message
+              success
+              icon="check circle"
+              content={successMsg}
+              onDismiss={() => setSuccessMsg(undefined)}
+            />
           </div>
         )}
-      </Transition.Group>
-
-      <Transition.Group>
         {!!errorMsgs.length && (
           <div>
             <Message
@@ -86,8 +88,8 @@ export const UserAppointments: React.FC<Props> = observer(() => {
               icon="warning sign"
               header={t('view.appointments.title.cancel_error')}
               list={errorMsgs}
+              onDismiss={() => setErrorMsgs([])}
             />
-            <Divider hidden />
           </div>
         )}
       </Transition.Group>

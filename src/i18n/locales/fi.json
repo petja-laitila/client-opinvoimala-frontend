@@ -83,6 +83,7 @@
   "error": {
     "unknown_error": "Jotain meni pieleen",
     "page_not_found": "Virhe! Sivua ei löytynyt.",
+    "Forbidden": "Ei käyttöoikeutta",
     "Auth": {
       "form": {
         "error": {
