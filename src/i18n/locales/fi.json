@@ -40,7 +40,8 @@
       "action": {
         "new_appointment": "Uusi varaus",
         "cancel_appointment": "Peruuta varaus",
-        "join_meeting": "Liity kokoukseen"
+        "join_meeting": "Liity kokoukseen",
+        "cancelled": "Peruttu"
       }
     },
     "register": {

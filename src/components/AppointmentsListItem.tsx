@@ -68,6 +68,7 @@ interface Props extends Appointment {
 
 const AppointmentsListItem: React.FC<Props> = ({
   id,
+  status,
   startTime,
   appointmentSpecialist,
   meetingLink,
@@ -77,6 +78,17 @@ const AppointmentsListItem: React.FC<Props> = ({
   const { t } = useTranslation();
 
   const showButtons = !!onCancel || !!onJoin;
+
+  const isCancelled = status === 'cancelled';
+
+  const getJoinButtonText = () => {
+    const key = isCancelled ? 'cancelled' : 'join_meeting';
+    return t(`view.appointments.action.${key}`);
+  };
+
+  const handleJoinButtonClick = () => {
+    if (!isCancelled && onJoin) onJoin(meetingLink);
+  };
 
   return (
     <ListItem key={id}>
@@ -93,7 +105,7 @@ const AppointmentsListItem: React.FC<Props> = ({
 
       {showButtons && (
         <div className="appointment__action-buttons">
-          {onCancel && (
+          {!isCancelled && onCancel && (
             <Button
               aria-label="Cancel meeting"
               id={`appointment-${id}__cancel-button`}
@@ -108,8 +120,11 @@ const AppointmentsListItem: React.FC<Props> = ({
             <Button
               aria-label="Join meeting"
               id={`appointment-${id}__join-meet-button`}
-              text={t('view.appointments.action.join_meeting')}
-              onClick={() => onJoin(meetingLink)}
+              text={getJoinButtonText()}
+              onClick={handleJoinButtonClick}
+              disabled={isCancelled}
+              color={isCancelled ? 'accent' : undefined}
+              variant={isCancelled ? 'link' : undefined}
               noMargin
             />
           )}
