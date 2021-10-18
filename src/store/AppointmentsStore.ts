@@ -33,8 +33,6 @@ export interface Specialist extends SnapshotOut<typeof SpecialistModel> {}
 const AppointmentModel = types.model({
   id: types.number,
   status: types.enumeration(['available', 'booked', 'cancelled', 'hidden']),
-  visible: types.boolean,
-  cancelled: types.maybeNull(types.boolean),
   startTime: types.string,
   endTime: types.string,
   meetingLink: types.string,

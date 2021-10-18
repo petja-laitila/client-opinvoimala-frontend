@@ -23,6 +23,9 @@ const ListItem = styled.li`
 
     &__time {
       min-width: 160px;
+      &.is-cancelled {
+        text-decoration: line-through;
+      }
     }
 
     &__specialist {
@@ -92,7 +95,11 @@ const AppointmentsListItem: React.FC<Props> = ({
 
   return (
     <ListItem key={id}>
-      <div className="appointment__time">{formatDateTime(startTime)}</div>
+      <div
+        className={`appointment__time ${isCancelled ? ' is-cancelled' : ''}`}
+      >
+        {formatDateTime(startTime)}
+      </div>
 
       {appointmentSpecialist && (
         <div className="appointment__specialist">
@@ -129,6 +136,10 @@ const AppointmentsListItem: React.FC<Props> = ({
             />
           )}
         </div>
+      )}
+
+      {!showButtons && isCancelled && (
+        <i>{t('view.appointments.action.cancelled')}</i>
       )}
     </ListItem>
   );
