@@ -20,14 +20,18 @@ const StyledButton = styled.button<{
   padding-left: ${p => p.theme.spacing.lg};
   padding-right: ${p => p.theme.spacing.lg};
 
-  svg {
+  svg,
+  i {
     margin-left: 8px;
+    margin-right: 0px;
   }
 
   &.icon-button {
     padding: ${p => p.theme.spacing.md};
-    svg {
+    svg,
+    i {
       margin-left: 0;
+      margin-right: 0;
     }
   }
 

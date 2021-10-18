@@ -7,12 +7,17 @@
     "register": "Rekisteröidy",
     "login": "Kirjaudu",
     "change_password": "Vaihda salasana",
-    "send_link": "Lähetä linkki"
+    "send_link": "Lähetä linkki",
+    "cancel": "Peruuta",
+    "close": "Sulje"
   },
   "label": {
+    "name": "Nimi",
     "email": "Sähköpostiosoite",
     "password": "Salasana",
-    "password_confirm": "Salasana uudelleen"
+    "password_confirm": "Salasana uudelleen",
+    "specialist": "Asiantuntija",
+    "date": "Ajankohta"
   },
   "route": {
     "register": "Rekisteröidy",
@@ -38,10 +43,28 @@
         "cancel_error": "Varauksen peruminen ei onnistunut"
       },
       "action": {
-        "new_appointment": "Uusi varaus",
         "cancel_appointment": "Peruuta varaus",
         "join_meeting": "Liity kokoukseen",
         "cancelled": "Peruttu"
+      },
+      "make_new": {
+        "title": "Uusi varaus",
+        "choose_specialist": "Valitse asiantuntija",
+        "choose_appointment": "Valitse päivämäärä ja vapaa aika",
+        "confirm": "Vahvista varaus",
+        "contact_data_title": "Varaajan tiedot",
+        "contact_data_info": "Tietoja tarvitaan, jotta asiantuntija voi valmistautua tapaamiseen ja ilmoittaa mahdollisesta peruutuksesta. Tietoja ei tallenneta, vaan ne jäävät ainoastaan asiantuntijan tietoon.",
+        "summary_title": "Kiitos varauksesta",
+        "summary_info": "Varauksesi tiedot sekä videokokouslinkki on lähetetty sähköpostiisi. Jos sinun täytyy peruuttaa aika, voit tehdä sen 24 h ennen varauksen alkua Varaukset-sivulta.",
+        "no_available_appointments": "Ei vapaita aikoja",
+        "specialist_contacts": "Löydät ohjaajien yhteystiedot <1>Otavian sivustolta</1>.",
+        "action": {
+          "continue": "Jatka varausta",
+          "back": "Edellinen",
+          "confirm": "Vahvista varaus",
+          "go_to_appointments": "Siirry varauksiin",
+          "go_back": "Palaa takaisin"
+        }
       }
     },
     "register": {

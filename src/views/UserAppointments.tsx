@@ -2,6 +2,7 @@ import { observer } from 'mobx-react-lite';
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Loader, Transition } from 'semantic-ui-react';
+import MakeAppointmentModal from '../components/appointments/MakeAppointmentModal';
 import AppointmentsList from '../components/AppointmentsList';
 import Layout from '../components/Layout';
 import Message from '../components/Message';
@@ -60,6 +61,7 @@ export const UserAppointments: React.FC<Props> = observer(() => {
 
   const hero = {
     title: t('route.appointments'),
+    lead: <MakeAppointmentModal />,
   };
 
   return (

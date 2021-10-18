@@ -61,7 +61,7 @@ const Container = styled.div`
 
 export interface HeroProps {
   title?: string | null;
-  lead?: string | null;
+  lead?: string | JSX.Element | null;
   image?: Image | null;
   align?: string;
 }
