@@ -104,7 +104,7 @@ const AppointmentsListItem: React.FC<Props> = ({
       {appointmentSpecialist && (
         <div className="appointment__specialist">
           <span className="appointment__specialist--role">
-            {appointmentSpecialist.role}
+            {appointmentSpecialist.role ?? ''}
           </span>
           <span>{appointmentSpecialist.name}</span>
         </div>

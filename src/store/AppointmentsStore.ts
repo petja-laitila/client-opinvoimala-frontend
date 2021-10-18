@@ -26,7 +26,7 @@ const AppointmentStates = [
 
 const SpecialistModel = types.model({
   name: types.string,
-  role: types.string,
+  role: types.maybeNull(types.string),
 });
 export interface Specialist extends SnapshotOut<typeof SpecialistModel> {}
 
