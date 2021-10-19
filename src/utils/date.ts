@@ -33,3 +33,13 @@ export const isFutureDate = (isoDate: string, options: DateOptions = {}) => {
 export const isPastDate = (isoDate: string, options: DateOptions = {}) => {
   return today() >= localizedDate(isoDate, options);
 };
+
+export const isSameDay = (
+  isoDate1: string,
+  isoDate2: string,
+  options: DateOptions = {}
+) => {
+  const date1 = localizedDate(isoDate1, options);
+  const date2 = localizedDate(isoDate2, options);
+  return date1.startOf('day').toMillis() === date2.startOf('day').toMillis();
+};

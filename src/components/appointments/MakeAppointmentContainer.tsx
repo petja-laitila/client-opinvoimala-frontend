@@ -8,6 +8,7 @@ import { Button } from '../inputs';
 import MakeAppointmentPhase1 from './MakeAppointmentPhase1';
 import MakeAppointmentPhase2 from './MakeAppointmentPhase2';
 import MakeAppointmentPhase3 from './MakeAppointmentPhase3';
+import { Appointment } from '../../store/AppointmentsStore';
 
 const Container = styled.div`
   h1 {
@@ -25,6 +26,14 @@ const Container = styled.div`
     justify-content: flex-end;
     align-items: center;
     gap: ${p => p.theme.spacing.lg};
+
+    @media ${p => p.theme.breakpoint.mobile} {
+      flex-direction: column-reverse;
+      gap: ${p => p.theme.spacing.sm};
+      button {
+        width: 100%;
+      }
+    }
   }
 `;
 
@@ -41,9 +50,12 @@ const MakeAppointmentContainer: React.FC<Props> = observer(() => {
   const [phase, setPhase] = useState(1);
 
   const [specialistRole, setSpecialistRole] = useState<Role>();
+  const [appointment, setAppointment] = useState<Appointment>();
 
-  const okPhase1 = !!specialistRole;
-  const continueDisabled = !okPhase1;
+  const okPhase1 = phase >= 1 && !!specialistRole;
+  const okPhase2 = phase >= 2 && !!appointment;
+  const continueDisabled =
+    (phase === 1 && !okPhase1) || (phase === 2 && !okPhase2);
 
   const {
     appointments: {
@@ -77,6 +89,8 @@ const MakeAppointmentContainer: React.FC<Props> = observer(() => {
       component: (
         <MakeAppointmentPhase2
           appointments={appointmentsByRole(specialistRole?.id)}
+          setAppointment={setAppointment}
+          selectedAppointment={appointment}
         />
       ),
     },
