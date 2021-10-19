@@ -4,6 +4,7 @@ import { Icon } from 'semantic-ui-react';
 import styled from 'styled-components';
 import { Button } from '../inputs';
 import Modal from '../Modal';
+import MakeAppointmentContainer from './MakeAppointmentContainer';
 
 const TriggerButtonContainer = styled.div`
   margin-top: ${p => p.theme.spacing.xl};
@@ -39,7 +40,7 @@ const MakeAppointmentModal: React.FC = () => {
         closeOnDimmerClick={false}
         closeButtonText={t('action.cancel')}
       >
-        TODO: Content
+        <MakeAppointmentContainer />
       </Modal>
     </>
   );

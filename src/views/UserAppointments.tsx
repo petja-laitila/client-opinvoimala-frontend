@@ -19,26 +19,26 @@ export const UserAppointments: React.FC<Props> = observer(() => {
 
   const {
     appointments: {
-      state,
+      userAppointmentsState,
       appointmentState,
       upcomingAppointments,
       pastAppointments,
-      fetchAppointments,
+      fetchUserAppointments,
       cancelAppointment,
     },
   } = useStore();
 
-  const isLoading = state === 'FETCHING';
+  const isLoading = userAppointmentsState === 'FETCHING';
   const showLoader = !['IDLE', 'ERROR'].includes(appointmentState);
 
   const noAppointments =
     !upcomingAppointments.length && !pastAppointments.length;
 
   useEffect(() => {
-    if (state === 'NOT_FETCHED') {
-      fetchAppointments();
+    if (userAppointmentsState === 'NOT_FETCHED') {
+      fetchUserAppointments();
     }
-  }, [fetchAppointments, state]);
+  }, [fetchUserAppointments, userAppointmentsState]);
 
   const clearMessages = () => {
     setErrorMsgs([]);

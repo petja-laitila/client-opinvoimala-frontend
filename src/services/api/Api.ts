@@ -128,11 +128,22 @@ export class Api extends BaseApi {
   }
 
   /**
-   * Fetch data for the front page
+   * Fetch appointments
    */
   async getAppointments(
     params: API.GetAppointments = {}
   ): Promise<Response<API.RES.GetAppointments>> {
+    const url = `appointments`;
+    const response = await this.api.get(url, params, this.auth());
+    return this.handleResponse(response);
+  }
+
+  /**
+   * Fetch user's own appointments
+   */
+  async getUserAppointments(
+    params: API.GetUserAppointments = {}
+  ): Promise<Response<API.RES.GetUserAppointments>> {
     const url = `users/me/appointments`;
     const response = await this.api.get(url, params, this.auth());
     return this.handleResponse(response);
