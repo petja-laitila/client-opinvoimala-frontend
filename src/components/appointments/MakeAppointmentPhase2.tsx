@@ -1,9 +1,9 @@
 import React, { Dispatch, SetStateAction, useState } from 'react';
-import DatePicker from 'react-datepicker';
 import { useTranslation } from 'react-i18next';
 import styled from 'styled-components';
 import { Appointment } from '../../store/AppointmentsStore';
 import { formatDateTime, isSameDay, today } from '../../utils/date';
+import DatePicker from '../inputs/DatePicker';
 import OptionToggleButton from '../inputs/OptionToggleButton';
 
 const Container = styled.div`
@@ -16,58 +16,6 @@ const Container = styled.div`
 
   @media ${p => p.theme.breakpoint.mobile} {
     flex-direction: column;
-  }
-`;
-
-const DatePickerContainer = styled.div`
-  .react-datepicker {
-    border: none;
-    &__header {
-      background-color: transparent;
-      border-bottom: none;
-    }
-    &__current-month {
-      font-size: 14px;
-      padding-bottom: ${p => p.theme.spacing.md};
-    }
-
-    &__header,
-    &__day-name {
-      text-transform: capitalize;
-    }
-
-    &__day,
-    &__day-name {
-      width: 36px;
-      height: 36px;
-      line-height: 36px;
-    }
-
-    &__day-name {
-      width: 36px;
-      height: 24px;
-      line-height: 36px;
-      font-size: 12px;
-      color: ${p => p.theme.color.secondary};
-    }
-
-    &__day {
-      width: 36px;
-      height: 36px;
-      line-height: 36px;
-      font-size: 16px;
-      border-radius: 20px;
-      color: ${p => p.theme.color.foreground};
-
-      &--highlighted {
-        background-color: ${p => p.theme.color.grey3};
-      }
-      &--selected {
-        background-color: ${p => p.theme.color.primary};
-        color: ${p => p.theme.color.background};
-        font-weight: normal;
-      }
-    }
   }
 `;
 
@@ -169,15 +117,13 @@ const MakeAppointmentPhase2: React.FC<Props> = ({
 
   return (
     <Container>
-      <DatePickerContainer>
-        <DatePicker
-          selected={selectedDate}
-          onChange={handleDateChange}
-          dayClassName={getDayClass}
-          highlightDates={getAllDates(appointments)}
-          inline
-        />
-      </DatePickerContainer>
+      <DatePicker
+        selected={selectedDate}
+        onChange={handleDateChange}
+        dayClassName={getDayClass}
+        highlightDates={getAllDates(appointments)}
+        inline
+      />
 
       <TimePickerContainer>
         {!!appointmentsByDate.length && (
