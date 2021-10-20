@@ -9,6 +9,7 @@ import {
 } from 'mobx-state-tree';
 import api from '../services/api/Api';
 import { isFutureDate, isPastDate } from '../utils/date';
+import { byStartTime } from '../utils/sort';
 
 const States = [
   'NOT_FETCHED' as const,
@@ -25,8 +26,10 @@ const AppointmentStates = [
 ];
 
 const SpecialistModel = types.model({
+  id: types.number,
   name: types.string,
   role: types.maybeNull(types.string),
+  roleId: types.maybeNull(types.number),
 });
 export interface Specialist extends SnapshotOut<typeof SpecialistModel> {}
 
@@ -44,46 +47,89 @@ export interface AppointmentIn extends SnapshotIn<typeof AppointmentModel> {}
 
 export const AppointmentsStore = types
   .model({
-    state: types.enumeration('State', States),
-    data: types.maybe(types.array(AppointmentModel)),
-
+    appointmentsState: types.enumeration('State', States),
     appointmentState: types.enumeration('State', AppointmentStates),
+    appointments: types.optional(types.array(AppointmentModel), []),
+
+    userAppointmentsState: types.enumeration('State', States),
+    userAppointments: types.optional(types.array(AppointmentModel), []),
   })
   .views(self => ({
-    get appointments() {
-      if (!self.data) return [];
-      const appointments = getSnapshot(self.data) ?? [];
+    get allAppointments() {
+      const appointments = getSnapshot(self.appointments);
+      return [...appointments].sort(byStartTime);
+    },
 
-      const byStartTime = (a: Appointment, b: Appointment) =>
-        a.startTime.localeCompare(b.startTime);
-
+    get allUserAppointments() {
+      const appointments = getSnapshot(self.userAppointments);
       return [...appointments].sort(byStartTime);
     },
 
     get upcomingAppointments() {
-      return this.appointments.filter(({ endTime }) => isFutureDate(endTime));
+      return this.allUserAppointments.filter(({ endTime }) =>
+        isFutureDate(endTime)
+      );
     },
 
     get pastAppointments() {
-      return this.appointments
+      return this.allUserAppointments
         .filter(({ endTime }) => isPastDate(endTime))
         .reverse();
+    },
+
+    get roles() {
+      const roles = this.allAppointments
+        .map(({ appointmentSpecialist }) => ({
+          id: appointmentSpecialist?.roleId ?? -1,
+          role: appointmentSpecialist?.role ?? '',
+        }))
+        .filter(({ id, role }) => !!id && role?.length)
+        .sort((a, b) => a.role.localeCompare(b.role));
+
+      const uniqueRoles = new Map(roles.map(item => [item.id, item])).values();
+      return Array.from(uniqueRoles);
+    },
+
+    appointmentsByRole(roleId?: number) {
+      if (!roleId) return [];
+      const appointments = getSnapshot(self.appointments);
+
+      const roleMatch = ({ appointmentSpecialist }: Appointment) =>
+        appointmentSpecialist?.roleId === roleId;
+
+      return appointments.filter(roleMatch).sort(byStartTime);
     },
   }))
   .actions(self => {
     const fetchAppointments = flow(function* (
       params: API.GetAppointments = {}
     ) {
-      self.state = 'FETCHING';
+      self.appointmentsState = 'FETCHING';
 
       const response: API.GeneralResponse<API.RES.GetAppointments> =
         yield api.getAppointments(params);
 
       if (response.kind === 'ok') {
-        self.data = cast(response.data);
-        self.state = 'FETCHED';
+        self.appointments = cast(response.data);
+        self.appointmentsState = 'FETCHED';
       } else {
-        self.state = 'ERROR';
+        self.appointmentsState = 'ERROR';
+      }
+    });
+
+    const fetchUserAppointments = flow(function* (
+      params: API.GetUserAppointments = {}
+    ) {
+      self.userAppointmentsState = 'FETCHING';
+
+      const response: API.GeneralResponse<API.RES.GetUserAppointments> =
+        yield api.getUserAppointments(params);
+
+      if (response.kind === 'ok') {
+        self.userAppointments = cast(response.data);
+        self.userAppointmentsState = 'FETCHED';
+      } else {
+        self.userAppointmentsState = 'ERROR';
       }
     });
 
@@ -94,8 +140,38 @@ export const AppointmentsStore = types
         yield api.cancelAppointment(params);
 
       if (response.kind === 'ok') {
-        const data = self.data ? getSnapshot(self.data) : undefined;
-        self.data = cast(data?.filter(({ id }) => id !== params.id));
+        const data = getSnapshot(self.userAppointments);
+
+        self.userAppointments = cast(
+          data?.filter(({ id }) => id !== params.id)
+        );
+
+        self.appointmentState = 'IDLE';
+        return { success: true };
+      } else {
+        self.appointmentState = 'ERROR';
+        return { success: false, error: response.data };
+      }
+    });
+
+    const makeAppointment = flow(function* (params: API.MakeAppointment) {
+      self.appointmentState = 'BOOKING';
+
+      const response: API.GeneralResponse<API.RES.MakeAppointment> =
+        yield api.makeAppointment(params);
+
+      if (response.kind === 'ok') {
+        // Update user appointments
+        self.userAppointments = cast([
+          ...self.userAppointments,
+          response.data.data,
+        ]);
+
+        // Remove appointment from available appointments
+        self.appointments = cast(
+          self.appointments.filter(({ id }) => id !== params.id)
+        );
+
         self.appointmentState = 'IDLE';
         return { success: true };
       } else {
@@ -106,7 +182,9 @@ export const AppointmentsStore = types
 
     return {
       fetchAppointments,
+      fetchUserAppointments,
       cancelAppointment,
+      makeAppointment,
     };
   });
 

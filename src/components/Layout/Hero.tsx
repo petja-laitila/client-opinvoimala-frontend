@@ -12,7 +12,6 @@ const Container = styled.div`
   .hero {
     &__main-column {
       flex: 1;
-      z-index: 1;
       h1 {
         line-height: 77px;
       }
@@ -61,7 +60,7 @@ const Container = styled.div`
 
 export interface HeroProps {
   title?: string | null;
-  lead?: string | null;
+  lead?: string | JSX.Element | null;
   image?: Image | null;
   align?: string;
 }

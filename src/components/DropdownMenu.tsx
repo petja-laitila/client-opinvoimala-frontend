@@ -44,7 +44,7 @@ const StyledDropdownMenu = styled.div<{
       background-color: ${p => p.theme.color.background};
       ${p => p.theme.shadows[0]};
       border-radius: ${p => p.theme.borderRadius.sm};
-      z-index: 99;
+      z-index: 9;
       width: 230px;
 
       transition: all 0.4s ease-in-out;

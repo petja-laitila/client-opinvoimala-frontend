@@ -15,6 +15,13 @@ export const GlobalStyle = createGlobalStyle`
     background-color: rgba(206, 229, 216, .85) !important;
   }
 
+  .loader {
+    :after {
+      border-color: ${p =>
+        p.theme.color.secondary} transparent transparent !important;
+      }
+  }
+
   *:focus {
     outline-color: ${p => p.theme.color.accent};
   }

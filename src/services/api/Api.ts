@@ -128,11 +128,22 @@ export class Api extends BaseApi {
   }
 
   /**
-   * Fetch data for the front page
+   * Fetch appointments
    */
   async getAppointments(
     params: API.GetAppointments = {}
   ): Promise<Response<API.RES.GetAppointments>> {
+    const url = `appointments`;
+    const response = await this.api.get(url, params, this.auth());
+    return this.handleResponse(response);
+  }
+
+  /**
+   * Fetch user's own appointments
+   */
+  async getUserAppointments(
+    params: API.GetUserAppointments = {}
+  ): Promise<Response<API.RES.GetUserAppointments>> {
     const url = `users/me/appointments`;
     const response = await this.api.get(url, params, this.auth());
     return this.handleResponse(response);
@@ -146,6 +157,18 @@ export class Api extends BaseApi {
     ...params
   }: API.CancelAppointment): Promise<Response<API.RES.CancelAppointment>> {
     const url = `appointments/${id}/cancel`;
+    const response = await this.api.post(url, params, this.auth());
+    return this.handleResponse(response);
+  }
+
+  /**
+   * Make appointment
+   */
+  async makeAppointment({
+    id,
+    ...params
+  }: API.MakeAppointment): Promise<Response<API.RES.MakeAppointment>> {
+    const url = `appointments/${id}/make`;
     const response = await this.api.post(url, params, this.auth());
     return this.handleResponse(response);
   }

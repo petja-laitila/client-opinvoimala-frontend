@@ -48,7 +48,7 @@ const NavBar: React.FC = observer(() => {
           />
         )}
       >
-        <ul>
+        <ul className="drawer__link-list">
           {navItems.map(({ id, label, links }) => (
             <li key={id}>
               <AccordionMenu

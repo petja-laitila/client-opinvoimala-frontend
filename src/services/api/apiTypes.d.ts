@@ -64,7 +64,19 @@ declare namespace API {
   type GetContentPage = {
     id: number;
   };
-  type GetAppointments = {};
+  type GetAppointments = {
+    status?: 'available' | 'booked' | 'cancelled' | 'hidden';
+    start_time_gte?: string;
+    start_time_lte?: string;
+    end_time_gte?: string;
+    end_time_lte?: string;
+  };
+  type GetUserAppointments = {};
+  type MakeAppointment = {
+    id: number;
+    name: string;
+    email: string;
+  };
   type CancelAppointment = {
     id: number;
   };
@@ -90,6 +102,11 @@ declare namespace API {
     type GetContentPage = import('../../store/ContentPageStore').Page;
     type GetAppointments =
       import('../../store/AppointmentsStore').Appointment[];
+    type GetUserAppointments =
+      import('../../store/AppointmentsStore').Appointment[];
     type CancelAppointment = { ok: boolean };
+    type MakeAppointment = {
+      data: import('../../store/AppointmentsStore').Appointment;
+    };
   }
 }

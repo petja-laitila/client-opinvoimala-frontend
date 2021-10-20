@@ -1,43 +1,45 @@
 import { observer } from 'mobx-react-lite';
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Loader, Transition } from 'semantic-ui-react';
+import { Transition } from 'semantic-ui-react';
+import MakeAppointmentDrawer from '../components/appointments/MakeAppointmentDrawer';
+import MakeAppointmentModal from '../components/appointments/MakeAppointmentModal';
 import AppointmentsList from '../components/AppointmentsList';
 import Layout from '../components/Layout';
 import Message from '../components/Message';
 import { useStore } from '../store/storeContext';
 import { getApiErrorMessages } from '../utils/api';
+import useWindowDimensions from '../utils/hooks';
 
 interface Props {}
 
 export const UserAppointments: React.FC<Props> = observer(() => {
   const { t } = useTranslation();
+  const { isTablet } = useWindowDimensions();
 
   const [errorMsgs, setErrorMsgs] = useState<string[]>([]);
   const [successMsg, setSuccessMsg] = useState<string>();
 
   const {
     appointments: {
-      state,
-      appointmentState,
+      userAppointmentsState,
       upcomingAppointments,
       pastAppointments,
-      fetchAppointments,
+      fetchUserAppointments,
       cancelAppointment,
     },
   } = useStore();
 
-  const isLoading = state === 'FETCHING';
-  const showLoader = !['IDLE', 'ERROR'].includes(appointmentState);
+  const isLoading = userAppointmentsState === 'FETCHING';
 
   const noAppointments =
     !upcomingAppointments.length && !pastAppointments.length;
 
   useEffect(() => {
-    if (state === 'NOT_FETCHED') {
-      fetchAppointments();
+    if (userAppointmentsState === 'NOT_FETCHED') {
+      fetchUserAppointments();
     }
-  }, [fetchAppointments, state]);
+  }, [fetchUserAppointments, userAppointmentsState]);
 
   const clearMessages = () => {
     setErrorMsgs([]);
@@ -60,12 +62,11 @@ export const UserAppointments: React.FC<Props> = observer(() => {
 
   const hero = {
     title: t('route.appointments'),
+    lead: isTablet ? <MakeAppointmentDrawer /> : <MakeAppointmentModal />,
   };
 
   return (
     <Layout hero={hero} isLoading={isLoading}>
-      <Loader active={showLoader} size="massive" />
-
       {noAppointments && (
         <Message content={t('view.appointments.no_appointments')} />
       )}

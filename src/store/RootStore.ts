@@ -22,8 +22,9 @@ const RootStoreModel = types.model({
     state: 'IDLE',
   }),
   appointments: types.optional(AppointmentsStore, {
-    state: 'NOT_FETCHED',
+    appointmentsState: 'NOT_FETCHED',
     appointmentState: 'IDLE',
+    userAppointmentsState: 'NOT_FETCHED',
   }),
 });
 
