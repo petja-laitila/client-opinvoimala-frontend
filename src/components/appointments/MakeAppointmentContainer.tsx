@@ -6,11 +6,13 @@ import { Message, Transition } from 'semantic-ui-react';
 import { useStore } from '../../store/storeContext';
 import { today } from '../../utils/date';
 import { Button } from '../inputs';
-import MakeAppointmentPhase1 from './MakeAppointmentPhase1';
-import MakeAppointmentPhase2 from './MakeAppointmentPhase2';
-import MakeAppointmentPhase3 from './MakeAppointmentPhase3';
 import { Appointment } from '../../store/AppointmentsStore';
 import { getApiErrorMessages } from '../../utils/api';
+
+import MakeAppointmentPhase1 from './MakeAppointmentPhase1';
+import MakeAppointmentPhase2 from './MakeAppointmentPhase2';
+import MakeAppointmentPhase3Confirm from './MakeAppointmentPhase3Confirm';
+import MakeAppointmentPhase4Summary from './MakeAppointmentPhase4Summary';
 
 const Container = styled.div`
   h1 {
@@ -25,9 +27,18 @@ const Container = styled.div`
   .make-appointment__control-buttons {
     margin-top: ${p => p.theme.spacing.lg};
     display: flex;
-    justify-content: flex-end;
+    justify-content: space-between;
     align-items: center;
-    gap: ${p => p.theme.spacing.lg};
+
+    &--right,
+    &--left {
+      display: flex;
+      gap: ${p => p.theme.spacing.lg};
+    }
+
+    &--right {
+      justify-content: right;
+    }
 
     @media ${p => p.theme.breakpoint.mobile} {
       flex-direction: column-reverse;
@@ -44,9 +55,11 @@ export interface Role {
   role: string;
 }
 
-interface Props {}
+interface Props {
+  onGoBack: () => void;
+}
 
-const MakeAppointmentContainer: React.FC<Props> = observer(() => {
+const MakeAppointmentContainer: React.FC<Props> = observer(({ onGoBack }) => {
   const { t } = useTranslation();
 
   const [phase, setPhase] = useState(1);
@@ -115,7 +128,7 @@ const MakeAppointmentContainer: React.FC<Props> = observer(() => {
       title: t('view.appointments.make_new.confirm'),
       controlButtons: ['back', 'confirm'],
       component: (
-        <MakeAppointmentPhase3
+        <MakeAppointmentPhase3Confirm
           appointment={appointment}
           name={name}
           setName={setName}
@@ -123,6 +136,11 @@ const MakeAppointmentContainer: React.FC<Props> = observer(() => {
           setEmail={setEmail}
         />
       ),
+    },
+    {
+      title: t('view.appointments.make_new.summary_title'),
+      controlButtons: ['back_to_appointments'],
+      component: <MakeAppointmentPhase4Summary appointment={appointment} />,
     },
   ];
 
@@ -144,7 +162,7 @@ const MakeAppointmentContainer: React.FC<Props> = observer(() => {
     if (appointmentState !== 'BOOKING' && id) {
       const { success, error } = await makeAppointment({ id, name, email });
       if (success) {
-        // TODO: Go to next phase (summary)
+        handlePhaseChange(1)();
       } else {
         setErrorMsgs(getApiErrorMessages(error.data));
       }
@@ -154,6 +172,9 @@ const MakeAppointmentContainer: React.FC<Props> = observer(() => {
   const showBackButton = currentPhase.controlButtons.includes('back');
   const showNextButton = currentPhase.controlButtons.includes('next');
   const showConfirmButton = currentPhase.controlButtons.includes('confirm');
+  const showBackAppointmentsButton = currentPhase.controlButtons.includes(
+    'back_to_appointments'
+  );
 
   return (
     <Container>
@@ -180,33 +201,46 @@ const MakeAppointmentContainer: React.FC<Props> = observer(() => {
       </Transition.Group>
 
       <div className="make-appointment__control-buttons">
-        {showBackButton && (
-          <Button
-            aria-label="Back"
-            id="make-appointment__back-button"
-            text={t('view.appointments.make_new.action.back')}
-            onClick={handlePhaseChange(-1)}
-            color="grey3"
-            negativeText
-          />
-        )}
-        {showNextButton && (
-          <Button
-            aria-label="Continue"
-            id="make-appointment__continue-button"
-            text={t('view.appointments.make_new.action.continue')}
-            onClick={handlePhaseChange(1)}
-            disabled={continueDisabled}
-          />
-        )}
-        {showConfirmButton && (
-          <Button
-            aria-label="Confirm"
-            id="make-appointment__confirm-button"
-            text={t('view.appointments.make_new.action.confirm')}
-            onClick={handleMakeAppointment}
-          />
-        )}
+        <div className="make-appointment__control-buttons--left">
+          {showBackAppointmentsButton && (
+            <Button
+              aria-label="Back to appointments"
+              id="make-appointment__back-to-appointments-button"
+              text={t('view.appointments.make_new.action.back_to_appointments')}
+              onClick={onGoBack}
+            />
+          )}
+        </div>
+
+        <div className="make-appointment__control-buttons--right">
+          {showBackButton && (
+            <Button
+              aria-label="Back"
+              id="make-appointment__back-button"
+              text={t('view.appointments.make_new.action.back')}
+              onClick={handlePhaseChange(-1)}
+              color="grey3"
+              negativeText
+            />
+          )}
+          {showNextButton && (
+            <Button
+              aria-label="Continue"
+              id="make-appointment__continue-button"
+              text={t('view.appointments.make_new.action.continue')}
+              onClick={handlePhaseChange(1)}
+              disabled={continueDisabled}
+            />
+          )}
+          {showConfirmButton && (
+            <Button
+              aria-label="Confirm"
+              id="make-appointment__confirm-button"
+              text={t('view.appointments.make_new.action.confirm')}
+              onClick={handleMakeAppointment}
+            />
+          )}
+        </div>
       </div>
     </Container>
   );

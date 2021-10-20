@@ -63,7 +63,7 @@
           "continue": "Jatka varausta",
           "back": "Edellinen",
           "confirm": "Vahvista varaus",
-          "go_to_appointments": "Siirry varauksiin",
+          "back_to_appointments": "Siirry varauksiin",
           "go_back": "Palaa takaisin"
         }
       }

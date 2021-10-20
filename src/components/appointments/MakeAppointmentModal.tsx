@@ -40,7 +40,7 @@ const MakeAppointmentModal: React.FC = () => {
         closeOnDimmerClick={false}
         closeButtonText={t('action.cancel')}
       >
-        <MakeAppointmentContainer />
+        <MakeAppointmentContainer onGoBack={toggleModal} />
       </Modal>
     </>
   );

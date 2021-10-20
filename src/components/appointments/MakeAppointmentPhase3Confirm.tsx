@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import { Appointment } from '../../store/AppointmentsStore';
 import { formatDateTime } from '../../utils/date';
 import { Input } from '../inputs';
+import AppointmentDetails from './AppointmentDetails';
 
 const formatDates = ({ startTime, endTime }: Appointment) => {
   const start = formatDateTime(startTime);
@@ -32,7 +33,7 @@ interface Props {
   setEmail: Dispatch<SetStateAction<string>>;
 }
 
-const MakeAppointmentPhase3: React.FC<Props> = ({
+const MakeAppointmentPhase3Confirm: React.FC<Props> = ({
   appointment,
   name,
   setName,
@@ -53,19 +54,7 @@ const MakeAppointmentPhase3: React.FC<Props> = ({
 
   return (
     <Container>
-      <div className="confirm-appointment__details">
-        <div>
-          <h2>{t('label.specialist')}</h2>
-          {appointment.appointmentSpecialist?.role ?? ''}
-          <br />
-          {appointment.appointmentSpecialist?.name ?? ''}
-        </div>
-
-        <div>
-          <h2>{t('label.date')}</h2>
-          {formatDates(appointment)}
-        </div>
-      </div>
+      <AppointmentDetails appointment={appointment} direction="row" />
 
       <h2>{t('view.appointments.make_new.contact_data_title')}</h2>
       <p>{t('view.appointments.make_new.contact_data_info')}</p>
@@ -90,4 +79,4 @@ const MakeAppointmentPhase3: React.FC<Props> = ({
   );
 };
 
-export default MakeAppointmentPhase3;
+export default MakeAppointmentPhase3Confirm;
