@@ -54,6 +54,8 @@ const Container = styled.div`
   }
 `;
 
+const startingDate = () => today().plus({ days: 1 }).startOf('day');
+
 export interface Role {
   id: number;
   role: string;
@@ -71,7 +73,9 @@ const MakeAppointmentContainer: React.FC<Props> = observer(
     const [phase, setPhase] = useState(1);
 
     const [specialistRole, setSpecialistRole] = useState<Role>();
-    const [selectedDate, setSelectedDate] = useState<Date>(today().toJSDate());
+    const [selectedDate, setSelectedDate] = useState<Date>(
+      startingDate().toJSDate()
+    );
     const [appointment, setAppointment] = useState<Appointment>();
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
@@ -100,8 +104,10 @@ const MakeAppointmentContainer: React.FC<Props> = observer(
 
     // Fetch available appointments always on mount
     useEffect(() => {
-      const todayISO = today().toISO();
-      fetchAppointments({ status: 'available', start_time_gte: todayISO });
+      fetchAppointments({
+        status: 'available',
+        start_time_gte: startingDate().toISO(),
+      });
     }, [fetchAppointments]);
 
     // Show no available appointments phase if no appointments found:
