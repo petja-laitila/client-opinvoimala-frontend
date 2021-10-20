@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { observer } from 'mobx-react-lite';
 import { useTranslation } from 'react-i18next';
 import styled from 'styled-components';
-import { Message, Transition } from 'semantic-ui-react';
+import { Loader, Transition } from 'semantic-ui-react';
 import { useStore } from '../../store/storeContext';
 import { today } from '../../utils/date';
 import { Button } from '../inputs';
@@ -13,6 +13,8 @@ import MakeAppointmentPhase1 from './MakeAppointmentPhase1';
 import MakeAppointmentPhase2 from './MakeAppointmentPhase2';
 import MakeAppointmentPhase3Confirm from './MakeAppointmentPhase3Confirm';
 import MakeAppointmentPhase4Summary from './MakeAppointmentPhase4Summary';
+import MakeAppointmentsNoAppointments from './MakeAppointmentsNoAppointments';
+import Message from '../Message';
 
 const Container = styled.div`
   h1 {
@@ -41,10 +43,12 @@ const Container = styled.div`
     }
 
     @media ${p => p.theme.breakpoint.mobile} {
-      flex-direction: column-reverse;
-      gap: ${p => p.theme.spacing.sm};
-      button {
-        width: 100%;
+      flex-direction: column;
+      align-items: stretch;
+      &--right,
+      &--left {
+        flex-direction: column-reverse;
+        gap: ${p => p.theme.spacing.sm};
       }
     }
   }
@@ -79,13 +83,18 @@ const MakeAppointmentContainer: React.FC<Props> = observer(({ onGoBack }) => {
 
   const {
     appointments: {
+      allAppointments,
       appointmentsByRole,
       roles,
       fetchAppointments,
+      appointmentsState,
       appointmentState,
       makeAppointment,
     },
   } = useStore();
+
+  const isBusy =
+    appointmentState === 'BOOKING' || appointmentsState === 'FETCHING';
 
   // Fetch available appointments always on mount
   useEffect(() => {
@@ -93,60 +102,20 @@ const MakeAppointmentContainer: React.FC<Props> = observer(({ onGoBack }) => {
     fetchAppointments({ status: 'available', start_time_gte: todayISO });
   }, [fetchAppointments]);
 
+  // Show no available appointments phase if no appointments found:
+  useEffect(() => {
+    if (!allAppointments.length && appointmentsState === 'FETCHED') {
+      setPhase(5);
+    } else {
+      setPhase(1);
+    }
+  }, [allAppointments, appointmentsState]);
+
   // Clear appointment if role was changed
   useEffect(() => {
     const roleChanged = specialistRole;
     if (roleChanged) setAppointment(undefined);
   }, [specialistRole]);
-
-  const phases = [
-    {
-      title: t('view.appointments.make_new.choose_specialist'),
-      controlButtons: ['next'],
-      component: (
-        <MakeAppointmentPhase1
-          roles={roles}
-          setRole={setSpecialistRole}
-          selectedRole={specialistRole}
-        />
-      ),
-    },
-    {
-      title: t('view.appointments.make_new.choose_appointment'),
-      controlButtons: ['back', 'next'],
-      component: (
-        <MakeAppointmentPhase2
-          appointments={appointmentsByRole(specialistRole?.id)}
-          setAppointment={setAppointment}
-          selectedAppointment={appointment}
-          selectedDate={selectedDate}
-          setSelectedDate={setSelectedDate}
-        />
-      ),
-    },
-    {
-      title: t('view.appointments.make_new.confirm'),
-      controlButtons: ['back', 'confirm'],
-      component: (
-        <MakeAppointmentPhase3Confirm
-          appointment={appointment}
-          name={name}
-          setName={setName}
-          email={email}
-          setEmail={setEmail}
-        />
-      ),
-    },
-    {
-      title: t('view.appointments.make_new.summary_title'),
-      controlButtons: ['back_to_appointments'],
-      component: <MakeAppointmentPhase4Summary appointment={appointment} />,
-    },
-  ];
-
-  const currentPhase = phases[phase - 1];
-
-  const progressText = `${phase}/${phases.length}`;
 
   const handlePhaseChange = (step: number) => () => {
     setErrorMsgs([]);
@@ -169,6 +138,66 @@ const MakeAppointmentContainer: React.FC<Props> = observer(({ onGoBack }) => {
     }
   };
 
+  const phases = [
+    {
+      title: t('view.appointments.make_new.choose_specialist'),
+      controlButtons: ['next'],
+      trackProgress: true,
+      component: (
+        <MakeAppointmentPhase1
+          roles={roles}
+          setRole={setSpecialistRole}
+          selectedRole={specialistRole}
+        />
+      ),
+    },
+    {
+      title: t('view.appointments.make_new.choose_appointment'),
+      controlButtons: ['back', 'next'],
+      trackProgress: true,
+      component: (
+        <MakeAppointmentPhase2
+          appointments={appointmentsByRole(specialistRole?.id)}
+          setAppointment={setAppointment}
+          selectedAppointment={appointment}
+          selectedDate={selectedDate}
+          setSelectedDate={setSelectedDate}
+        />
+      ),
+    },
+    {
+      title: t('view.appointments.make_new.confirm'),
+      controlButtons: ['back', 'confirm'],
+      trackProgress: true,
+      component: (
+        <MakeAppointmentPhase3Confirm
+          appointment={appointment}
+          name={name}
+          setName={setName}
+          email={email}
+          setEmail={setEmail}
+        />
+      ),
+    },
+    {
+      title: t('view.appointments.make_new.summary_title'),
+      controlButtons: ['back_to_appointments'],
+      trackProgress: false,
+      component: <MakeAppointmentPhase4Summary appointment={appointment} />,
+    },
+    {
+      title: t('view.appointments.make_new.no_available_appointments'),
+      controlButtons: ['back_to_appointments'],
+      trackProgress: false,
+      component: <MakeAppointmentsNoAppointments />,
+    },
+  ];
+
+  const currentPhase = phases[phase - 1];
+
+  const trackablePhases = phases.filter(({ trackProgress }) => trackProgress);
+  const progressText = `${phase}/${trackablePhases.length}`;
+
   const showBackButton = currentPhase.controlButtons.includes('back');
   const showNextButton = currentPhase.controlButtons.includes('next');
   const showConfirmButton = currentPhase.controlButtons.includes('confirm');
@@ -178,11 +207,15 @@ const MakeAppointmentContainer: React.FC<Props> = observer(({ onGoBack }) => {
 
   return (
     <Container>
+      <Loader disabled={!isBusy} active size="large" />
+
       <h1>
         {currentPhase.title}
-        <span className="make-appointment__title--current-phase">
-          {progressText}
-        </span>
+        {currentPhase.trackProgress && (
+          <span className="make-appointment__title--current-phase">
+            {progressText}
+          </span>
+        )}
       </h1>
 
       <div>{currentPhase.component}</div>

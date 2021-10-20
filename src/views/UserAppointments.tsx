@@ -1,7 +1,7 @@
 import { observer } from 'mobx-react-lite';
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Loader, Transition } from 'semantic-ui-react';
+import { Transition } from 'semantic-ui-react';
 import MakeAppointmentModal from '../components/appointments/MakeAppointmentModal';
 import AppointmentsList from '../components/AppointmentsList';
 import Layout from '../components/Layout';
@@ -20,7 +20,6 @@ export const UserAppointments: React.FC<Props> = observer(() => {
   const {
     appointments: {
       userAppointmentsState,
-      appointmentState,
       upcomingAppointments,
       pastAppointments,
       fetchUserAppointments,
@@ -29,7 +28,6 @@ export const UserAppointments: React.FC<Props> = observer(() => {
   } = useStore();
 
   const isLoading = userAppointmentsState === 'FETCHING';
-  const showLoader = !['IDLE', 'ERROR'].includes(appointmentState);
 
   const noAppointments =
     !upcomingAppointments.length && !pastAppointments.length;
@@ -66,8 +64,6 @@ export const UserAppointments: React.FC<Props> = observer(() => {
 
   return (
     <Layout hero={hero} isLoading={isLoading}>
-      <Loader active={showLoader} size="massive" />
-
       {noAppointments && (
         <Message content={t('view.appointments.no_appointments')} />
       )}

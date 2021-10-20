@@ -1,3 +1,4 @@
+import { observer } from 'mobx-react-lite';
 import React, { Dispatch, SetStateAction, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import styled from 'styled-components';
@@ -77,96 +78,98 @@ interface Props {
   setSelectedDate: Dispatch<SetStateAction<Date>>;
 }
 
-const MakeAppointmentPhase2: React.FC<Props> = ({
-  appointments,
-  setAppointment,
-  selectedAppointment,
-  selectedDate,
-  setSelectedDate,
-}) => {
-  const { t } = useTranslation();
+const MakeAppointmentPhase2: React.FC<Props> = observer(
+  ({
+    appointments,
+    setAppointment,
+    selectedAppointment,
+    selectedDate,
+    setSelectedDate,
+  }) => {
+    const { t } = useTranslation();
 
-  const bySelectedDate = ({ startTime }: Appointment) => {
-    return isSameDay(startTime, selectedDate.toISOString());
-  };
+    const bySelectedDate = ({ startTime }: Appointment) => {
+      return isSameDay(startTime, selectedDate.toISOString());
+    };
 
-  const handleDateChange = (
-    newDate: Date | [Date | null, Date | null] | null
-  ) => {
-    if (newDate && !Array.isArray(newDate)) {
-      setSelectedDate(newDate);
-    }
-  };
+    const handleDateChange = (
+      newDate: Date | [Date | null, Date | null] | null
+    ) => {
+      if (newDate && !Array.isArray(newDate)) {
+        setSelectedDate(newDate);
+      }
+    };
 
-  const handleAppointmentClick = (appointment: Appointment) => () => {
-    if (appointment.id === selectedAppointment?.id) {
-      setAppointment(undefined);
-    } else {
-      setAppointment(appointment);
-    }
-  };
+    const handleAppointmentClick = (appointment: Appointment) => () => {
+      if (appointment.id === selectedAppointment?.id) {
+        setAppointment(undefined);
+      } else {
+        setAppointment(appointment);
+      }
+    };
 
-  const isSelected = (appointment: Appointment) => {
-    return appointment.id === selectedAppointment?.id;
-  };
+    const isSelected = (appointment: Appointment) => {
+      return appointment.id === selectedAppointment?.id;
+    };
 
-  const getDayClass = (date: Date) => {
-    let className = 'react-datepicker__day';
-    if (selectedDate === date) {
-      className += '--selected';
-    }
-    return className;
-  };
+    const getDayClass = (date: Date) => {
+      let className = 'react-datepicker__day';
+      if (selectedDate === date) {
+        className += '--selected';
+      }
+      return className;
+    };
 
-  const renderAppointmentContent = (appointment: Appointment) => (
-    <div className="appointment-time">
-      <div aria-label="Appointment time" className="appointment-time__time">
-        {formatTime(appointment)}
+    const renderAppointmentContent = (appointment: Appointment) => (
+      <div className="appointment-time">
+        <div aria-label="Appointment time" className="appointment-time__time">
+          {formatTime(appointment)}
+        </div>
+        <div aria-label="Appointment specialist">
+          {appointment.appointmentSpecialist?.name ?? ''}
+        </div>
       </div>
-      <div aria-label="Appointment specialist">
-        {appointment.appointmentSpecialist?.name ?? ''}
-      </div>
-    </div>
-  );
+    );
 
-  const appointmentsByDate = appointments.filter(bySelectedDate);
+    const appointmentsByDate = appointments.filter(bySelectedDate);
 
-  return (
-    <Container>
-      <DatePicker
-        selected={selectedDate}
-        onChange={handleDateChange}
-        dayClassName={getDayClass}
-        highlightDates={getAllDates(appointments)}
-        inline
-      />
+    return (
+      <Container>
+        <DatePicker
+          selected={selectedDate}
+          onChange={handleDateChange}
+          dayClassName={getDayClass}
+          highlightDates={getAllDates(appointments)}
+          inline
+        />
 
-      <TimePickerContainer>
-        {!!appointmentsByDate.length && (
-          <ul>
-            {appointmentsByDate.map((appointment, i) => (
-              <li key={appointment.id}>
-                <OptionToggleButton
-                  aria-label="Appointment option"
-                  isSelected={isSelected(appointment)}
-                  autoFocus={i === 0}
-                  size="sm"
-                  onClick={handleAppointmentClick(appointment)}
-                >
-                  {renderAppointmentContent(appointment)}
-                </OptionToggleButton>
-              </li>
-            ))}
-          </ul>
-        )}
-        {!appointmentsByDate.length && (
-          <div className="appointment-times__no-appointments">
-            {t('view.appointments.make_new.no_available_appointments')}
-          </div>
-        )}
-      </TimePickerContainer>
-    </Container>
-  );
-};
+        <TimePickerContainer>
+          {!!appointmentsByDate.length && (
+            <ul>
+              {appointmentsByDate.map((appointment, i) => (
+                <li key={appointment.id}>
+                  <OptionToggleButton
+                    aria-label="Appointment option"
+                    isSelected={isSelected(appointment)}
+                    autoFocus={i === 0}
+                    size="sm"
+                    onClick={handleAppointmentClick(appointment)}
+                  >
+                    {renderAppointmentContent(appointment)}
+                  </OptionToggleButton>
+                </li>
+              ))}
+            </ul>
+          )}
+          {!appointmentsByDate.length && (
+            <div className="appointment-times__no-appointments">
+              {t('view.appointments.make_new.no_available_appointments')}
+            </div>
+          )}
+        </TimePickerContainer>
+      </Container>
+    );
+  }
+);
 
 export default MakeAppointmentPhase2;
