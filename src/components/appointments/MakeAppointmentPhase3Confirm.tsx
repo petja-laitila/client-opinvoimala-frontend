@@ -12,11 +12,6 @@ const Container = styled.div`
     ${p => p.theme.font.h5};
     margin-bottom: 0;
   }
-  .confirm-appointment__details {
-    display: flex;
-    gap: ${p => p.theme.spacing.xl};
-    margin-bottom: ${p => p.theme.spacing.xl};
-  }
 `;
 
 interface Props {

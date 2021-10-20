@@ -12,7 +12,6 @@ const Container = styled.div`
   .hero {
     &__main-column {
       flex: 1;
-      z-index: 1;
       h1 {
         line-height: 77px;
       }

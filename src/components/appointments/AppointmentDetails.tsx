@@ -19,6 +19,11 @@ const Container = styled.div<{ direction: Direction }>`
     ${p => p.theme.font.h5};
     margin-bottom: 0;
   }
+
+  @media ${p => p.theme.breakpoint.mobile} {
+    flex-direction: column;
+    gap: ${p => p.theme.spacing.md};
+  }
 `;
 
 const formatDates = ({ startTime, endTime }: Appointment) => {

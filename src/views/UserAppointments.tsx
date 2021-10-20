@@ -2,17 +2,20 @@ import { observer } from 'mobx-react-lite';
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Transition } from 'semantic-ui-react';
+import MakeAppointmentDrawer from '../components/appointments/MakeAppointmentDrawer';
 import MakeAppointmentModal from '../components/appointments/MakeAppointmentModal';
 import AppointmentsList from '../components/AppointmentsList';
 import Layout from '../components/Layout';
 import Message from '../components/Message';
 import { useStore } from '../store/storeContext';
 import { getApiErrorMessages } from '../utils/api';
+import useWindowDimensions from '../utils/hooks';
 
 interface Props {}
 
 export const UserAppointments: React.FC<Props> = observer(() => {
   const { t } = useTranslation();
+  const { isTablet } = useWindowDimensions();
 
   const [errorMsgs, setErrorMsgs] = useState<string[]>([]);
   const [successMsg, setSuccessMsg] = useState<string>();
@@ -59,7 +62,7 @@ export const UserAppointments: React.FC<Props> = observer(() => {
 
   const hero = {
     title: t('route.appointments'),
-    lead: <MakeAppointmentModal />,
+    lead: isTablet ? <MakeAppointmentDrawer /> : <MakeAppointmentModal />,
   };
 
   return (

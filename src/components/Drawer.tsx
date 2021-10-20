@@ -1,12 +1,12 @@
-import React, { useEffect, useState } from 'react';
+import React, { createRef, RefObject, useEffect, useState } from 'react';
 import { useHistory } from 'react-router';
 import styled from 'styled-components';
 import { useOutsideClickAction } from '../utils/hooks';
 import Icon from './Icon';
 import Button from './inputs/Button';
 
-const DrawerContainer = styled.aside<{ isOpen: boolean }>`
-  z-index: 99;
+const DrawerContainer = styled.aside<{ isOpen: boolean; fullWidth?: boolean }>`
+  z-index: 9;
   position: fixed;
   top: 0;
   padding: ${p => p.theme.spacing.lg};
@@ -24,7 +24,7 @@ const DrawerContainer = styled.aside<{ isOpen: boolean }>`
     right: ${p => (p.isOpen ? 0 : -80)}vw;
   }
   @media ${p => p.theme.breakpoint.mobile} {
-    width: 80vw;
+    width: ${p => (p.fullWidth ? 100 : 80)}vw;
     right: ${p => (p.isOpen ? 0 : -100)}vw;
   }
 
@@ -38,7 +38,7 @@ const DrawerContainer = styled.aside<{ isOpen: boolean }>`
   }
 
   .drawer__main-content {
-    ul {
+    ul.drawer__link-list {
       list-style-type: none;
       padding: 0;
       li {
@@ -70,13 +70,23 @@ const DrawerContainer = styled.aside<{ isOpen: boolean }>`
   }
 `;
 type OnClick = (event: React.MouseEvent<HTMLElement, MouseEvent>) => void;
+type RefType = RefObject<HTMLDivElement>;
 
 interface Props {
+  // If drawer's content needs access to the drawer ref and close method,
+  // use the following content prop, otherwise set content as a children.
+  content?: (ref: RefType, onClose: () => void) => JSX.Element;
   triggerEl: (isOpen: boolean, onClick: OnClick) => JSX.Element;
+  fullWidth?: boolean;
 }
 
-const Drawer: React.FC<Props> = ({ triggerEl, children }) => {
-  const ref: React.RefObject<HTMLDivElement> = React.createRef();
+const Drawer: React.FC<Props> = ({
+  content,
+  triggerEl,
+  fullWidth,
+  children,
+}) => {
+  const ref: RefType = createRef();
   const history = useHistory();
 
   const [isOpen, setIsOpen] = useState(false);
@@ -103,7 +113,7 @@ const Drawer: React.FC<Props> = ({ triggerEl, children }) => {
   return (
     <div>
       <div>{triggerEl(isOpen, toggleDrawer)}</div>
-      <DrawerContainer ref={ref} isOpen={isOpen}>
+      <DrawerContainer ref={ref} isOpen={isOpen} fullWidth={fullWidth}>
         {isOpen && (
           <section aria-label="aside content" aria-hidden={!isOpen}>
             <header className="drawer__header">
@@ -118,7 +128,9 @@ const Drawer: React.FC<Props> = ({ triggerEl, children }) => {
                 />
               </div>
             </header>
-            <main className="drawer__main-content">{children}</main>
+            <main className="drawer__main-content">
+              {content ? content(ref, toggleDrawer) : children}
+            </main>
           </section>
         )}
       </DrawerContainer>

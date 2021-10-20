@@ -11,7 +11,6 @@ const Container = styled.article`
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  z-index: 1;
   ${p => p.theme.shadows[0]};
 
   main {
