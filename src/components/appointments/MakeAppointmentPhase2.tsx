@@ -63,9 +63,9 @@ const getAllDates = (appointments: Appointment[]) => {
 };
 
 const formatTime = ({ startTime, endTime }: Appointment) => {
-  const start = formatDateTime(startTime, { format: 'HH:mm' });
-  const end = formatDateTime(endTime, { format: 'HH:mm' });
-  return `${start}-${end}`;
+  const start = formatDateTime(startTime, { format: 'T' });
+  const end = formatDateTime(endTime, { format: 'T' });
+  return `${start}\u2013${end}`;
 };
 
 interface Props {
@@ -73,16 +73,18 @@ interface Props {
   defaultDate?: Date;
   setAppointment: Dispatch<SetStateAction<Appointment | undefined>>;
   selectedAppointment?: Appointment;
+  selectedDate: Date;
+  setSelectedDate: Dispatch<SetStateAction<Date>>;
 }
 
 const MakeAppointmentPhase2: React.FC<Props> = ({
   appointments,
-  defaultDate = today().toJSDate(),
   setAppointment,
   selectedAppointment,
+  selectedDate,
+  setSelectedDate,
 }) => {
   const { t } = useTranslation();
-  const [selectedDate, setSelectedDate] = useState(defaultDate);
 
   const bySelectedDate = ({ startTime }: Appointment) => {
     return isSameDay(startTime, selectedDate.toISOString());

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { observer } from 'mobx-react-lite';
 import { useTranslation } from 'react-i18next';
 import styled from 'styled-components';
+import { Message, Transition } from 'semantic-ui-react';
 import { useStore } from '../../store/storeContext';
 import { today } from '../../utils/date';
 import { Button } from '../inputs';
@@ -9,6 +10,7 @@ import MakeAppointmentPhase1 from './MakeAppointmentPhase1';
 import MakeAppointmentPhase2 from './MakeAppointmentPhase2';
 import MakeAppointmentPhase3 from './MakeAppointmentPhase3';
 import { Appointment } from '../../store/AppointmentsStore';
+import { getApiErrorMessages } from '../../utils/api';
 
 const Container = styled.div`
   h1 {
@@ -50,7 +52,12 @@ const MakeAppointmentContainer: React.FC<Props> = observer(() => {
   const [phase, setPhase] = useState(1);
 
   const [specialistRole, setSpecialistRole] = useState<Role>();
+  const [selectedDate, setSelectedDate] = useState<Date>(today().toJSDate());
   const [appointment, setAppointment] = useState<Appointment>();
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+
+  const [errorMsgs, setErrorMsgs] = useState<string[]>([]);
 
   const okPhase1 = phase >= 1 && !!specialistRole;
   const okPhase2 = phase >= 2 && !!appointment;
@@ -62,16 +69,16 @@ const MakeAppointmentContainer: React.FC<Props> = observer(() => {
       appointmentsByRole,
       roles,
       fetchAppointments,
-      appointmentsState,
+      appointmentState,
+      makeAppointment,
     },
   } = useStore();
 
+  // Fetch available appointments always on mount
   useEffect(() => {
-    if (appointmentsState === 'NOT_FETCHED') {
-      const todayISO = today().toISO();
-      fetchAppointments({ status: 'available', start_time_gte: todayISO });
-    }
-  }, [appointmentsState, fetchAppointments]);
+    const todayISO = today().toISO();
+    fetchAppointments({ status: 'available', start_time_gte: todayISO });
+  }, [fetchAppointments]);
 
   // Clear appointment if role was changed
   useEffect(() => {
@@ -82,6 +89,7 @@ const MakeAppointmentContainer: React.FC<Props> = observer(() => {
   const phases = [
     {
       title: t('view.appointments.make_new.choose_specialist'),
+      controlButtons: ['next'],
       component: (
         <MakeAppointmentPhase1
           roles={roles}
@@ -92,17 +100,29 @@ const MakeAppointmentContainer: React.FC<Props> = observer(() => {
     },
     {
       title: t('view.appointments.make_new.choose_appointment'),
+      controlButtons: ['back', 'next'],
       component: (
         <MakeAppointmentPhase2
           appointments={appointmentsByRole(specialistRole?.id)}
           setAppointment={setAppointment}
           selectedAppointment={appointment}
+          selectedDate={selectedDate}
+          setSelectedDate={setSelectedDate}
         />
       ),
     },
     {
       title: t('view.appointments.make_new.confirm'),
-      component: <MakeAppointmentPhase3 />,
+      controlButtons: ['back', 'confirm'],
+      component: (
+        <MakeAppointmentPhase3
+          appointment={appointment}
+          name={name}
+          setName={setName}
+          email={email}
+          setEmail={setEmail}
+        />
+      ),
     },
   ];
 
@@ -111,11 +131,29 @@ const MakeAppointmentContainer: React.FC<Props> = observer(() => {
   const progressText = `${phase}/${phases.length}`;
 
   const handlePhaseChange = (step: number) => () => {
+    setErrorMsgs([]);
     const newPhase = phase + step;
     if (newPhase > 0 && newPhase <= phases.length) {
       setPhase(newPhase);
     }
   };
+
+  const handleMakeAppointment = async () => {
+    setErrorMsgs([]);
+    const id = appointment?.id;
+    if (appointmentState !== 'BOOKING' && id) {
+      const { success, error } = await makeAppointment({ id, name, email });
+      if (success) {
+        // TODO: Go to next phase (summary)
+      } else {
+        setErrorMsgs(getApiErrorMessages(error.data));
+      }
+    }
+  };
+
+  const showBackButton = currentPhase.controlButtons.includes('back');
+  const showNextButton = currentPhase.controlButtons.includes('next');
+  const showConfirmButton = currentPhase.controlButtons.includes('confirm');
 
   return (
     <Container>
@@ -128,8 +166,21 @@ const MakeAppointmentContainer: React.FC<Props> = observer(() => {
 
       <div>{currentPhase.component}</div>
 
+      <Transition.Group>
+        {!!errorMsgs.length && (
+          <div>
+            <Message
+              error
+              icon="warning sign"
+              header={t('view.appointments.make_new.error_message_header')}
+              list={errorMsgs}
+            />
+          </div>
+        )}
+      </Transition.Group>
+
       <div className="make-appointment__control-buttons">
-        {phase > 1 && (
+        {showBackButton && (
           <Button
             aria-label="Back"
             id="make-appointment__back-button"
@@ -139,13 +190,23 @@ const MakeAppointmentContainer: React.FC<Props> = observer(() => {
             negativeText
           />
         )}
-        <Button
-          aria-label="Continue"
-          id="make-appointment__continue-button"
-          text={t('view.appointments.make_new.action.continue')}
-          onClick={handlePhaseChange(1)}
-          disabled={continueDisabled}
-        />
+        {showNextButton && (
+          <Button
+            aria-label="Continue"
+            id="make-appointment__continue-button"
+            text={t('view.appointments.make_new.action.continue')}
+            onClick={handlePhaseChange(1)}
+            disabled={continueDisabled}
+          />
+        )}
+        {showConfirmButton && (
+          <Button
+            aria-label="Confirm"
+            id="make-appointment__confirm-button"
+            text={t('view.appointments.make_new.action.confirm')}
+            onClick={handleMakeAppointment}
+          />
+        )}
       </div>
     </Container>
   );

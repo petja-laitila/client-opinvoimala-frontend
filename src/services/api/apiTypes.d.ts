@@ -72,6 +72,11 @@ declare namespace API {
     end_time_lte?: string;
   };
   type GetUserAppointments = {};
+  type MakeAppointment = {
+    id: number;
+    name: string;
+    email: string;
+  };
   type CancelAppointment = {
     id: number;
   };
@@ -100,5 +105,8 @@ declare namespace API {
     type GetUserAppointments =
       import('../../store/AppointmentsStore').Appointment[];
     type CancelAppointment = { ok: boolean };
+    type MakeAppointment = {
+      data: import('../../store/AppointmentsStore').Appointment;
+    };
   }
 }

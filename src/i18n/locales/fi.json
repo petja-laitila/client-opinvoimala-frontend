@@ -58,6 +58,7 @@
         "summary_info": "Varauksesi tiedot sekä videokokouslinkki on lähetetty sähköpostiisi. Jos sinun täytyy peruuttaa aika, voit tehdä sen 24 h ennen varauksen alkua Varaukset-sivulta.",
         "no_available_appointments": "Ei vapaita aikoja",
         "specialist_contacts": "Löydät ohjaajien yhteystiedot <1>Otavian sivustolta</1>.",
+        "error_message_header": "Varauksen tekeminen ei onnistunut",
         "action": {
           "continue": "Jatka varausta",
           "back": "Edellinen",
@@ -159,7 +160,18 @@
     },
     "appointment": {
       "cancel": {
-        "too_late": "Varausta ei voi perua alle 24 tuntia ennen varauksen alkamisaikaa"
+        "too_late": "Varausta ei voi perua alle 24 tuntia ennen varauksen alkamisaikaa",
+        "not_found": "Varausta ei löydy",
+        "failed": "Varauksen peruminen epäonnistui"
+      },
+      "make": {
+        "not_found": "Varausta ei löydy",
+        "not_available": "Varaus ei ole enää varattavissa",
+        "failed": "Varauksen tekeminen epäonnistui",
+        "appointment_not_selected": "Mitään varausta ei ole valittu"
+      },
+      "request_body": {
+        "provide": "Anna nimi ja sähköpostiosoite"
       }
     }
   }

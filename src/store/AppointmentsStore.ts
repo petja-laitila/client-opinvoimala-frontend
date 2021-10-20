@@ -49,23 +49,19 @@ export const AppointmentsStore = types
   .model({
     appointmentsState: types.enumeration('State', States),
     appointmentState: types.enumeration('State', AppointmentStates),
-    appointments: types.maybe(types.array(AppointmentModel)),
+    appointments: types.optional(types.array(AppointmentModel), []),
 
     userAppointmentsState: types.enumeration('State', States),
-    userAppointments: types.maybe(types.array(AppointmentModel)),
+    userAppointments: types.optional(types.array(AppointmentModel), []),
   })
   .views(self => ({
     get allAppointments() {
-      if (!self.appointments) return [];
-      const appointments = getSnapshot(self.appointments) ?? [];
-
+      const appointments = getSnapshot(self.appointments);
       return [...appointments].sort(byStartTime);
     },
 
     get allUserAppointments() {
-      if (!self.userAppointments) return [];
-      const appointments = getSnapshot(self.userAppointments) ?? [];
-
+      const appointments = getSnapshot(self.userAppointments);
       return [...appointments].sort(byStartTime);
     },
 
@@ -95,8 +91,8 @@ export const AppointmentsStore = types
     },
 
     appointmentsByRole(roleId?: number) {
-      if (!roleId || !self.appointments) return [];
-      const appointments = getSnapshot(self.appointments) ?? [];
+      if (!roleId) return [];
+      const appointments = getSnapshot(self.appointments);
 
       const roleMatch = ({ appointmentSpecialist }: Appointment) =>
         appointmentSpecialist?.roleId === roleId;
@@ -144,12 +140,36 @@ export const AppointmentsStore = types
         yield api.cancelAppointment(params);
 
       if (response.kind === 'ok') {
-        const data = self.userAppointments
-          ? getSnapshot(self.userAppointments)
-          : undefined;
+        const data = getSnapshot(self.userAppointments);
 
         self.userAppointments = cast(
           data?.filter(({ id }) => id !== params.id)
+        );
+
+        self.appointmentState = 'IDLE';
+        return { success: true };
+      } else {
+        self.appointmentState = 'ERROR';
+        return { success: false, error: response.data };
+      }
+    });
+
+    const makeAppointment = flow(function* (params: API.MakeAppointment) {
+      self.appointmentState = 'BOOKING';
+
+      const response: API.GeneralResponse<API.RES.MakeAppointment> =
+        yield api.makeAppointment(params);
+
+      if (response.kind === 'ok') {
+        // Update user appointments
+        self.userAppointments = cast([
+          ...self.userAppointments,
+          response.data.data,
+        ]);
+
+        // Remove appointment from available appointments
+        self.appointments = cast(
+          self.appointments.filter(({ id }) => id !== params.id)
         );
 
         self.appointmentState = 'IDLE';
@@ -164,6 +184,7 @@ export const AppointmentsStore = types
       fetchAppointments,
       fetchUserAppointments,
       cancelAppointment,
+      makeAppointment,
     };
   });
 

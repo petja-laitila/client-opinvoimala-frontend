@@ -160,6 +160,18 @@ export class Api extends BaseApi {
     const response = await this.api.post(url, params, this.auth());
     return this.handleResponse(response);
   }
+
+  /**
+   * Make appointment
+   */
+  async makeAppointment({
+    id,
+    ...params
+  }: API.MakeAppointment): Promise<Response<API.RES.MakeAppointment>> {
+    const url = `appointments/${id}/make`;
+    const response = await this.api.post(url, params, this.auth());
+    return this.handleResponse(response);
+  }
 }
 
 export const api = new Api();
