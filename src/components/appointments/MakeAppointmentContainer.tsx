@@ -73,6 +73,12 @@ const MakeAppointmentContainer: React.FC<Props> = observer(() => {
     }
   }, [appointmentsState, fetchAppointments]);
 
+  // Clear appointment if role was changed
+  useEffect(() => {
+    const roleChanged = specialistRole;
+    if (roleChanged) setAppointment(undefined);
+  }, [specialistRole]);
+
   const phases = [
     {
       title: t('view.appointments.make_new.choose_specialist'),

@@ -6,8 +6,14 @@ import { Role } from './MakeAppointmentContainer';
 const RoleList = styled.ul`
   list-style-type: none;
   padding: 0;
+  max-height: 350px;
+  overflow-y: auto;
   li {
     margin: ${p => p.theme.spacing.md} 0;
+  }
+
+  @media ${p => p.theme.breakpoint.mobile} {
+    max-height: initial;
   }
 `;
 

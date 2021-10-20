@@ -12,6 +12,7 @@ const Container = styled.div`
   & > div {
     border: 1px solid ${p => p.theme.color.grey3};
     padding: ${p => p.theme.spacing.md};
+    text-align: center;
   }
 
   @media ${p => p.theme.breakpoint.mobile} {
@@ -21,6 +22,8 @@ const Container = styled.div`
 
 const TimePickerContainer = styled.div`
   flex: 1;
+  overflow-y: auto;
+  max-height: 290px;
   ul {
     list-style-type: none;
     padding: 0;
@@ -40,6 +43,17 @@ const TimePickerContainer = styled.div`
   .appointment-times__no-appointments {
     margin: ${p => p.theme.spacing.lg} 0;
     text-align: center;
+  }
+
+  @media ${p => p.theme.breakpoint.mobile} {
+    max-height: initial;
+    ul {
+      li {
+        .appointment-time {
+          flex-direction: column;
+        }
+      }
+    }
   }
 `;
 
