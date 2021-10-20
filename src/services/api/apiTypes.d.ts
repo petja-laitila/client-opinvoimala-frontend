@@ -65,6 +65,9 @@ declare namespace API {
     id: number;
   };
   type GetAppointments = {};
+  type CancelAppointment = {
+    id: number;
+  };
 
   /**
    * API RESPONSES
@@ -87,5 +90,6 @@ declare namespace API {
     type GetContentPage = import('../../store/ContentPageStore').Page;
     type GetAppointments =
       import('../../store/AppointmentsStore').Appointment[];
+    type CancelAppointment = { ok: boolean };
   }
 }

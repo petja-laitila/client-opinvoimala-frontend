@@ -31,14 +31,17 @@
   "view": {
     "appointments": {
       "no_appointments": "Ei vielä varauksia.",
+      "appointment_cancelled": "Varaus peruttu onnistuneesti.",
       "title": {
         "upcoming": "Tulevat varaukset",
-        "past": "Menneet varaukset"
+        "past": "Menneet varaukset",
+        "cancel_error": "Varauksen peruminen ei onnistunut"
       },
       "action": {
         "new_appointment": "Uusi varaus",
         "cancel_appointment": "Peruuta varaus",
-        "join_meeting": "Liity kokoukseen"
+        "join_meeting": "Liity kokoukseen",
+        "cancelled": "Peruttu"
       }
     },
     "register": {
@@ -80,6 +83,7 @@
   "error": {
     "unknown_error": "Jotain meni pieleen",
     "page_not_found": "Virhe! Sivua ei löytynyt.",
+    "Forbidden": "Ei käyttöoikeutta",
     "Auth": {
       "form": {
         "error": {
@@ -128,6 +132,11 @@
         "new_password": {
           "no_match": "Uusi salasana on virheellinen"
         }
+      }
+    },
+    "appointment": {
+      "cancel": {
+        "too_late": "Varausta ei voi perua alle 24 tuntia ennen varauksen alkamisaikaa"
       }
     }
   }
