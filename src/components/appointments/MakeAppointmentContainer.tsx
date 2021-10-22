@@ -13,7 +13,7 @@ import MakeAppointmentPhase1 from './MakeAppointmentPhase1';
 import MakeAppointmentPhase2 from './MakeAppointmentPhase2';
 import MakeAppointmentPhase3Confirm from './MakeAppointmentPhase3Confirm';
 import MakeAppointmentPhase4Summary from './MakeAppointmentPhase4Summary';
-import MakeAppointmentsNoAppointments from './MakeAppointmentsNoAppointments';
+import MakeAppointmentNoAppointments from './MakeAppointmentNoAppointments';
 import Message from '../Message';
 
 const Container = styled.div`
@@ -66,7 +66,7 @@ interface Props {
   containerRef?: RefObject<HTMLDivElement>;
 }
 
-const MakeAppointmentContainer: React.FC<Props> = observer(
+export const MakeAppointmentContainer: React.FC<Props> = observer(
   ({ onGoBack, containerRef }) => {
     const { t } = useTranslation();
 
@@ -202,7 +202,7 @@ const MakeAppointmentContainer: React.FC<Props> = observer(
         title: t('view.appointments.make_new.no_available_appointments'),
         controlButtons: ['back_to_appointments'],
         trackProgress: false,
-        component: <MakeAppointmentsNoAppointments />,
+        component: <MakeAppointmentNoAppointments />,
       },
     ];
 

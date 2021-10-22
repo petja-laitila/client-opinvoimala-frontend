@@ -8,7 +8,7 @@ interface Props {
   appointment?: Appointment;
 }
 
-const MakeAppointmentPhase4Summary: React.FC<Props> = observer(
+export const MakeAppointmentPhase4Summary: React.FC<Props> = observer(
   ({ appointment }) => {
     const { t } = useTranslation();
 

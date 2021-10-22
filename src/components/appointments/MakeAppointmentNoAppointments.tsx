@@ -10,7 +10,7 @@ const Container = styled.div`
 
 interface Props {}
 
-const MakeAppointmentsNoAppointments: React.FC<Props> = observer(() => {
+export const MakeAppointmentNoAppointments: React.FC<Props> = observer(() => {
   return (
     <Container>
       <Trans i18nKey="view.appointments.make_new.specialist_contacts">
@@ -23,4 +23,4 @@ const MakeAppointmentsNoAppointments: React.FC<Props> = observer(() => {
   );
 });
 
-export default MakeAppointmentsNoAppointments;
+export default MakeAppointmentNoAppointments;

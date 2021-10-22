@@ -10,7 +10,7 @@ const TriggerButtonContainer = styled.div`
   margin-top: ${p => p.theme.spacing.xl};
 `;
 
-const MakeAppointmentDrawer: React.FC = () => {
+export const MakeAppointmentDrawer: React.FC = () => {
   const { t } = useTranslation();
 
   return (

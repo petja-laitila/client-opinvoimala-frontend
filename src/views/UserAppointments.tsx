@@ -2,9 +2,11 @@ import { observer } from 'mobx-react-lite';
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Transition } from 'semantic-ui-react';
-import MakeAppointmentDrawer from '../components/appointments/MakeAppointmentDrawer';
-import MakeAppointmentModal from '../components/appointments/MakeAppointmentModal';
-import AppointmentsList from '../components/AppointmentsList';
+import {
+  MakeAppointmentDrawer,
+  MakeAppointmentModal,
+  AppointmentsList,
+} from '../components/appointments';
 import Layout from '../components/Layout';
 import Message from '../components/Message';
 import { useStore } from '../store/storeContext';

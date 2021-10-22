@@ -24,7 +24,7 @@ interface Props {
   selectedRole?: Role;
 }
 
-const MakeAppointmentPhase1: React.FC<Props> = observer(
+export const MakeAppointmentPhase1: React.FC<Props> = observer(
   ({ roles, setRole, selectedRole }) => {
     const handleRoleClick = (role: Role) => () => {
       if (role.id === selectedRole?.id) {

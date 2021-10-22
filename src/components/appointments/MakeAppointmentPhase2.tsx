@@ -1,9 +1,9 @@
 import { observer } from 'mobx-react-lite';
-import React, { Dispatch, SetStateAction, useState } from 'react';
+import React, { Dispatch, SetStateAction } from 'react';
 import { useTranslation } from 'react-i18next';
 import styled from 'styled-components';
 import { Appointment } from '../../store/AppointmentsStore';
-import { formatDateTime, isSameDay, today } from '../../utils/date';
+import { formatDateTime, isSameDay } from '../../utils/date';
 import DatePicker from '../inputs/DatePicker';
 import OptionToggleButton from '../inputs/OptionToggleButton';
 
@@ -78,7 +78,7 @@ interface Props {
   setSelectedDate: Dispatch<SetStateAction<Date>>;
 }
 
-const MakeAppointmentPhase2: React.FC<Props> = observer(
+export const MakeAppointmentPhase2: React.FC<Props> = observer(
   ({
     appointments,
     setAppointment,

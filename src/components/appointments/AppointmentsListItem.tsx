@@ -1,9 +1,9 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import styled from 'styled-components';
-import { Appointment } from '../store/AppointmentsStore';
-import { formatDateTime } from '../utils/date';
-import { Button } from './inputs';
+import { Appointment } from '../../store/AppointmentsStore';
+import { formatDateTime } from '../../utils/date';
+import { Button } from '../inputs';
 
 const ListItem = styled.li`
   font-family: ${p => p.theme.font.secondary};
@@ -69,7 +69,7 @@ interface Props extends Appointment {
   onJoin?: (link: string) => void;
 }
 
-const AppointmentsListItem: React.FC<Props> = ({
+export const AppointmentsListItem: React.FC<Props> = ({
   id,
   status,
   startTime,

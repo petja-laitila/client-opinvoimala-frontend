@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Appointment } from '../store/AppointmentsStore';
+import { Appointment } from '../../store/AppointmentsStore';
 import AppointmentsListItem from './AppointmentsListItem';
 
 const Container = styled.section`
@@ -23,7 +23,7 @@ interface Props {
   onJoin?: (link: string) => void;
 }
 
-const AppointmentsList: React.FC<Props> = ({
+export const AppointmentsList: React.FC<Props> = ({
   title,
   items,
   onCancel,

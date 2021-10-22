@@ -37,7 +37,10 @@ interface Props {
   direction?: Direction;
 }
 
-const Component: React.FC<Props> = ({ appointment, direction = 'column' }) => {
+export const AppointmentDetails: React.FC<Props> = ({
+  appointment,
+  direction = 'column',
+}) => {
   const { t } = useTranslation();
 
   return (
@@ -57,4 +60,4 @@ const Component: React.FC<Props> = ({ appointment, direction = 'column' }) => {
   );
 };
 
-export default Component;
+export default AppointmentDetails;

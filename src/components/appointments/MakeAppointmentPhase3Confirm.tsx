@@ -22,7 +22,7 @@ interface Props {
   setEmail: Dispatch<SetStateAction<string>>;
 }
 
-const MakeAppointmentPhase3Confirm: React.FC<Props> = observer(
+export const MakeAppointmentPhase3Confirm: React.FC<Props> = observer(
   ({ appointment, name, setName, email, setEmail }) => {
     const { t } = useTranslation();
 

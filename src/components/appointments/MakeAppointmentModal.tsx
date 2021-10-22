@@ -10,7 +10,7 @@ const TriggerButtonContainer = styled.div`
   margin-top: ${p => p.theme.spacing.xl};
 `;
 
-const MakeAppointmentModal: React.FC = () => {
+export const MakeAppointmentModal: React.FC = () => {
   const { t } = useTranslation();
 
   const [isOpen, setIsOpen] = useState(false);
