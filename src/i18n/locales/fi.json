@@ -44,6 +44,7 @@
     },
     "appointments": {
       "no_appointments": "Ei vielä varauksia.",
+      "cancel_confirmation_text": "Haluatko varmasti perua varauksen?",
       "appointment_cancelled": "Varaus peruttu onnistuneesti.",
       "title": {
         "upcoming": "Tulevat varaukset",

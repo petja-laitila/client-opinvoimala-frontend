@@ -56,11 +56,13 @@ export const UserAppointments: React.FC<Props> = observer(
 
     const handleCancel = async (id: number) => {
       clearMessages();
-      const { success, error } = await cancelAppointment({ id });
-      if (success) {
-        setSuccessMsg(t('view.appointments.appointment_cancelled'));
-      } else {
-        setErrorMsgs(getApiErrorMessages(error.data));
+      if (window.confirm(t('view.appointments.cancel_confirmation_text'))) {
+        const { success, error } = await cancelAppointment({ id });
+        if (success) {
+          setSuccessMsg(t('view.appointments.appointment_cancelled'));
+        } else {
+          setErrorMsgs(getApiErrorMessages(error.data));
+        }
       }
     };
 
