@@ -12,106 +12,113 @@ import Message from '../components/Message';
 import { useStore } from '../store/storeContext';
 import { getApiErrorMessages } from '../utils/api';
 import useWindowDimensions from '../utils/hooks';
+import Unauthorized from './Unauthorized';
 
-interface Props {}
+interface Props {
+  unauthorized: boolean;
+}
 
-export const UserAppointments: React.FC<Props> = observer(() => {
-  const { t } = useTranslation();
-  const { isTablet } = useWindowDimensions();
+export const UserAppointments: React.FC<Props> = observer(
+  ({ unauthorized }) => {
+    if (unauthorized) return <Unauthorized />;
 
-  const [errorMsgs, setErrorMsgs] = useState<string[]>([]);
-  const [successMsg, setSuccessMsg] = useState<string>();
+    const { t } = useTranslation();
+    const { isTablet } = useWindowDimensions();
 
-  const {
-    appointments: {
-      userAppointmentsState,
-      upcomingAppointments,
-      pastAppointments,
-      fetchUserAppointments,
-      cancelAppointment,
-    },
-  } = useStore();
+    const [errorMsgs, setErrorMsgs] = useState<string[]>([]);
+    const [successMsg, setSuccessMsg] = useState<string>();
 
-  const isLoading = userAppointmentsState === 'FETCHING';
+    const {
+      appointments: {
+        userAppointmentsState,
+        upcomingAppointments,
+        pastAppointments,
+        fetchUserAppointments,
+        cancelAppointment,
+      },
+    } = useStore();
 
-  const noAppointments =
-    !upcomingAppointments.length && !pastAppointments.length;
+    const isLoading = userAppointmentsState === 'FETCHING';
 
-  useEffect(() => {
-    if (userAppointmentsState === 'NOT_FETCHED') {
-      fetchUserAppointments();
-    }
-  }, [fetchUserAppointments, userAppointmentsState]);
+    const noAppointments =
+      !upcomingAppointments.length && !pastAppointments.length;
 
-  const clearMessages = () => {
-    setErrorMsgs([]);
-    setSuccessMsg(undefined);
-  };
+    useEffect(() => {
+      if (userAppointmentsState === 'NOT_FETCHED') {
+        fetchUserAppointments();
+      }
+    }, [fetchUserAppointments, userAppointmentsState]);
 
-  const handleCancel = async (id: number) => {
-    clearMessages();
-    const { success, error } = await cancelAppointment({ id });
-    if (success) {
-      setSuccessMsg(t('view.appointments.appointment_cancelled'));
-    } else {
-      setErrorMsgs(getApiErrorMessages(error.data));
-    }
-  };
+    const clearMessages = () => {
+      setErrorMsgs([]);
+      setSuccessMsg(undefined);
+    };
 
-  const handleJoinMeeting = (link: string) => {
-    window.open(link, '_newtab');
-  };
+    const handleCancel = async (id: number) => {
+      clearMessages();
+      const { success, error } = await cancelAppointment({ id });
+      if (success) {
+        setSuccessMsg(t('view.appointments.appointment_cancelled'));
+      } else {
+        setErrorMsgs(getApiErrorMessages(error.data));
+      }
+    };
 
-  const hero = {
-    title: t('route.appointments'),
-    lead: isTablet ? <MakeAppointmentDrawer /> : <MakeAppointmentModal />,
-  };
+    const handleJoinMeeting = (link: string) => {
+      window.open(link, '_newtab');
+    };
 
-  return (
-    <Layout hero={hero} isLoading={isLoading}>
-      {noAppointments && (
-        <Message content={t('view.appointments.no_appointments')} />
-      )}
+    const hero = {
+      title: t('route.appointments'),
+      lead: isTablet ? <MakeAppointmentDrawer /> : <MakeAppointmentModal />,
+    };
 
-      <Transition.Group>
-        {!!successMsg && (
-          <div>
-            <Message
-              success
-              icon="check circle"
-              content={successMsg}
-              onDismiss={() => setSuccessMsg(undefined)}
-            />
-          </div>
+    return (
+      <Layout hero={hero} isLoading={isLoading}>
+        {noAppointments && (
+          <Message content={t('view.appointments.no_appointments')} />
         )}
-        {!!errorMsgs.length && (
-          <div>
-            <Message
-              error
-              icon="warning sign"
-              header={t('view.appointments.title.cancel_error')}
-              list={errorMsgs}
-              onDismiss={() => setErrorMsgs([])}
-            />
-          </div>
+
+        <Transition.Group>
+          {!!successMsg && (
+            <div>
+              <Message
+                success
+                icon="check circle"
+                content={successMsg}
+                onDismiss={() => setSuccessMsg(undefined)}
+              />
+            </div>
+          )}
+          {!!errorMsgs.length && (
+            <div>
+              <Message
+                error
+                icon="warning sign"
+                header={t('view.appointments.title.cancel_error')}
+                list={errorMsgs}
+                onDismiss={() => setErrorMsgs([])}
+              />
+            </div>
+          )}
+        </Transition.Group>
+
+        {!!upcomingAppointments.length && (
+          <AppointmentsList
+            title={t('view.appointments.title.upcoming')}
+            items={upcomingAppointments}
+            onCancel={handleCancel}
+            onJoin={handleJoinMeeting}
+          />
         )}
-      </Transition.Group>
 
-      {!!upcomingAppointments.length && (
-        <AppointmentsList
-          title={t('view.appointments.title.upcoming')}
-          items={upcomingAppointments}
-          onCancel={handleCancel}
-          onJoin={handleJoinMeeting}
-        />
-      )}
-
-      {!!pastAppointments.length && (
-        <AppointmentsList
-          title={t('view.appointments.title.past')}
-          items={pastAppointments}
-        />
-      )}
-    </Layout>
-  );
-});
+        {!!pastAppointments.length && (
+          <AppointmentsList
+            title={t('view.appointments.title.past')}
+            items={pastAppointments}
+          />
+        )}
+      </Layout>
+    );
+  }
+);

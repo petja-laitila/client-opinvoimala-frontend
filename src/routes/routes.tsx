@@ -11,9 +11,13 @@ import {
 } from '../views';
 import { slug } from '../utils/string';
 
+interface ComponentProps {
+  unauthorized?: boolean;
+}
+
 export interface Route {
   path: string;
-  component: React.FC;
+  component: (props?: ComponentProps) => JSX.Element;
   exact: boolean;
   isPublic?: boolean;
 }
@@ -37,46 +41,50 @@ export const contentPageUrl = (page: number | null) => {
 export const userMenuRoutes: NavLinkRoute[] = [];
 
 const appRoutes: (Route | NavLinkRoute)[] = [
-  { path: '/', component: FrontPage, exact: true, isPublic: true },
+  { path: '/', component: () => <FrontPage />, exact: true, isPublic: true },
   {
     path: `/${path('register')}`,
-    component: Register,
+    component: () => <Register />,
     exact: true,
     isPublic: true,
   },
   {
     path: `/${path('forgot_password')}`,
-    component: ForgotPassword,
+    component: () => <ForgotPassword />,
     exact: true,
     isPublic: true,
   },
   {
     path: `/${path('reset_password')}`,
-    component: ResetPassword,
+    component: () => <ResetPassword />,
     exact: true,
     isPublic: true,
   },
   {
     path: `/${path('appointments')}`,
-    component: UserAppointments,
+    component: props => (
+      <UserAppointments unauthorized={props?.unauthorized ?? true} />
+    ),
     exact: true,
     isPublic: false,
   },
   {
     path: `/${path('change_password')}`,
-    component: ChangePassword,
+    component: props => (
+      <ChangePassword unauthorized={props?.unauthorized ?? true} />
+    ),
     exact: true,
     isPublic: false,
   },
   {
     path: `/${path('logout')}`,
-    component: Logout,
+    component: () => <Logout />,
     exact: true,
     isPublic: true,
   },
   {
     path: `/${path('content_page')}/:id`,
-    component: ContentPage,
+    component: () => <ContentPage />,
     exact: true,
     isPublic: true,
   },

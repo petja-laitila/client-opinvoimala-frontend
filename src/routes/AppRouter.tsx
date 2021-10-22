@@ -20,18 +20,25 @@ const AppRouter: FC<Props> = observer(({ routes = appRoutes, children }) => {
   } = useStore();
 
   const publicRoutes = routes.filter(({ isPublic }) => isPublic);
-
-  const allowedRoutes = isLoggedIn ? routes : publicRoutes;
+  const authRoutes = routes.filter(({ isPublic }) => !isPublic);
 
   return (
     <Router>
       <ScrollToTop />
       <Switch>
-        {allowedRoutes.map(route => (
+        {publicRoutes.map(route => (
           <RouterRoute
             key={route.path}
             path={route.path}
-            component={route.component}
+            component={() => route.component()}
+            exact={route.exact}
+          />
+        ))}
+        {authRoutes.map(route => (
+          <RouterRoute
+            key={route.path}
+            path={route.path}
+            component={() => route.component({ unauthorized: !isLoggedIn })}
             exact={route.exact}
           />
         ))}

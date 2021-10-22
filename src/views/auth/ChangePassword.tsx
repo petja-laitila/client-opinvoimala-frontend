@@ -7,10 +7,15 @@ import Layout from '../../components/Layout';
 import { useStore } from '../../store/storeContext';
 import { validatePassword } from '../../utils/string';
 import Message from '../../components/Message';
+import Unauthorized from '../Unauthorized';
 
-interface Props {}
+interface Props {
+  unauthorized: boolean;
+}
 
-export const ChangePassword: React.FC<Props> = observer(() => {
+export const ChangePassword: React.FC<Props> = observer(({ unauthorized }) => {
+  if (unauthorized) return <Unauthorized />;
+
   const { t } = useTranslation();
 
   const {
