@@ -23,7 +23,6 @@ export const MakeAppointmentModal: React.FC = () => {
     <>
       <TriggerButtonContainer>
         <Button
-          ariaLabel="Make new appointment"
           id="appointments__make-new-appointment-button"
           text={t('view.appointments.make_new.title')}
           color="primary"

@@ -122,12 +122,8 @@ export const MakeAppointmentPhase2: React.FC<Props> = observer(
 
     const renderAppointmentContent = (appointment: Appointment) => (
       <div className="appointment-time">
-        <div aria-label="Appointment time" className="appointment-time__time">
-          {formatTime(appointment)}
-        </div>
-        <div aria-label="Appointment specialist">
-          {appointment.appointmentSpecialist?.name ?? ''}
-        </div>
+        <div className="appointment-time__time">{formatTime(appointment)}</div>
+        <div>{appointment.appointmentSpecialist?.name ?? ''}</div>
       </div>
     );
 
@@ -149,7 +145,7 @@ export const MakeAppointmentPhase2: React.FC<Props> = observer(
               {appointmentsByDate.map((appointment, i) => (
                 <li key={appointment.id}>
                   <OptionToggleButton
-                    aria-label="Appointment option"
+                    aria-label={t('aria.appointment_option')}
                     isSelected={isSelected(appointment)}
                     autoFocus={i === 0}
                     size="sm"

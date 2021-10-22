@@ -64,7 +64,7 @@ const Modal: React.FC<Props> = ({
               <div className="modal__close-button">
                 {showTextButton && (
                   <Button
-                    ariaLabel="Close modal"
+                    ariaLabel={t('aria.close')}
                     id="close-modal-text-button"
                     text={closeText}
                     color="background"
@@ -73,7 +73,7 @@ const Modal: React.FC<Props> = ({
                 )}
                 {showIconButton && (
                   <Button
-                    ariaLabel="Close modal"
+                    ariaLabel={t('aria.close')}
                     id="close-modal-icon-button"
                     icon={<Icon name="close" size="large" />}
                     color="grey3"

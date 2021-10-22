@@ -137,7 +137,6 @@ export const ChangePassword: React.FC<Props> = observer(({ unauthorized }) => {
         </Transition.Group>
         <Divider hidden />
         <Button
-          ariaLabel="Submit"
           id="change-password-view__change_password-button"
           text={t('action.change_password')}
           type="submit"

@@ -261,7 +261,6 @@ export const MakeAppointmentContainer: React.FC<Props> = observer(
           <div className="make-appointment__control-buttons--left">
             {showBackAppointmentsButton && (
               <Button
-                ariaLabel="Back to appointments"
                 id="make-appointment__back-to-appointments-button"
                 text={t(
                   'view.appointments.make_new.action.back_to_appointments'
@@ -274,7 +273,6 @@ export const MakeAppointmentContainer: React.FC<Props> = observer(
           <div className="make-appointment__control-buttons--right">
             {showBackButton && (
               <Button
-                ariaLabel="Back"
                 id="make-appointment__back-button"
                 text={t('view.appointments.make_new.action.back')}
                 onClick={handlePhaseChange(-1)}
@@ -284,7 +282,6 @@ export const MakeAppointmentContainer: React.FC<Props> = observer(
             )}
             {showNextButton && (
               <Button
-                ariaLabel="Continue"
                 id="make-appointment__continue-button"
                 text={t('view.appointments.make_new.action.continue')}
                 onClick={handlePhaseChange(1)}
@@ -293,7 +290,6 @@ export const MakeAppointmentContainer: React.FC<Props> = observer(
             )}
             {showConfirmButton && (
               <Button
-                ariaLabel="Confirm"
                 id="make-appointment__confirm-button"
                 text={t('view.appointments.make_new.action.confirm')}
                 onClick={handleMakeAppointment}

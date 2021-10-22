@@ -19,7 +19,6 @@ export const MakeAppointmentDrawer: React.FC = () => {
       triggerEl={(isOpen, onClick) => (
         <TriggerButtonContainer>
           <Button
-            ariaLabel="Make new appointment"
             aria-expanded={isOpen}
             id="appointments__make-new-appointment-button"
             text={t('view.appointments.make_new.title')}

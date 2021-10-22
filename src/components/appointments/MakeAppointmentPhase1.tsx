@@ -43,7 +43,6 @@ export const MakeAppointmentPhase1: React.FC<Props> = observer(
         {roles.map((role, i) => (
           <li key={role.id}>
             <OptionToggleButton
-              aria-label="Role option"
               isSelected={isSelected(role)}
               autoFocus={i === 0}
               onClick={handleRoleClick(role)}

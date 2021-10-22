@@ -28,7 +28,7 @@ export const Input: React.FC<Props> = ({
   return (
     <Container labelHidden={labelHidden}>
       {label && (
-        <label htmlFor={id}>
+        <label htmlFor={id} aria-required={props.required}>
           {label}
           {props.required && <span className="input__label--required">*</span>}
         </label>

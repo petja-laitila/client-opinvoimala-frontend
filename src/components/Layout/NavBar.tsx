@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { observer } from 'mobx-react-lite';
+import { useTranslation } from 'react-i18next';
 import { useStore } from '../../store/storeContext';
 import DropdownMenu from '../DropdownMenu';
 import { Link } from '../../store/models';
@@ -11,6 +12,7 @@ import AccordionMenu from '../AccordionMenu';
 import { contentPageUrl } from '../../routes/routes';
 
 const NavBar: React.FC = observer(() => {
+  const { t } = useTranslation();
   const { isTablet, isMobile } = useWindowDimensions();
 
   const {
@@ -38,7 +40,7 @@ const NavBar: React.FC = observer(() => {
       <Drawer
         triggerEl={(isOpen, onClick) => (
           <Button
-            ariaLabel="Main navigation"
+            ariaLabel={t('aria.main_navigation')}
             aria-expanded={isOpen}
             id="navigation-menu__button"
             variant="outlined"

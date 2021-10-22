@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
+import styled from 'styled-components';
+import { NavLink } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { MenuItem } from './DropdownMenu';
 import Icon from './Icon';
-import { NavLink } from 'react-router-dom';
-import styled from 'styled-components';
 
 const Container = styled.div`
   width: 100%;
@@ -43,6 +44,7 @@ interface Props {
 }
 
 const AccordionMenu: React.FC<Props> = ({ id, label, items }) => {
+  const { t } = useTranslation();
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleAccordion = () => {
@@ -69,7 +71,7 @@ const AccordionMenu: React.FC<Props> = ({ id, label, items }) => {
       </div>
 
       <ul
-        aria-label="submenu"
+        aria-labelledby={t('aria.menu')}
         aria-hidden={!isOpen}
         className={`accordion__menu${isOpen ? ' is-open' : ''}`}
       >

@@ -184,5 +184,13 @@
         "provide": "Anna nimi ja sähköpostiosoite"
       }
     }
+  },
+  "aria": {
+    "main_navigation": "Päävalikko",
+    "menu": "Valikko",
+    "appointment_option": "Vapaa aika",
+    "user_menu": "Käyttäjävalikko",
+    "login": "Kirjaudu sisään",
+    "close": "Sulje"
   }
 }

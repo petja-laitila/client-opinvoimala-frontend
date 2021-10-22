@@ -89,7 +89,6 @@ export const ForgotPassword: React.FC = () => {
         </Transition.Group>
         <Divider hidden />
         <Button
-          ariaLabel="Submit"
           id="forgot-password-view__send-button"
           text={t('action.send_link')}
           type="submit"

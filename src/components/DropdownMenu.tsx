@@ -115,11 +115,7 @@ const DropdownMenu: React.FC<Props> = ({
       const { label } = triggerButton;
       if (label)
         return (
-          <button
-            aria-label="dropdown menu"
-            aria-expanded={isOpen}
-            aria-haspopup={true}
-          >
+          <button aria-expanded={isOpen} aria-haspopup={true}>
             {label}
           </button>
         );
@@ -146,11 +142,7 @@ const DropdownMenu: React.FC<Props> = ({
       verticalPosition={verticalPosition}
     >
       <div className="dropdown__trigger">{renderTrigger()}</div>
-      <div
-        aria-label="submenu"
-        aria-hidden={!isOpen}
-        className={getMenuClassName()}
-      >
+      <div aria-hidden={!isOpen} className={getMenuClassName()}>
         {isOpen &&
           items.map(({ id, label, url }) => (
             <NavLink key={id} to={url}>

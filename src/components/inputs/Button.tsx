@@ -107,7 +107,7 @@ interface Props {
   disabled?: boolean;
   isSmall?: boolean;
   noMargin?: boolean;
-  ariaLabel: string;
+  ariaLabel?: string;
 }
 
 export const Button: FC<Props> = ({

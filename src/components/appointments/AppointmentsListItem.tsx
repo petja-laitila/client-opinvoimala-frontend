@@ -115,7 +115,6 @@ export const AppointmentsListItem: React.FC<Props> = ({
         <div className="appointment__action-buttons">
           {!isCancelled && onCancel && (
             <Button
-              ariaLabel="Cancel meeting"
               id={`appointment-${id}__cancel-button`}
               text={t('view.appointments.action.cancel_appointment')}
               onClick={() => onCancel(id)}
@@ -126,7 +125,6 @@ export const AppointmentsListItem: React.FC<Props> = ({
           )}
           {onJoin && !!meetingLink && (
             <Button
-              ariaLabel="Join meeting"
               id={`appointment-${id}__join-meet-button`}
               icon={<Icon type="Video" width={24} />}
               text={getJoinButtonText()}
