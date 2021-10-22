@@ -35,6 +35,7 @@ const DesktopMenu: React.FC<{ items: MenuItem[] }> = ({ items }) => {
 };
 
 const MobileMenu: React.FC<{ items: MenuItem[] }> = ({ items }) => {
+  const { t } = useTranslation();
   return (
     <Drawer
       triggerEl={(isOpen, onClick) => (
