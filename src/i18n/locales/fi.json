@@ -34,10 +34,11 @@
     "conditions": "Tietosuojaseloste"
   },
   "view": {
-    "unauthorized": {
-      "title": "Kirjaudu sisään",
-      "lead": "Kirjaudu sisään nähdäksesi tämän sivun sisällön"
+    "404": {
+      "title": "404",
+      "lead": "Etsimääsi sivua ei löydy"
     },
+    "unauthorized": {},
     "appointments": {
       "no_appointments": "Ei vielä varauksia.",
       "appointment_cancelled": "Varaus peruttu onnistuneesti.",

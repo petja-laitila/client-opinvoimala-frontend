@@ -1,7 +1,6 @@
 import React, { FC } from 'react';
 import { observer } from 'mobx-react-lite';
 import {
-  Redirect,
   Route as RouterRoute,
   BrowserRouter as Router,
   Switch,
@@ -9,12 +8,13 @@ import {
 import appRoutes, { Route } from './routes';
 import ScrollToTop from './ScrollToTop';
 import { useStore } from '../store/storeContext';
+import NotFound404 from '../views/404';
 
 interface Props {
   routes?: Route[];
 }
 
-const AppRouter: FC<Props> = observer(({ routes = appRoutes, children }) => {
+const AppRouter: FC<Props> = observer(({ routes = appRoutes }) => {
   const {
     auth: { isLoggedIn },
   } = useStore();
@@ -42,8 +42,7 @@ const AppRouter: FC<Props> = observer(({ routes = appRoutes, children }) => {
             exact={route.exact}
           />
         ))}
-        <Redirect to={`/`} />
-        {children}
+        <NotFound404 />
       </Switch>
     </Router>
   );
