@@ -3,7 +3,7 @@ import { observer } from 'mobx-react-lite';
 import { Link, useHistory } from 'react-router-dom';
 import { Trans, useTranslation } from 'react-i18next';
 import Layout from '../../components/Layout';
-import { useStore } from '../../store/storeContext';
+import { useResetStores, useStore } from '../../store/storeContext';
 import Message from '../../components/Message';
 import { Loader } from 'semantic-ui-react';
 
@@ -12,6 +12,8 @@ interface Props {}
 export const Logout: React.FC<Props> = observer(() => {
   const history = useHistory();
   const { t } = useTranslation();
+
+  const resetStores = useResetStores();
 
   const {
     settings: { settings },
@@ -24,6 +26,7 @@ export const Logout: React.FC<Props> = observer(() => {
     let goHomeTimeout: NodeJS.Timeout;
     if (!isProcessing && isLoggedIn) {
       logout();
+      resetStores();
     } else {
       goHomeTimeout = setTimeout(() => {
         history.push('/');
@@ -33,7 +36,7 @@ export const Logout: React.FC<Props> = observer(() => {
     return () => {
       clearTimeout(goHomeTimeout);
     };
-  }, [logout, isProcessing, isLoggedIn, history]);
+  }, [logout, isProcessing, isLoggedIn, history, resetStores]);
 
   const hero = {
     title: settings?.appName ?? t('app_name'),

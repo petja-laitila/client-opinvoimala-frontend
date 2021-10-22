@@ -22,7 +22,7 @@
   "route": {
     "register": "Rekisteröidy",
     "front_page": "Etusivu",
-    "content_page": "Sisältösivu",
+    "content_page": "Sivu",
     "my_profile": "Oma profiili",
     "tests": "Testit ja harjoitukset",
     "appointments": "Varaukset",
@@ -41,6 +41,10 @@
     "unauthorized": {
       "title": "Kirjaudu sisään",
       "lead": "Kirjaudu sisään nähdäksesi tämän sivun sisällön"
+    },
+    "content_pages": {
+      "error": "Virhe",
+      "unauthorized_info": "Kirjaudu sisään nähdäksesi tämän sivun sisällön"
     },
     "appointments": {
       "no_appointments": "Ei vielä varauksia.",
