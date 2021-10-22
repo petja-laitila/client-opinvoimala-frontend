@@ -38,7 +38,10 @@
       "title": "404",
       "lead": "Etsimääsi sivua ei löydy"
     },
-    "unauthorized": {},
+    "unauthorized": {
+      "title": "Kirjaudu sisään",
+      "lead": "Kirjaudu sisään nähdäksesi tämän sivun sisällön"
+    },
     "appointments": {
       "no_appointments": "Ei vielä varauksia.",
       "appointment_cancelled": "Varaus peruttu onnistuneesti.",
