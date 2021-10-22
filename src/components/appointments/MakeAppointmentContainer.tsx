@@ -102,6 +102,17 @@ export const MakeAppointmentContainer: React.FC<Props> = observer(
     const isBusy =
       appointmentState === 'BOOKING' || appointmentsState === 'FETCHING';
 
+    // Change date when role is changed (select first date that have appointment(s))
+    useEffect(() => {
+      if (specialistRole) {
+        const roleAppointments = appointmentsByRole(specialistRole.id);
+        if (roleAppointments.length) {
+          const date = roleAppointments[0].startTime;
+          setSelectedDate(date ? new Date(date) : startingDate().toJSDate());
+        }
+      }
+    }, [appointmentsByRole, specialistRole]);
+
     // Fetch available appointments always on mount
     useEffect(() => {
       fetchAppointments({
@@ -250,7 +261,7 @@ export const MakeAppointmentContainer: React.FC<Props> = observer(
           <div className="make-appointment__control-buttons--left">
             {showBackAppointmentsButton && (
               <Button
-                aria-label="Back to appointments"
+                ariaLabel="Back to appointments"
                 id="make-appointment__back-to-appointments-button"
                 text={t(
                   'view.appointments.make_new.action.back_to_appointments'
@@ -263,7 +274,7 @@ export const MakeAppointmentContainer: React.FC<Props> = observer(
           <div className="make-appointment__control-buttons--right">
             {showBackButton && (
               <Button
-                aria-label="Back"
+                ariaLabel="Back"
                 id="make-appointment__back-button"
                 text={t('view.appointments.make_new.action.back')}
                 onClick={handlePhaseChange(-1)}
@@ -273,7 +284,7 @@ export const MakeAppointmentContainer: React.FC<Props> = observer(
             )}
             {showNextButton && (
               <Button
-                aria-label="Continue"
+                ariaLabel="Continue"
                 id="make-appointment__continue-button"
                 text={t('view.appointments.make_new.action.continue')}
                 onClick={handlePhaseChange(1)}
@@ -282,7 +293,7 @@ export const MakeAppointmentContainer: React.FC<Props> = observer(
             )}
             {showConfirmButton && (
               <Button
-                aria-label="Confirm"
+                ariaLabel="Confirm"
                 id="make-appointment__confirm-button"
                 text={t('view.appointments.make_new.action.confirm')}
                 onClick={handleMakeAppointment}

@@ -47,6 +47,7 @@ export const MakeAppointmentPhase3Confirm: React.FC<Props> = observer(
         <p>{t('view.appointments.make_new.contact_data_info')}</p>
 
         <Input
+          autoFocus
           required
           label={t('label.name')}
           id="make_appointment__name-input"

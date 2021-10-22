@@ -23,7 +23,7 @@ export const MakeAppointmentModal: React.FC = () => {
     <>
       <TriggerButtonContainer>
         <Button
-          aria-label="Make new appointment"
+          ariaLabel="Make new appointment"
           id="appointments__make-new-appointment-button"
           text={t('view.appointments.make_new.title')}
           color="primary"
@@ -38,7 +38,6 @@ export const MakeAppointmentModal: React.FC = () => {
         onClose={toggleModal}
         size="small"
         closeOnDimmerClick={false}
-        closeButtonText={t('action.cancel')}
       >
         <MakeAppointmentContainer onGoBack={toggleModal} />
       </Modal>

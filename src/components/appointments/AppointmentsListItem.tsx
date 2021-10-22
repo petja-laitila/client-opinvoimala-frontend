@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 import styled from 'styled-components';
 import { Appointment } from '../../store/AppointmentsStore';
 import { formatDateTime } from '../../utils/date';
+import Icon from '../Icon';
 import { Button } from '../inputs';
 
 const ListItem = styled.li`
@@ -22,7 +23,7 @@ const ListItem = styled.li`
     }
 
     &__time {
-      min-width: 160px;
+      min-width: 200px;
       &.is-cancelled {
         text-decoration: line-through;
       }
@@ -114,7 +115,7 @@ export const AppointmentsListItem: React.FC<Props> = ({
         <div className="appointment__action-buttons">
           {!isCancelled && onCancel && (
             <Button
-              aria-label="Cancel meeting"
+              ariaLabel="Cancel meeting"
               id={`appointment-${id}__cancel-button`}
               text={t('view.appointments.action.cancel_appointment')}
               onClick={() => onCancel(id)}
@@ -125,8 +126,9 @@ export const AppointmentsListItem: React.FC<Props> = ({
           )}
           {onJoin && !!meetingLink && (
             <Button
-              aria-label="Join meeting"
+              ariaLabel="Join meeting"
               id={`appointment-${id}__join-meet-button`}
+              icon={<Icon type="Video" width={24} />}
               text={getJoinButtonText()}
               onClick={handleJoinButtonClick}
               disabled={isCancelled}

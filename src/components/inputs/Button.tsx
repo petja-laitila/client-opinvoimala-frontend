@@ -88,7 +88,7 @@ const StyledButton = styled.button<{
 
   &.disabled {
     cursor: not-allowed;
-    opacity: 0.5;
+    opacity: 0.8;
   }
 `;
 
@@ -107,6 +107,7 @@ interface Props {
   disabled?: boolean;
   isSmall?: boolean;
   noMargin?: boolean;
+  ariaLabel: string;
 }
 
 export const Button: FC<Props> = ({
@@ -121,6 +122,7 @@ export const Button: FC<Props> = ({
   disabled,
   isSmall = false,
   noMargin = false,
+  ariaLabel,
 }) => {
   const isIconButton = !!icon && !text;
 
@@ -133,6 +135,7 @@ export const Button: FC<Props> = ({
 
   return (
     <StyledButton
+      aria-label={ariaLabel}
       id={id}
       data-testid={id}
       type={type}

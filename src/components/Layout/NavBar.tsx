@@ -38,7 +38,7 @@ const NavBar: React.FC = observer(() => {
       <Drawer
         triggerEl={(isOpen, onClick) => (
           <Button
-            aria-label="main navigation"
+            ariaLabel="Main navigation"
             aria-expanded={isOpen}
             id="navigation-menu__button"
             variant="outlined"

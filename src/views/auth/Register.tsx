@@ -174,6 +174,7 @@ export const Register: React.FC<Props> = observer(() => {
         <Divider hidden />
 
         <Button
+          ariaLabel="Submit"
           id="register-view__register-button"
           text={t('action.register')}
           type="submit"

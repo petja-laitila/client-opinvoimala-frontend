@@ -33,7 +33,7 @@ export interface Props extends ModalProps {
 
 const Modal: React.FC<Props> = ({
   title,
-  closeButtonType = 'both',
+  closeButtonType = 'icon',
   closeButtonText,
   size = 'tiny',
   children,
@@ -64,7 +64,7 @@ const Modal: React.FC<Props> = ({
               <div className="modal__close-button">
                 {showTextButton && (
                   <Button
-                    aria-label="Close modal"
+                    ariaLabel="Close modal"
                     id="close-modal-text-button"
                     text={closeText}
                     color="background"
@@ -73,7 +73,7 @@ const Modal: React.FC<Props> = ({
                 )}
                 {showIconButton && (
                   <Button
-                    aria-label="Close modal"
+                    ariaLabel="Close modal"
                     id="close-modal-icon-button"
                     icon={<Icon name="close" size="large" />}
                     color="grey3"

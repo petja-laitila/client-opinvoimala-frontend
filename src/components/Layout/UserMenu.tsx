@@ -20,6 +20,7 @@ const DesktopMenu: React.FC<{ items: MenuItem[] }> = ({ items }) => {
       color="primary"
       triggerEl={(isOpen, onClick) => (
         <Button
+          ariaLabel="User menu"
           aria-expanded={isOpen}
           aria-haspopup={true}
           id="user-menu__button"
@@ -38,7 +39,7 @@ const MobileMenu: React.FC<{ items: MenuItem[] }> = ({ items }) => {
     <Drawer
       triggerEl={(isOpen, onClick) => (
         <Button
-          aria-label="user menu"
+          ariaLabel="User menu"
           aria-expanded={isOpen}
           id="user-menu__button"
           variant="outlined"
@@ -106,6 +107,7 @@ const UserMenu: React.FC = observer(() => {
     // User is not logged in, show login button.
     return (
       <Button
+        ariaLabel="Login"
         id="user-menu__login__button"
         text={isTablet ? undefined : t('action.login')}
         variant={isTablet ? 'outlined' : 'filled'}

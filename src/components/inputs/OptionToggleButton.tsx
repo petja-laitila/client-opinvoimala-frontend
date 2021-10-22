@@ -26,7 +26,7 @@ const ToggleButton = styled.button<{ size: ToggleButtonSize }>`
   }
 
   &.not-selected {
-    color: ${p => p.theme.color.grey};
+    color: ${p => p.theme.color.secondary};
   }
 
   :hover:not(.is-selected) {

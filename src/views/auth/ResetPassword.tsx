@@ -122,6 +122,7 @@ export const ResetPassword: React.FC<Props> = observer(() => {
         <Divider hidden />
 
         <Button
+          ariaLabel="Submit"
           id="reset-password-view__reset_password-button"
           text={t('action.change_password')}
           type="submit"

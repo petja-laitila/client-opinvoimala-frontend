@@ -129,6 +129,7 @@ export const LoginModal: React.FC<Props> = observer(({ ...props }) => {
             size="large"
           />
           <Button
+            ariaLabel="Submit"
             id="login-modal__login-button"
             text={t('action.login')}
             type="submit"

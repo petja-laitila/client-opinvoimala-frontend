@@ -8,6 +8,7 @@ import { ReactComponent as Menu } from '../assets/icons/menu.svg';
 import { ReactComponent as Plus } from '../assets/icons/plus.svg';
 import { ReactComponent as SignIn } from '../assets/icons/sign-in.svg';
 import { ReactComponent as User } from '../assets/icons/md-person.svg';
+import { ReactComponent as Video } from '../assets/icons/video.svg';
 
 const Icons = {
   ArrowRight,
@@ -16,6 +17,7 @@ const Icons = {
   Plus,
   SignIn,
   User,
+  Video,
 };
 
 export type IconType = keyof typeof Icons;

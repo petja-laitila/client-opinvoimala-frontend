@@ -119,7 +119,7 @@ const Drawer: React.FC<Props> = ({
             <header className="drawer__header">
               <div>
                 <Button
-                  aria-label="close"
+                  ariaLabel="Close dialog"
                   id="drawer__close-button"
                   variant="filled"
                   icon={<Icon type="Close" color="background" />}
