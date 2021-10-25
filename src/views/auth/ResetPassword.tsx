@@ -62,6 +62,11 @@ export const ResetPassword: React.FC<Props> = observer(() => {
       } else {
         setErrorMsgs(getApiErrorMessages(error.data));
       }
+    } else if (!isBusy) {
+      if (password1 !== password2)
+        setErrorMsgs([t('error.Auth.form.error.password.matching')]);
+      else if (!validatePassword(password1))
+        setErrorMsgs([t('error.Auth.form.error.password.not_valid')]);
     }
   };
 
@@ -85,6 +90,7 @@ export const ResetPassword: React.FC<Props> = observer(() => {
         </Transition.Group>
 
         <h3>{t('view.reset_password.info_text')}</h3>
+        <p>{t('view.change_password.new_password_info')}</p>
 
         <Input
           required
@@ -125,7 +131,7 @@ export const ResetPassword: React.FC<Props> = observer(() => {
           id="reset-password-view__reset_password-button"
           text={t('action.change_password')}
           type="submit"
-          disabled={!isValidForm || isBusy}
+          disabled={isBusy}
           noMargin
         />
       </form>
