@@ -4,9 +4,8 @@ import styled from 'styled-components';
 import Wrapper from './Wrapper';
 import { observer } from 'mobx-react-lite';
 import { useStore } from '../../store/storeContext';
-import { Link } from 'react-router-dom';
+import Link from '../Link';
 import { Divider, Grid, Icon } from 'semantic-ui-react';
-import { contentPageUrl } from '../../routes/routes';
 import useWindowDimensions from '../../utils/hooks';
 
 const StyledFooter = styled.footer`
@@ -133,9 +132,9 @@ const Footer: React.FC = observer(() => {
 
   const renderLinks = () => (
     <ul className="footer__links-list">
-      {links?.map(({ id, label, page }) => (
-        <li key={id}>
-          <Link to={contentPageUrl(page?.slug)}>{label}</Link>
+      {links?.map(link => (
+        <li key={link.id}>
+          <Link link={link}>{link.label}</Link>
         </li>
       ))}
     </ul>

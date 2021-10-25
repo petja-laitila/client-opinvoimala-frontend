@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { NavLink } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { MenuItem } from './DropdownMenu';
 import Icon from './Icon';
+import { LinkIn } from '../store/models';
+import Link from './Link';
 
 const Container = styled.div`
   width: 100%;
@@ -43,7 +43,7 @@ const Container = styled.div`
 interface Props {
   id: number | string;
   label: string;
-  items?: MenuItem[];
+  items?: LinkIn[];
 }
 
 const AccordionMenu: React.FC<Props> = ({ id, label, items }) => {
@@ -79,9 +79,9 @@ const AccordionMenu: React.FC<Props> = ({ id, label, items }) => {
         className={`accordion__menu${isOpen ? ' is-open' : ''}`}
       >
         {isOpen &&
-          items.map(({ id, label, url }) => (
-            <li key={`accordion-item-${id}`} className="accordion__item">
-              {url ? <NavLink to={url}>{label}</NavLink> : <span>{label}</span>}
+          items.map(link => (
+            <li key={`accordion-item-${link.id}`} className="accordion__item">
+              <Link link={link}>{link.label}</Link>
             </li>
           ))}
       </ul>

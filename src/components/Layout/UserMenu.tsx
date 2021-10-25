@@ -4,13 +4,14 @@ import { observer } from 'mobx-react-lite';
 import { path, rt } from '../../routes/routes';
 import Icon from '../Icon';
 import Button from '../inputs/Button';
-import DropdownMenu, { MenuItem } from '../DropdownMenu';
+import DropdownMenu from '../DropdownMenu';
 import useWindowDimensions from '../../utils/hooks';
 import Drawer from '../Drawer';
-import { NavLink } from 'react-router-dom';
 import { useStore } from '../../store/storeContext';
+import { LinkIn } from '../../store/models';
+import Link from '../Link';
 
-const DesktopMenu: React.FC<{ items: MenuItem[] }> = ({ items }) => {
+const DesktopMenu: React.FC<{ items: LinkIn[] }> = ({ items }) => {
   const { t } = useTranslation();
   return (
     <DropdownMenu
@@ -34,7 +35,7 @@ const DesktopMenu: React.FC<{ items: MenuItem[] }> = ({ items }) => {
   );
 };
 
-const MobileMenu: React.FC<{ items: MenuItem[] }> = ({ items }) => {
+const MobileMenu: React.FC<{ items: LinkIn[] }> = ({ items }) => {
   const { t } = useTranslation();
   return (
     <Drawer
@@ -51,9 +52,9 @@ const MobileMenu: React.FC<{ items: MenuItem[] }> = ({ items }) => {
       )}
     >
       <ul className="drawer__link-list">
-        {items.map(({ id, label, url }) => (
-          <li key={id}>
-            {url ? <NavLink to={url}>{label}</NavLink> : <span>{label}</span>}
+        {items.map(link => (
+          <li key={link.id}>
+            <Link link={link}>{link.label}</Link>
           </li>
         ))}
       </ul>
@@ -75,27 +76,36 @@ const UserMenu: React.FC = observer(() => {
   };
 
   if (isLoggedIn) {
-    const items = [
+    const items: LinkIn[] = [
       {
         id: 'my_profile',
         label: rt('my_profile'),
-        url: `/${path('my_profile')}`,
+        type: 'internal',
+        internal: `/${path('my_profile')}`,
       },
-      { id: 'tests', label: rt('tests'), url: `/${path('tests')}` },
+      {
+        id: 'tests',
+        label: rt('tests'),
+        type: 'internal',
+        internal: `/${path('tests')}`,
+      },
       {
         id: 'appointments',
         label: rt('appointments'),
-        url: `/${path('appointments')}`,
+        type: 'internal',
+        internal: `/${path('appointments')}`,
       },
       {
         id: 'change_password',
         label: rt('change_password'),
-        url: `/${path('change_password')}`,
+        type: 'internal',
+        internal: `/${path('change_password')}`,
       },
       {
         id: 'logout',
         label: rt('logout'),
-        url: `/${path('logout')}`,
+        type: 'internal',
+        internal: `/${path('logout')}`,
       },
     ];
 

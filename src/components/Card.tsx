@@ -1,9 +1,8 @@
 import React from 'react';
-import { Link as RouterLink } from 'react-router-dom';
 import styled from 'styled-components';
-import { contentPageUrl } from '../routes/routes';
-import { Link } from '../store/models';
+import { Link as LinkType } from '../store/models';
 import Icon from './Icon';
+import Link from './Link';
 
 const Container = styled.article`
   background-color: ${p => p.theme.color.background};
@@ -51,7 +50,7 @@ const Container = styled.article`
 interface Props {
   title?: string | null;
   text?: string | null;
-  link?: Link | null;
+  link?: LinkType | null;
 }
 
 const Card: React.FC<Props> = ({ title, text, link }) => {
@@ -64,7 +63,7 @@ const Card: React.FC<Props> = ({ title, text, link }) => {
 
       {link && (
         <footer>
-          <RouterLink to={contentPageUrl(link.page?.slug)}>
+          <Link link={link}>
             {link.label}
             <Icon
               type="ArrowRight"
@@ -72,7 +71,7 @@ const Card: React.FC<Props> = ({ title, text, link }) => {
               color="none"
               width={22}
             />
-          </RouterLink>
+          </Link>
         </footer>
       )}
     </Container>

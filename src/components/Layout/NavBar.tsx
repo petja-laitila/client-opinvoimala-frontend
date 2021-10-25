@@ -9,7 +9,6 @@ import Drawer from '../Drawer';
 import Button from '../inputs/Button';
 import Icon from '../Icon';
 import AccordionMenu from '../AccordionMenu';
-import { contentPageUrl } from '../../routes/routes';
 
 const NavBar: React.FC = observer(() => {
   const { t } = useTranslation();
@@ -25,14 +24,8 @@ const NavBar: React.FC = observer(() => {
 
   const navItems = navigation?.items ?? [];
 
-  const getLinkItems = (links: Link[]) => {
-    return links
-      .filter(({ page }) => !!page)
-      .map(({ id, label, page }) => ({
-        id,
-        label: label ?? '',
-        url: contentPageUrl(page?.slug),
-      }));
+  const getVisibleLinks = (links: Link[]) => {
+    return links.filter(({ page }) => !!page);
   };
 
   if (isTablet || isMobile) {
@@ -56,11 +49,7 @@ const NavBar: React.FC = observer(() => {
               <AccordionMenu
                 id={id}
                 label={label}
-                items={links.map(({ id, label, page }) => ({
-                  id,
-                  label: label ?? '',
-                  url: contentPageUrl(page?.slug),
-                }))}
+                items={getVisibleLinks(links)}
               />
             </li>
           ))}
@@ -77,7 +66,7 @@ const NavBar: React.FC = observer(() => {
           triggerButton={{
             label: navItem.label,
           }}
-          items={getLinkItems(navItem.links)}
+          items={getVisibleLinks(navItem.links)}
         />
       ))}
     </nav>
