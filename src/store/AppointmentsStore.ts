@@ -6,6 +6,7 @@ import {
   getSnapshot,
   SnapshotOut,
   SnapshotIn,
+  applySnapshot,
 } from 'mobx-state-tree';
 import api from '../services/api/Api';
 import { isFutureDate, isPastDate } from '../utils/date';
@@ -104,6 +105,8 @@ export const AppointmentsStore = types
     },
   }))
   .actions(self => {
+    let initialState = {};
+
     const fetchAppointments = flow(function* (
       params: API.GetAppointments = {}
     ) {
@@ -184,6 +187,12 @@ export const AppointmentsStore = types
     });
 
     return {
+      afterCreate: () => {
+        initialState = getSnapshot(self);
+      },
+      reset: () => {
+        applySnapshot(self, initialState);
+      },
       fetchAppointments,
       fetchUserAppointments,
       cancelAppointment,

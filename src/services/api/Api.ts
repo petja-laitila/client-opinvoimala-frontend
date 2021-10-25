@@ -123,7 +123,7 @@ export class Api extends BaseApi {
     id,
     ...params
   }: API.GetContentPage): Promise<Response<API.RES.GetContentPage>> {
-    const response = await this.api.get(`pages/${id}`, params, {});
+    const response = await this.api.get(`pages/${id}`, params, this.auth());
     return this.handleResponse(response);
   }
 

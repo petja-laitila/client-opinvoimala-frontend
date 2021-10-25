@@ -6,15 +6,20 @@ import {
   getSnapshot,
   SnapshotOut,
   SnapshotIn,
+  applySnapshot,
 } from 'mobx-state-tree';
 import i18n from '../i18n';
 import api from '../services/api/Api';
 
-const States = ['IDLE' as const, 'FETCHING' as const, 'ERROR' as const];
+const States = [
+  'IDLE' as const,
+  'FETCHING' as const,
+  'ERROR' as const,
+  'UNAUTHORIZED' as const,
+];
 
 const PageModel = types.model({
   id: types.number,
-  isPublic: types.boolean,
   title: types.maybeNull(types.string),
   lead: types.maybeNull(types.string),
   content: types.maybeNull(types.string),
@@ -44,6 +49,8 @@ export const ContentPageStore = types
     },
   }))
   .actions(self => {
+    let initialState = {};
+
     const fetchPage = flow(function* (params: API.GetContentPage) {
       self.state = 'FETCHING';
 
@@ -61,10 +68,12 @@ export const ContentPageStore = types
 
         self.data = { ...self.data, pages: cast(pages) };
         self.state = 'IDLE';
+      } else if (response.data.statusCode === 403) {
+        self.state = 'UNAUTHORIZED';
+        throw response.data;
       } else {
         const page: Page = {
           id: params.id,
-          isPublic: true,
           title: i18n.t('error.page_not_found'),
           lead: null,
           content: null,
@@ -76,6 +85,12 @@ export const ContentPageStore = types
     });
 
     return {
+      afterCreate: () => {
+        initialState = getSnapshot(self);
+      },
+      reset: () => {
+        applySnapshot(self, initialState);
+      },
       fetchPage,
     };
   });
