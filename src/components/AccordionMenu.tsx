@@ -8,8 +8,11 @@ import Icon from './Icon';
 const Container = styled.div`
   width: 100%;
   .accordion__trigger-button {
-    padding-right: ${p => p.theme.spacing.lg};
-    display: flex;
+    button {
+      display: flex !important;
+      justify-content: space-between;
+      align-items: center;
+    }
   }
   a,
   span,
@@ -66,8 +69,8 @@ const AccordionMenu: React.FC<Props> = ({ id, label, items }) => {
           onClick={toggleAccordion}
         >
           {label}
+          <Icon type="Plus" color="primary" />
         </button>
-        <Icon type="Plus" color="primary" />
       </div>
 
       <ul
