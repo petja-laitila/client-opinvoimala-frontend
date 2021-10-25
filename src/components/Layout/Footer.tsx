@@ -135,7 +135,7 @@ const Footer: React.FC = observer(() => {
     <ul className="footer__links-list">
       {links?.map(({ id, label, page }) => (
         <li key={id}>
-          <Link to={contentPageUrl(page)}>{label}</Link>
+          <Link to={contentPageUrl(page?.slug)}>{label}</Link>
         </li>
       ))}
     </ul>

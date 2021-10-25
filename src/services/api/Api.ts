@@ -119,11 +119,10 @@ export class Api extends BaseApi {
   /**
    * Fetch data for the front page
    */
-  async getContentPage({
-    id,
+  async getContentPages({
     ...params
-  }: API.GetContentPage): Promise<Response<API.RES.GetContentPage>> {
-    const response = await this.api.get(`pages/${id}`, params, this.auth());
+  }: API.GetContentPages): Promise<Response<API.RES.GetContentPages>> {
+    const response = await this.api.get(`pages`, params, this.auth());
     return this.handleResponse(response);
   }
 

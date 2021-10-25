@@ -31,7 +31,7 @@ const NavBar: React.FC = observer(() => {
       .map(({ id, label, page }) => ({
         id,
         label: label ?? '',
-        url: contentPageUrl(page),
+        url: contentPageUrl(page?.slug),
       }));
   };
 
@@ -59,7 +59,7 @@ const NavBar: React.FC = observer(() => {
                 items={links.map(({ id, label, page }) => ({
                   id,
                   label: label ?? '',
-                  url: contentPageUrl(page),
+                  url: contentPageUrl(page?.slug),
                 }))}
               />
             </li>

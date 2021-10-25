@@ -61,8 +61,9 @@ declare namespace API {
   type GetSettings = {};
   type GetNavigation = {};
   type GetFrontPage = {};
-  type GetContentPage = {
-    id: number;
+  type GetContentPages = {
+    id?: number;
+    slug?: string;
   };
   type GetAppointments = {
     status?: 'available' | 'booked' | 'cancelled' | 'hidden';
@@ -100,6 +101,7 @@ declare namespace API {
     type GetNavigation = import('../../store/NavigationStore').Navigation;
     type GetFrontPage = import('../../store/FrontPageStore').FrontPage;
     type GetContentPage = import('../../store/ContentPageStore').Page;
+    type GetContentPages = import('../../store/ContentPageStore').Page[];
     type GetAppointments =
       import('../../store/AppointmentsStore').Appointment[];
     type GetUserAppointments =

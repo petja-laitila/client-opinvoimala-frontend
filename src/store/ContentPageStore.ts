@@ -21,6 +21,7 @@ const States = [
 const PageModel = types.model({
   id: types.number,
   title: types.maybeNull(types.string),
+  slug: types.maybeNull(types.string),
   lead: types.maybeNull(types.string),
   content: types.maybeNull(types.string),
 });
@@ -43,27 +44,30 @@ export const ContentPageStore = types
     get pages() {
       return self.data ? getSnapshot(self.data) : undefined;
     },
-    getPage(id: number) {
-      const page = self.data?.pages.find(page => page.id === id);
+    getPage(slug: string | number) {
+      const pageId = Number(slug);
+      const page = self.data?.pages.find(page =>
+        pageId ? page.id === pageId : page.slug === slug
+      );
       return page ? getSnapshot(page) : undefined;
     },
   }))
   .actions(self => {
     let initialState = {};
 
-    const fetchPage = flow(function* (params: API.GetContentPage) {
+    const fetchPage = flow(function* (params: API.GetContentPages) {
       self.state = 'FETCHING';
 
-      const response: API.GeneralResponse<API.RES.GetContentPage> =
-        yield api.getContentPage(params);
+      const response: API.GeneralResponse<API.RES.GetContentPages> =
+        yield api.getContentPages(params);
 
       const updatePages = (page: Page) => {
         const oldPages = self.data?.pages.filter(({ id }) => id !== page.id);
         return [...(oldPages ?? []), page];
       };
 
-      if (response.kind === 'ok') {
-        const page = response.data;
+      if (response.kind === 'ok' && response.data.length) {
+        const page = response.data[0];
         const pages = updatePages(page);
 
         self.data = { ...self.data, pages: cast(pages) };
@@ -73,8 +77,9 @@ export const ContentPageStore = types
         throw response.data;
       } else {
         const page: Page = {
-          id: params.id,
+          id: params.id ?? -1,
           title: i18n.t('error.page_not_found'),
+          slug: params.slug ?? '',
           lead: null,
           content: null,
         };

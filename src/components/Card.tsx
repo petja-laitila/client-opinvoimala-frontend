@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link as RouterLink } from 'react-router-dom';
 import styled from 'styled-components';
-import { path } from '../routes/routes';
+import { contentPageUrl } from '../routes/routes';
 import { Link } from '../store/models';
 import Icon from './Icon';
 
@@ -64,7 +64,7 @@ const Card: React.FC<Props> = ({ title, text, link }) => {
 
       {link && (
         <footer>
-          <RouterLink to={`/${path('content_page')}/${link.page}`}>
+          <RouterLink to={contentPageUrl(link.page?.slug)}>
             {link.label}
             <Icon
               type="ArrowRight"
