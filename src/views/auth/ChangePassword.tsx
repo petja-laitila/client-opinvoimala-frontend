@@ -70,6 +70,11 @@ export const ChangePassword: React.FC<Props> = observer(({ unauthorized }) => {
       } else {
         setErrorMsgs([t(`error.unknown_error`)]);
       }
+    } else if (!isBusy) {
+      if (password1 !== password2)
+        setErrorMsgs([t('error.Auth.form.error.password.matching')]);
+      else if (!validatePassword(password1))
+        setErrorMsgs([t('error.Auth.form.error.password.not_valid')]);
     }
   };
 
@@ -91,7 +96,9 @@ export const ChangePassword: React.FC<Props> = observer(({ unauthorized }) => {
             </div>
           )}
         </Transition.Group>
+
         <h3>{t('view.change_password.current_password_title')}</h3>
+
         <Input
           required
           autoFocus
@@ -102,9 +109,12 @@ export const ChangePassword: React.FC<Props> = observer(({ unauthorized }) => {
           value={currentPassword}
           onChange={handleChange(setCurrentPassword)}
         />
+
         <Divider hidden />
+
         <h3>{t('view.change_password.new_password_title')}</h3>
         <p>{t('view.change_password.new_password_info')}</p>
+
         <Input
           required
           id="change-password-view__password-input"
@@ -123,6 +133,7 @@ export const ChangePassword: React.FC<Props> = observer(({ unauthorized }) => {
           value={password2}
           onChange={handleChange(setPassword2)}
         />
+
         <Transition.Group>
           {!!errorMsgs.length && (
             <div>
@@ -135,12 +146,14 @@ export const ChangePassword: React.FC<Props> = observer(({ unauthorized }) => {
             </div>
           )}
         </Transition.Group>
+
         <Divider hidden />
+
         <Button
           id="change-password-view__change_password-button"
           text={t('action.change_password')}
           type="submit"
-          disabled={!isValidForm || isBusy}
+          disabled={isBusy}
           noMargin
         />
       </form>

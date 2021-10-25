@@ -123,8 +123,6 @@ export const AuthStore = types
         yield api.resetPassword(params);
 
       if (response.kind === 'ok') {
-        self.user = cast(response.data.user);
-        self.jwt = cast(response.data.jwt);
         self.state = 'IDLE';
         return { success: true };
       } else {
