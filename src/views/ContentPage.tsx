@@ -8,9 +8,8 @@ import Watermark from '../components/Layout/Watermark';
 
 export const ContentPage = observer(() => {
   const { t } = useTranslation();
-  const { id: paramId } = useParams();
-  const pageId = Number(paramId);
-  const pageIdRef = useRef<number>();
+  const { slug } = useParams();
+  const slugRef = useRef<string>();
 
   const [fetchFailCount, setFetchFailCount] = useState(0);
   const [errorMsg, setErrorMsg] = useState<string>();
@@ -20,15 +19,22 @@ export const ContentPage = observer(() => {
     contentPages: { state, getPage, fetchPage },
   } = useStore();
 
-  const page = getPage(pageId);
+  const page = getPage(slug);
 
   const isLoading = state === 'FETCHING';
 
   const fetchPageFromApi = useCallback(
-    async (id: number) => {
-      pageIdRef.current = id;
+    async (slug: string) => {
+      slugRef.current = slug;
       try {
-        await fetchPage({ id });
+        const pageId = Number(slug);
+        if (pageId) {
+          // If given slug was number, assume it's an page ID and fetch by it
+          await fetchPage({ id: pageId });
+        } else {
+          // Otherwise fetch by slug
+          await fetchPage({ slug });
+        }
         setFetchFailCount(0);
       } catch (error: any) {
         setFetchFailCount(fetchFailCount + 1);
@@ -44,14 +50,14 @@ export const ContentPage = observer(() => {
   useEffect(() => {
     if (fetchFailCount > 2) return;
 
-    if (state === 'UNAUTHORIZED' && pageIdRef.current === pageId) {
+    if (state === 'UNAUTHORIZED' && slugRef.current === slug) {
       if (isLoggedIn) {
-        fetchPageFromApi(pageId);
+        fetchPageFromApi(slug);
       }
-    } else if (!page && !isNaN(pageId) && state !== 'FETCHING') {
-      fetchPageFromApi(pageId);
+    } else if (!page && slug.length && state !== 'FETCHING') {
+      fetchPageFromApi(slug);
     }
-  }, [fetchFailCount, fetchPageFromApi, isLoggedIn, page, pageId, state]);
+  }, [fetchFailCount, fetchPageFromApi, isLoggedIn, page, slug, state]);
 
   const defaultTitle = errorMsg ? t('view.content_pages.error') : '';
 

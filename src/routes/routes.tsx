@@ -33,11 +33,6 @@ export const rt = (routeKey: string) => i18n.t(`route.${routeKey}`);
 // E.g. "Front Page" becomes "front-page" (these are used in url)
 export const path = (routeKey: string) => slug(rt(routeKey));
 
-export const contentPageUrl = (page: number | null) => {
-  if (page) return `/${path('content_page')}/${page}`;
-  return '/';
-};
-
 export const userMenuRoutes: NavLinkRoute[] = [];
 
 const appRoutes: (Route | NavLinkRoute)[] = [
@@ -83,7 +78,7 @@ const appRoutes: (Route | NavLinkRoute)[] = [
     isPublic: true,
   },
   {
-    path: `/${path('content_page')}/:id`,
+    path: `/${path('content_page')}/:slug`,
     component: () => <ContentPage />,
     exact: true,
     isPublic: true,

@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import { NavLink } from 'react-router-dom';
 import styled from 'styled-components';
+import { LinkIn } from '../store/models';
 import { Colors } from '../theme/styled';
 import { useOutsideClickAction } from '../utils/hooks';
+import Link from './Link';
 
 const StyledDropdownMenu = styled.div<{
   color: keyof Colors;
@@ -66,12 +67,6 @@ const StyledDropdownMenu = styled.div<{
   }
 `;
 
-export interface MenuItem {
-  id: number | string;
-  label: string;
-  url: string;
-}
-
 type OnClick = (event: React.MouseEvent<HTMLElement, MouseEvent>) => void;
 
 interface Props {
@@ -83,7 +78,7 @@ interface Props {
   // (Will override possible label & url props above)
   triggerEl?: (isOpen: boolean, onClick: OnClick) => JSX.Element;
 
-  items: MenuItem[];
+  items: LinkIn[];
   align?: 'left' | 'right';
   verticalPosition?: number;
 }
@@ -144,10 +139,10 @@ const DropdownMenu: React.FC<Props> = ({
       <div className="dropdown__trigger">{renderTrigger()}</div>
       <div aria-hidden={!isOpen} className={getMenuClassName()}>
         {isOpen &&
-          items.map(({ id, label, url }) => (
-            <NavLink key={id} to={url}>
-              {label}
-            </NavLink>
+          items.map(link => (
+            <Link key={link.id} link={link}>
+              {link.label}
+            </Link>
           ))}
       </div>
     </StyledDropdownMenu>
