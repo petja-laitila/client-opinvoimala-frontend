@@ -109,7 +109,7 @@ export const LoginModal: React.FC<Props> = observer(({ ...props }) => {
             labelHidden
             icon="user"
             iconPosition="left"
-            name="email"
+            name="username"
             type="email"
             value={email}
             onChange={handleChange(setEmail)}

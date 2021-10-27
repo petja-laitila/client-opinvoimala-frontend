@@ -90,6 +90,7 @@ export const GlobalStyle = createGlobalStyle`
     display: block;
     margin-left: auto;
     margin-right: auto;
+    border-radius: ${p => p.theme.borderRadius.lg};
   }
 
   figcaption {
@@ -104,6 +105,7 @@ export const GlobalStyle = createGlobalStyle`
     display: block;
     margin-left: auto;
     margin-right: auto;
+    border-radius: ${p => p.theme.borderRadius.md};
   }
 
   button {
