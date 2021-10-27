@@ -146,15 +146,6 @@ export const LoginModal: React.FC<Props> = observer(({ ...props }) => {
             </Link>
           </Trans>
         </div>
-
-        <div>
-          <Trans i18nKey="view.login.register_link">
-            No account yet?
-            <Link to={`/${path('register')}`} onClick={handleClose}>
-              Register.
-            </Link>
-          </Trans>
-        </div>
       </Container>
     </Modal>
   );

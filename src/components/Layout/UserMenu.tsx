@@ -77,18 +77,20 @@ const UserMenu: React.FC = observer(() => {
 
   if (isLoggedIn) {
     const items: LinkIn[] = [
-      {
-        id: 'my_profile',
-        label: rt('my_profile'),
-        type: 'internal',
-        internal: `/${path('my_profile')}`,
-      },
-      {
-        id: 'tests',
-        label: rt('tests'),
-        type: 'internal',
-        internal: `/${path('tests')}`,
-      },
+      // TODO:
+      // {
+      //   id: 'my_profile',
+      //   label: rt('my_profile'),
+      //   type: 'internal',
+      //   internal: `/${path('my_profile')}`,
+      // },
+      // TODO:
+      // {
+      //   id: 'tests',
+      //   label: rt('tests'),
+      //   type: 'internal',
+      //   internal: `/${path('tests')}`,
+      // },
       {
         id: 'appointments',
         label: rt('appointments'),

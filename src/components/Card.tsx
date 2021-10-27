@@ -62,7 +62,7 @@ const Card: React.FC<Props> = ({ title, text, link }) => {
 
       {link && (
         <footer>
-          <Link link={link} label={link.label} showArrow />
+          <Link link={link} label={link.label} showArrow center />
         </footer>
       )}
     </Container>

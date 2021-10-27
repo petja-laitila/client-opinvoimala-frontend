@@ -6,9 +6,9 @@ import { useStore } from '../store/storeContext';
 import { linkIsPublic, linkTargetUrl } from '../utils/links';
 import Icon from './Icon';
 
-const Content = styled.div`
+const Content = styled.div<{ center?: boolean }>`
   display: flex;
-  justify-content: space-between;
+  justify-content: ${p => (p.center ? 'center' : 'space-between')};
   align-items: center;
   width: 100%;
 
@@ -29,9 +29,16 @@ interface Props {
   link: LinkIn;
   label?: string | null;
   showArrow?: boolean;
+  center?: boolean;
 }
 
-const Link: React.FC<Props> = ({ link, label, showArrow, children }) => {
+const Link: React.FC<Props> = ({
+  link,
+  label,
+  showArrow,
+  center,
+  children,
+}) => {
   const {
     auth: { isLoggedIn },
   } = useStore();
@@ -44,7 +51,7 @@ const Link: React.FC<Props> = ({ link, label, showArrow, children }) => {
   const showLock = !isPublic && !isLoggedIn;
 
   const content = (
-    <Content>
+    <Content center={center}>
       {label && (
         <div className="link__label-container">
           {showLock && <Icon type="Lock" />}
