@@ -44,6 +44,8 @@ interface Props {
 const LinkList: React.FC<Props> = ({ list }) => {
   const { title, links } = list;
 
+  if (!links.length) return null;
+
   return (
     <Container>
       <h1>{title}</h1>
