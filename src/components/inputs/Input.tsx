@@ -35,6 +35,7 @@ export const Input: React.FC<Props> = ({
       )}
 
       <SemanticInput
+        id={id}
         aria-required={props.required}
         {...props}
         size={size}

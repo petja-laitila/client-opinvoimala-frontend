@@ -121,4 +121,7 @@ export const GlobalStyle = createGlobalStyle`
       border-color: ${p => p.theme.color.accent} !important;
     }
   }
+  input[type="checkbox"]:focus + label::before {
+    outline: ${p => p.theme.color.accent} auto 1px;
+  }
 `;
