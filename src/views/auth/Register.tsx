@@ -58,7 +58,7 @@ export const Register: React.FC<Props> = observer(() => {
     event.preventDefault();
     setErrorMsgs([]);
     if (isValidForm && !isBusy) {
-      const params = { email, password: password1 };
+      const params = { email, password: password1, termsAccepted };
 
       const { success, error } = await register(params);
 

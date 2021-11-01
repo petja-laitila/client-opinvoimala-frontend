@@ -30,6 +30,7 @@ declare namespace API {
   type AuthRegister = {
     email: string;
     password: string;
+    termsAccepted: boolean;
   };
 
   type AuthLogin = {
