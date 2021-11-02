@@ -27,7 +27,9 @@ const StyledDropdownMenu = styled.div<{
         user-select: none;
         text-decoration: none;
       }
-      a:hover {
+
+      a:hover,
+      button:hover {
         text-decoration: underline;
       }
     }
