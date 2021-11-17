@@ -32,6 +32,7 @@ const Container = styled.article<{ isLocked?: boolean }>`
     h1 {
       ${p => p.theme.font.h4};
       line-height: 28px;
+      padding-right: 24px;
     }
 
     p {
