@@ -58,7 +58,7 @@ export const Select: React.FC<Props> = ({
     <Container>
       <StyledSelect
         autoFocus={autoFocus}
-        value={selectedOption?.id}
+        value={selectedOption?.id ?? emptyOption.id}
         onChange={handleSelect}
       >
         {[emptyOption, ...options].map(option => (

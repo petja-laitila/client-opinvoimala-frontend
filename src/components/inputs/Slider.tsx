@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 import { getTrackBackground, Range } from 'react-range';
 import { COLORS } from '../../theme';
@@ -52,6 +52,7 @@ const Mark = styled.div<{ isSelected: boolean }>`
 `;
 
 interface Props {
+  id: number;
   options: SelectOption[];
   selectedOption?: SelectOption | null;
   onSelect: (answer?: SelectOption | null) => void;
@@ -59,21 +60,39 @@ interface Props {
 }
 
 export const Slider: React.FC<Props> = ({
+  id,
   options,
   selectedOption,
   onSelect,
   step = 1,
 }) => {
+  const idRef = useRef<number>();
   const min = 0;
   const max = options.length - 1;
 
   const defaultOptionIndex = Math.floor(options.length / 2);
 
+  const indexOfOption = useCallback(
+    (option: SelectOption) => options.map(({ id }) => id).indexOf(option.id),
+    [options]
+  );
+
   const initialValue = selectedOption
-    ? options.map(({ id }) => id).indexOf(selectedOption.id)
+    ? indexOfOption(selectedOption)
     : defaultOptionIndex;
 
   const [values, setValues] = useState([initialValue]);
+
+  useEffect(() => {
+    if (selectedOption && id !== idRef.current) {
+      // Question has changed, update slider's value
+      idRef.current = id;
+      const selectedIndex = indexOfOption(selectedOption);
+      if (!values.includes(selectedIndex)) {
+        setValues([selectedIndex]);
+      }
+    }
+  }, [indexOfOption, id, selectedOption, values]);
 
   useEffect(() => {
     if (!selectedOption) {

@@ -45,6 +45,7 @@ const TestQuestion: React.FC<Props> = ({
       case 'slider':
         return (
           <Slider
+            id={question.id}
             options={question.options}
             selectedOption={answer}
             onSelect={setAnswer}
