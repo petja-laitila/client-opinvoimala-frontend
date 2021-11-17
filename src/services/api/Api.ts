@@ -117,7 +117,7 @@ export class Api extends BaseApi {
   }
 
   /**
-   * Fetch data for the front page
+   * Fetch content pages by slug or id
    */
   async getContentPages({
     ...params
@@ -169,6 +169,62 @@ export class Api extends BaseApi {
   }: API.MakeAppointment): Promise<Response<API.RES.MakeAppointment>> {
     const url = `appointments/${id}/make`;
     const response = await this.api.post(url, params, this.auth());
+    return this.handleResponse(response);
+  }
+
+  /**
+   * Fetch test categories (and tests within)
+   */
+  async getTestCategories(
+    params: API.GetTestCategories = {}
+  ): Promise<Response<API.RES.GetTestCategories>> {
+    const url = `test-categories`;
+    const response = await this.api.get(url, params, this.auth());
+    return this.handleResponse(response);
+  }
+
+  /**
+   * Fetch exercises
+   */
+  async getExercises(
+    params: API.GetExercises = {}
+  ): Promise<Response<API.RES.GetExercises>> {
+    const url = `tests?type=exercise`;
+    const response = await this.api.get(url, params, this.auth());
+    return this.handleResponse(response);
+  }
+
+  /**
+   * Fetch tests by slug or id
+   */
+  async getTests({
+    ...params
+  }: API.GetTests): Promise<Response<API.RES.GetTests>> {
+    const response = await this.api.get(`tests`, params, this.auth());
+    return this.handleResponse(response);
+  }
+
+  /**
+   * Fetch test outcome based on given answers
+   */
+  async createTestOutcome({
+    slug,
+    ...params
+  }: API.CreateTestOutcome): Promise<Response<API.RES.CreateTestOutcome>> {
+    const url = `tests/${slug}/outcome`;
+    const response = await this.api.post(url, params, this.auth());
+    return this.handleResponse(response);
+  }
+
+  /**
+   * Fetch test outcome
+   */
+  async getTestOutcome({
+    slug,
+    ...params
+  }: API.GetTestOutcome): Promise<Response<API.RES.GetTestOutcome>> {
+    const url = `users/me/tests/${slug}/outcome`;
+    const response = await this.api.get(url, params, this.auth());
     return this.handleResponse(response);
   }
 }

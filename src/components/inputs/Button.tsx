@@ -90,6 +90,10 @@ const StyledButton = styled.button<{
     cursor: not-allowed;
     opacity: 0.8;
   }
+
+  &.is-hidden {
+    visibility: hidden;
+  }
 `;
 
 type ColorType = keyof Colors;
@@ -105,8 +109,10 @@ interface Props {
   negativeText?: boolean;
   variant?: VariantType;
   disabled?: boolean;
+  hidden?: boolean;
   isSmall?: boolean;
   noMargin?: boolean;
+  autoFocus?: boolean;
   ariaLabel?: string;
 }
 
@@ -120,8 +126,10 @@ export const Button: FC<Props> = ({
   negativeText = false,
   variant = 'filled',
   disabled,
+  hidden = false,
   isSmall = false,
   noMargin = false,
+  autoFocus = false,
   ariaLabel,
 }) => {
   const isIconButton = !!icon && !text;
@@ -129,6 +137,7 @@ export const Button: FC<Props> = ({
   const getClassName = () => {
     let className = `button-${variant}`;
     className += disabled ? ' disabled' : '';
+    className += hidden ? ' is-hidden' : '';
     className += isIconButton ? ' icon-button' : '';
     return className;
   };
@@ -146,6 +155,7 @@ export const Button: FC<Props> = ({
       negativeText={negativeText}
       isSmall={isSmall || isIconButton}
       noMargin={noMargin}
+      autoFocus={autoFocus}
     >
       {text}
       {icon}

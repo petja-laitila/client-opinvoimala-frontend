@@ -7,7 +7,10 @@ import {
   ChangePassword,
   ForgotPassword,
   ResetPassword,
+  Test,
+  Tests,
   UserAppointments,
+  TestOutcomes,
 } from '../views';
 import { slug } from '../utils/string';
 
@@ -32,8 +35,6 @@ export const rt = (routeKey: string) => i18n.t(`route.${routeKey}`);
 // Sanitize route translations
 // E.g. "Front Page" becomes "front-page" (these are used in url)
 export const path = (routeKey: string) => slug(rt(routeKey));
-
-export const userMenuRoutes: NavLinkRoute[] = [];
 
 const appRoutes: (Route | NavLinkRoute)[] = [
   { path: '/', component: () => <FrontPage />, exact: true, isPublic: true },
@@ -83,7 +84,24 @@ const appRoutes: (Route | NavLinkRoute)[] = [
     exact: true,
     isPublic: true,
   },
-  ...userMenuRoutes,
+  {
+    path: `/${path('tests')}`,
+    component: () => <Tests />,
+    exact: true,
+    isPublic: true,
+  },
+  {
+    path: `/${path('tests')}/:slug`,
+    component: () => <Test />,
+    exact: true,
+    isPublic: true,
+  },
+  {
+    path: `/${path('tests')}/:slug/${path('outcome')}`,
+    component: () => <TestOutcomes />,
+    exact: true,
+    isPublic: true,
+  },
 ];
 
 export default appRoutes;

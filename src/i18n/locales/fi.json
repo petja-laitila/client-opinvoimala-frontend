@@ -3,13 +3,24 @@
   "phone_abbrv": "Puh.",
   "copyright_text": "\u00A9 {{year}} Mikkelin kaupungin liikelaitos Otavia",
   "student": "Opiskelija",
+  "annotation": {
+    "nb": "Huom!",
+    "test": "Tämän testin tulokset eivät perustu tieteellisiin menetelmiin, eikä niitä tule ottaa tosissaan.",
+    "user_profile": "Tämän testin tulokset eivät perustu tieteellisiin menetelmiin, eikä niitä tule ottaa tosissaan."
+  },
   "action": {
     "register": "Rekisteröidy",
     "login": "Kirjaudu",
     "change_password": "Vaihda salasana",
     "send_link": "Lähetä linkki",
     "cancel": "Peruuta",
-    "close": "Sulje"
+    "close": "Sulje",
+    "minimize": "Pienennä",
+    "go_back": "Takaisin",
+    "previous": "Edellinen",
+    "continue": "Jatka",
+    "show_result": "Näytä tulos",
+    "select": "Valitse"
   },
   "label": {
     "name": "Nimi",
@@ -25,6 +36,7 @@
     "content_page": "Sivu",
     "my_profile": "Oma profiili",
     "tests": "Testit ja harjoitukset",
+    "outcome": "Lopputulema",
     "appointments": "Varaukset",
     "change_password": "Vaihda salasana",
     "forgot_password": "Salasana unohtunut",
@@ -45,6 +57,22 @@
     "content_pages": {
       "error": "Virhe",
       "unauthorized_info": "Kirjaudu sisään nähdäksesi tämän sivun sisällön"
+    },
+    "tests": {
+      "error": "Virhe",
+      "unauthorized_info": "Kirjaudu sisään suorittaaksesi tämän testin",
+      "exercises": "Harjoitukset",
+      "action": {
+        "start_test": "Tee testi",
+        "show_all_from_category": "Näytä kaikki aiheen testit"
+      }
+    },
+    "test": {
+      "progressText": "Kysymys {{current}}/{{total}}"
+    },
+    "test_outcome": {
+      "points": "Pisteet",
+      "no_matching_outcomes": "Yhtään vastauksiisi sopivaa lopputulemaa ei löytynyt."
     },
     "appointments": {
       "no_appointments": "Ei vielä varauksia.",
@@ -121,6 +149,7 @@
   "error": {
     "unknown_error": "Jotain meni pieleen",
     "page_not_found": "Virhe! Sivua ei löytynyt.",
+    "test_not_found": "Virhe! Testiä ei löytynyt.",
     "Forbidden": "Ei käyttöoikeutta",
     "Auth": {
       "form": {
