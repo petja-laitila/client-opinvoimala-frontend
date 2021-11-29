@@ -17,13 +17,44 @@ const StyledGrid = styled(Grid)`
   }
 `;
 
+const ChildrenContainer = styled.div`
+  a {
+    display: flex;
+    align-items: center;
+    color: ${p => p.theme.color.secondary};
+    ${p => p.theme.font.size.md};
+    svg {
+      margin-left: ${p => p.theme.spacing.md};
+    }
+
+    :hover {
+      color: ${p => p.theme.color.secondary};
+    }
+  }
+`;
+
 interface Props {
+  id: string;
   title: string;
   items: SimpleTest[];
   initialItemCount?: number;
+  disableExpand?: boolean;
+  customExpandAction?: {
+    label: string;
+    icon?: JSX.Element;
+    onClick: Function;
+  };
 }
 
-const TestsList: React.FC<Props> = ({ title, items, initialItemCount = 3 }) => {
+const TestsList: React.FC<Props> = ({
+  id,
+  title,
+  items,
+  initialItemCount = 3,
+  disableExpand = false,
+  customExpandAction,
+  children,
+}) => {
   const { t } = useTranslation();
 
   const [itemCount, setItemCount] = useState(initialItemCount);
@@ -67,13 +98,14 @@ const TestsList: React.FC<Props> = ({ title, items, initialItemCount = 3 }) => {
 
   return (
     <>
-      <h2>{title}</h2>
+      <h2 id={id}>{title}</h2>
       <StyledGrid columns={3} stackable doubling stretched>
         {visibleItems.map(test => (
           <Grid.Column key={test.id}>
             <Card
               title={test.name}
               text={test.description}
+              tags={test.categories?.map(({ label }) => label)}
               link={getLink(test)}
               badge={
                 test.completedByUser && <Icon type="Completed" width={28} />
@@ -83,7 +115,7 @@ const TestsList: React.FC<Props> = ({ title, items, initialItemCount = 3 }) => {
         ))}
       </StyledGrid>
 
-      {!isAllItemsVisible && (
+      {!disableExpand && !isAllItemsVisible && (
         <Grid centered>
           <Button
             id={`test-list-${title}-show-more-button`}
@@ -95,7 +127,7 @@ const TestsList: React.FC<Props> = ({ title, items, initialItemCount = 3 }) => {
         </Grid>
       )}
 
-      {isAllItemsVisible && items.length > initialItemCount && (
+      {!disableExpand && isAllItemsVisible && items.length > initialItemCount && (
         <Grid centered>
           <Button
             id={`test-list-${title}-minimize-button`}
@@ -106,6 +138,29 @@ const TestsList: React.FC<Props> = ({ title, items, initialItemCount = 3 }) => {
           />
         </Grid>
       )}
+
+      {customExpandAction && (
+        <Grid centered>
+          <Button
+            id={`test-list-${title}-custom-action-button`}
+            text={customExpandAction.label}
+            variant="link"
+            icon={
+              customExpandAction.icon ?? (
+                <Icon
+                  type="ArrowRight"
+                  strokeColor="secondary"
+                  color="none"
+                  width={22}
+                />
+              )
+            }
+            onClick={() => customExpandAction.onClick()}
+          />
+        </Grid>
+      )}
+
+      <ChildrenContainer>{children}</ChildrenContainer>
       <Divider hidden section />
     </>
   );

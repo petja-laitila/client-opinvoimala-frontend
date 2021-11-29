@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { useStore } from '../../store/storeContext';
 import useWindowDimensions from '../../utils/hooks';
+import NoPrint from '../NoPrint';
 import NavBar from './NavBar';
 import UserMenu from './UserMenu';
 import Wrapper from './Wrapper';
@@ -24,7 +25,11 @@ const StyledHeader = styled.header`
 
     & > div {
       display: flex;
-      gap: ${p => p.theme.spacing.lg};
+      > div {
+        :not(:last-child) {
+          margin-right: ${p => p.theme.spacing.lg};
+        }
+      }
     }
   }
 
@@ -57,16 +62,28 @@ const Header: React.FC = observer(() => {
 
         {isTablet ? (
           <div className="mobile-header__menus">
-            <UserMenu />
-            <NavBar />
+            <div>
+              <NoPrint>
+                <UserMenu />
+              </NoPrint>
+            </div>
+            <div>
+              <NoPrint>
+                <NavBar />
+              </NoPrint>
+            </div>
           </div>
         ) : (
           <>
             <div>
-              <NavBar />
+              <NoPrint>
+                <NavBar />
+              </NoPrint>
             </div>
             <div>
-              <UserMenu />
+              <NoPrint>
+                <UserMenu />
+              </NoPrint>
             </div>
           </>
         )}

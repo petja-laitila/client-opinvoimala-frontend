@@ -5,6 +5,7 @@ import { Appointment } from '../../store/AppointmentsStore';
 import { formatDateTime } from '../../utils/date';
 import Icon from '../Icon';
 import { Button } from '../inputs';
+import NoPrint from '../NoPrint';
 
 const ListItem = styled.li`
   font-family: ${p => p.theme.font.secondary};
@@ -15,6 +16,12 @@ const ListItem = styled.li`
   margin-bottom: ${p => p.theme.spacing.lg};
   padding: ${p => p.theme.spacing.lg};
   ${p => p.theme.shadows[0]};
+
+  @media print {
+    break-inside: avoid;
+    page-break-inside: avoid;
+    page-break-before: avoid;
+  }
 
   .appointment {
     &__time,
@@ -40,7 +47,11 @@ const ListItem = styled.li`
 
     &__action-buttons {
       display: flex;
-      gap: ${p => p.theme.spacing.lg};
+      > button {
+        :not(:last-child) {
+          margin-right: ${p => p.theme.spacing.lg};
+        }
+      }
     }
   }
 
@@ -59,7 +70,11 @@ const ListItem = styled.li`
       &__action-buttons {
         margin-top: ${p => p.theme.spacing.lg};
         flex-direction: column-reverse;
-        gap: ${p => p.theme.spacing.md};
+
+        > button {
+          margin: 0;
+          margin-top: ${p => p.theme.spacing.md};
+        }
       }
     }
   }
@@ -112,30 +127,32 @@ export const AppointmentsListItem: React.FC<Props> = ({
       )}
 
       {showButtons && (
-        <div className="appointment__action-buttons">
-          {!isCancelled && onCancel && (
-            <Button
-              id={`appointment-${id}__cancel-button`}
-              text={t('view.appointments.action.cancel_appointment')}
-              onClick={() => onCancel(id)}
-              color="grey3"
-              negativeText
-              noMargin
-            />
-          )}
-          {onJoin && !!meetingLink && (
-            <Button
-              id={`appointment-${id}__join-meet-button`}
-              icon={<Icon type="Video" width={24} />}
-              text={getJoinButtonText()}
-              onClick={handleJoinButtonClick}
-              disabled={isCancelled}
-              color={isCancelled ? 'accent' : undefined}
-              variant={isCancelled ? 'link' : undefined}
-              noMargin
-            />
-          )}
-        </div>
+        <NoPrint>
+          <div className="appointment__action-buttons">
+            {!isCancelled && onCancel && (
+              <Button
+                id={`appointment-${id}__cancel-button`}
+                text={t('view.appointments.action.cancel_appointment')}
+                onClick={() => onCancel(id)}
+                color="grey3"
+                negativeText
+                noMargin
+              />
+            )}
+            {onJoin && !!meetingLink && (
+              <Button
+                id={`appointment-${id}__join-meet-button`}
+                icon={<Icon type="Video" width={24} />}
+                text={getJoinButtonText()}
+                onClick={handleJoinButtonClick}
+                disabled={isCancelled}
+                color={isCancelled ? 'accent' : undefined}
+                variant={isCancelled ? 'link' : undefined}
+                noMargin
+              />
+            )}
+          </div>
+        </NoPrint>
       )}
 
       {!showButtons && isCancelled && (
