@@ -132,7 +132,7 @@ const TestsList: React.FC<Props> = ({
               text={test.description}
               tags={test.categories?.map(({ label }) => label)}
               link={getLink(test)}
-              badge={renderBadge(test)}
+              badge={test.completedByUser && renderBadge(test)}
             />
           </Grid.Column>
         ))}
