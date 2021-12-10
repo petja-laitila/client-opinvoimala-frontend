@@ -36,7 +36,9 @@ const SettingsModel = types.model({
   logos: types.array(ImageModel),
   scripts: types.maybeNull(
     types.model({
-      cookiebotDomainGroupId: types.string,
+      cookiebotDomainGroupId: types.maybeNull(types.string),
+      googleAnalyticsMeasurementId: types.maybeNull(types.string),
+      giosgCompanyId: types.maybeNull(types.string),
     })
   ),
 });
@@ -54,6 +56,12 @@ export const SettingsStore = types
   .views(self => ({
     get settings() {
       return self.data ? getSnapshot(self.data) : undefined;
+    },
+
+    get isCookiebotActivated() {
+      return self.data?.scripts?.cookiebotDomainGroupId
+        ? !!self.data.scripts.cookiebotDomainGroupId
+        : false;
     },
   }))
   .actions(self => {
