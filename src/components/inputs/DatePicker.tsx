@@ -52,6 +52,9 @@ const Container = styled.div`
         color: ${p => p.theme.color.background};
         font-weight: normal;
       }
+      &--keyboard-selected {
+        background-color: transparent;
+      }
     }
   }
 `;

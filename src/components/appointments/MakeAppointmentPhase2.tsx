@@ -150,6 +150,7 @@ export const MakeAppointmentPhase2: React.FC<Props> = observer(
         />
 
         <TimePickerContainer>
+          {formatDateTime(selectedDate.toISOString(), { format: 'ccc D' })}
           {!!appointmentsByDate.length && (
             <ul>
               {appointmentsByDate.map((appointment, i) => (
