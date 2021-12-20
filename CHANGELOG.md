@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.2.4] - 2021-12-20
+
 ### Added
 
 - Added changelog
@@ -15,6 +17,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 - OPI-66: Date picker behaviour on month change
+
+### Fixed
+
+- OPI-72: Fixed "watermark" positioning
 
 ## [0.2.3] - 2021-12-16
 
