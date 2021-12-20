@@ -5,10 +5,10 @@ React project bootstrapped with [Create React App](https://github.com/facebook/c
 **Relevant links**:
 
 - [MobX state tree](https://mobx-state-tree.js.org/)
-- [Semantic UI](https://mui.com/getting-started/usage/)
 - [Styled components](https://styled-components.com/docs/basics)
+- [Semantic UI](https://react.semantic-ui.com/)
 - [React-i18next](https://github.com/i18next/react-i18next)
-- [Prettier]()
+- [Prettier](https://prettier.io/docs/en/index.html)
 
 ## Commands
 
