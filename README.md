@@ -1,4 +1,4 @@
-# Frontend for Forecon
+# Frontend for Opinvoimala
 
 React project bootstrapped with [Create React App](https://github.com/facebook/create-react-app) & [Typescript](https://www.typescriptlang.org/docs/home.html).
 
