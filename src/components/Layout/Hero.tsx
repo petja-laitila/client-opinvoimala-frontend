@@ -19,6 +19,7 @@ const Container = styled.div`
     &__main-column {
       flex: 1;
       h1 {
+        position: relative;
         line-height: 77px;
         display: flex;
         justify-content: space-between;
@@ -175,7 +176,7 @@ const Hero: React.FC<HeroProps> = ({
 
   return (
     <Container>
-      <Watermark isNegative left={-220} top={40} />
+      <Watermark isNegative left={-220} top={-20} />
 
       <div className={`hero__main-column align-${align}`}>
         {(showGoBack || goBackText || onGoBackClick) && (

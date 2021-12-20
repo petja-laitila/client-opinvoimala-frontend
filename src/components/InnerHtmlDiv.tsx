@@ -49,7 +49,12 @@ const InnerHtmlDiv: React.FC<Props> = observer(({ html }) => {
     __html = __html.replaceAll(embedContentRegex, placeholderElement);
   }
 
-  return <div dangerouslySetInnerHTML={{ __html }}></div>;
+  return (
+    <div
+      style={{ position: 'relative' }}
+      dangerouslySetInnerHTML={{ __html }}
+    ></div>
+  );
 });
 
 export default InnerHtmlDiv;
