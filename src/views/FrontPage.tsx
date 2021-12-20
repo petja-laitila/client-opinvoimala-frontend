@@ -3,10 +3,10 @@ import { observer } from 'mobx-react-lite';
 import styled from 'styled-components';
 import { useStore } from '../store/storeContext';
 import Layout from '../components/Layout';
-import Card from '../components/Card';
 import { Divider, Grid } from 'semantic-ui-react';
 import Watermark from '../components/Layout/Watermark';
 import InnerHtmlDiv from '../components/InnerHtmlDiv';
+import Cards from '../components/Cards';
 
 const Details = styled(InnerHtmlDiv)`
   p {
@@ -52,13 +52,7 @@ export const FrontPage: React.FC = observer(() => {
     <Layout hero={hero} isLoading={isLoading}>
       <Divider section hidden />
 
-      <Grid columns={4} stackable doubling centered stretched>
-        {cards?.map(card => (
-          <Grid.Column key={card.id}>
-            <Card key={card.id} {...card} />
-          </Grid.Column>
-        ))}
-      </Grid>
+      {cards && <Cards cards={cards} />}
 
       <Divider section hidden />
 

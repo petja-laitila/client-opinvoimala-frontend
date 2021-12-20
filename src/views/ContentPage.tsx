@@ -8,6 +8,8 @@ import { useStore } from '../store/storeContext';
 import Watermark from '../components/Layout/Watermark';
 import LinkList from '../components/LinkList';
 import InnerHtmlDiv from '../components/InnerHtmlDiv';
+import { Divider } from 'semantic-ui-react';
+import Cards from '../components/Cards';
 
 const StyledInnerHtmlDiv = styled(InnerHtmlDiv)`
   h1 {
@@ -89,6 +91,13 @@ export const ContentPage = observer(() => {
       <Watermark right={-80} top={-40} />
 
       {page?.content && <StyledInnerHtmlDiv html={page.content} />}
+
+      {page?.cards && (
+        <>
+          <Divider section hidden />
+          <Cards cards={page.cards} columns={3} />
+        </>
+      )}
 
       {page?.linkList && <LinkList list={page.linkList} />}
     </Layout>

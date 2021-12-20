@@ -1,4 +1,5 @@
 import { SnapshotOut, types } from 'mobx-state-tree';
+import { CardModel } from './CardModel';
 import { LinkListModel } from './LinkListModel';
 
 export const PageModel = types.model({
@@ -7,6 +8,7 @@ export const PageModel = types.model({
   slug: types.maybeNull(types.string),
   lead: types.maybeNull(types.string),
   content: types.maybeNull(types.string),
+  cards: types.maybeNull(types.array(CardModel)),
   linkList: types.maybeNull(LinkListModel),
 });
 
