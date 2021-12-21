@@ -11,6 +11,8 @@ import NoCompletedTests from './NoCompletedTests';
 const Container = styled.div`
   height: 100%;
   font-family: ${p => p.theme.font.secondary};
+  padding-left: ${p => p.theme.spacing.lg};
+  padding-right: ${p => p.theme.spacing.lg};
 
   h2 {
     ${p => p.theme.font.h4};
@@ -30,7 +32,10 @@ const Container = styled.div`
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: ${p => p.theme.spacing.md};
+      padding-top: ${p => p.theme.spacing.lg};
+      padding-bottom: ${p => p.theme.spacing.lg};
+      padding-left: ${p => p.theme.spacing.md};
+      padding-right: ${p => p.theme.spacing.md};
 
       :not(:last-child) {
         border-bottom: 1px solid ${p => p.theme.color.grey4};
@@ -42,10 +47,17 @@ const Container = styled.div`
         margin-top: ${p => p.theme.spacing.md};
         color: ${p => p.theme.color.secondary};
         ${p => p.theme.font.size.sm};
+        text-decoration: none;
 
         svg {
-          margin-left: ${p => p.theme.spacing.lg};
-          text-decoration: none;
+          margin-left: ${p => p.theme.spacing.sm};
+          transition: all 0.1s ease-in-out;
+        }
+
+        &:hover {
+          svg {
+            margin-left: ${p => p.theme.spacing.md};
+          }
         }
       }
 
@@ -61,9 +73,9 @@ const Container = styled.div`
           flex: 1;
         }
         &__side {
-          ${p => p.theme.font.size.sm};
+          ${p => p.theme.font.size.xs};
           position: absolute;
-          right: 0;
+          right: ${p => p.theme.spacing.md};
         }
       }
     }

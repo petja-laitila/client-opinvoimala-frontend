@@ -23,7 +23,7 @@ export const GlobalStyle = createGlobalStyle`
   }
 
   *:focus {
-    outline-color: ${p => p.theme.color.accent};
+    outline-color: ${p => p.theme.color.secondary};
   }
   
   hr {
@@ -53,9 +53,14 @@ export const GlobalStyle = createGlobalStyle`
     font-style: oblique;
   }
 
-  p {
-    margin-top: 10px;
-    margin-bottom: 10px;
+  figure, iframe {
+    margin-top: 40px;
+    margin-bottom: 40px;
+  }
+
+  p, h1, h2, h3, h4, h5, h6 {
+    margin-top: 20px;
+    margin-bottom: 20px;
   }
   
   h1, h2, h3, h4, h5, h6 {
@@ -63,28 +68,26 @@ export const GlobalStyle = createGlobalStyle`
     font-family: 'Urbanist', sans-serif;
     font-weight: bold;
     line-height: 120%;
-    margin-top: 10px;
-    margin-bottom: 10px;
   }
 
   h1 {
-    ${fontSize(36, 64)}
+    ${fontSize(36, 64, 120)}
     word-wrap: break-word;
   }
 
   h2 {
-    ${fontSize(28, 36)}
+    ${fontSize(28, 36, 120)}
   }
 
   h3 {
-    ${fontSize(24, 28)}
+    ${fontSize(24, 28, 120)}
   }
 
   h4 {
-    ${fontSize(20, 22)}
+    ${fontSize(20, 22, 120)}
   }
 
-  img {
+  img, figure {
     max-width: 100%;
     object-fit: contain;
     display: block;
@@ -96,7 +99,7 @@ export const GlobalStyle = createGlobalStyle`
   figcaption {
     text-align: center;
     font-style: italic;
-    ${p => p.theme.font.size.md};
+    ${p => p.theme.font.size.sm};
   }
 
   iframe {
@@ -115,7 +118,7 @@ export const GlobalStyle = createGlobalStyle`
 
   label {
     user-select: none;
-    ${p => p.theme.font.size.md};
+    ${p => p.theme.font.size.sm};
   }
 
   input {
@@ -127,7 +130,8 @@ export const GlobalStyle = createGlobalStyle`
     outline: ${p => p.theme.color.accent} auto 1px;
   }
 
-  #CybotCookiebotDialogPoweredbyCybot {
+  #CybotCookiebotDialogPoweredbyCybot,
+  #CybotCookiebotDialogPoweredByText {
     display: none !important;
   }
 `;

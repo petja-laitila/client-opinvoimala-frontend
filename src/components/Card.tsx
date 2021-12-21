@@ -37,7 +37,7 @@ const Container = styled.article<{ isLocked?: boolean }>`
     }
 
     p {
-      ${p => p.theme.font.size.md};
+      ${p => p.theme.font.size.sm};
       overflow: hidden;
       text-overflow: ellipsis;
       display: -webkit-box;
@@ -64,10 +64,8 @@ const Container = styled.article<{ isLocked?: boolean }>`
       justify-content: center;
       color: ${p => p.theme.color.secondary};
       font-family: ${p => p.theme.font.secondary};
-      ${p => p.theme.font.size.md};
-      svg {
-        margin-left: ${p => p.theme.spacing.md};
-      }
+      ${p => p.theme.font.size.sm};
+      text-decoration: none;
     }
   }
 `;
@@ -85,7 +83,7 @@ const TagList = styled.ul`
 
     color: ${p => p.theme.color.secondary};
     font-family: ${p => p.theme.font.secondary};
-    ${p => p.theme.font.size.sm};
+    ${p => p.theme.font.size.xs};
 
     :not(:last-child) {
       margin-right: ${p => p.theme.spacing.sm};
@@ -111,7 +109,7 @@ const Card: React.FC<Props> = observer(
     const isLinkPublic = link ? linkIsPublic(link) : undefined;
 
     return (
-      <Container isLocked={isLocked || (!isLinkPublic && !isLoggedIn)}>
+      <Container isLocked={isLocked || (isLinkPublic === false && !isLoggedIn)}>
         <main>
           {title && <h1>{title}</h1>}
           {text && <p>{text}</p>}

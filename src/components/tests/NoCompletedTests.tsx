@@ -4,7 +4,6 @@ import styled from 'styled-components';
 
 const Container = styled.div`
   display: inline-block;
-  margin: ${p => p.theme.spacing.md} 0;
   padding: ${p => p.theme.spacing.sm} ${p => p.theme.spacing.md};
   background-color: ${p => p.theme.color.grey3};
   border-radius: ${p => p.theme.borderRadius.sm};
