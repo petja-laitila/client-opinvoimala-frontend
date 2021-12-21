@@ -21,8 +21,8 @@ const StyledButton = styled.button<{
   padding-left: ${p => p.theme.spacing.lg};
   padding-right: ${p => p.theme.spacing.lg};
 
-  svg,
-  i {
+  > svg,
+  > i {
     margin-left: 8px;
     margin-right: 0px;
   }

@@ -1,4 +1,5 @@
 import React from 'react';
+import styled from 'styled-components';
 import { useTranslation } from 'react-i18next';
 import { observer } from 'mobx-react-lite';
 import { path, rt } from '../../routes/routes';
@@ -10,6 +11,20 @@ import Drawer from '../Drawer';
 import { useStore } from '../../store/storeContext';
 import { LinkIn } from '../../store/models';
 import Link from '../Link';
+
+const UserIconContainer = styled.div`
+  width: 40px;
+  height: 40px;
+  margin-left: 12px;
+  border: 2px solid ${p => p.theme.color.primary};
+  border-radius: 50px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  ${p => p.theme.shadows[1]};
+`;
 
 const DesktopMenu: React.FC<{ items: LinkIn[] }> = ({ items }) => {
   const { t } = useTranslation();
@@ -26,7 +41,11 @@ const DesktopMenu: React.FC<{ items: LinkIn[] }> = ({ items }) => {
           aria-haspopup={true}
           id="user-menu__button"
           text={t('student')}
-          icon={<Icon type="User" color="primary" />}
+          icon={
+            <UserIconContainer>
+              <Icon type="User" color="primary" />
+            </UserIconContainer>
+          }
           variant="link"
           onClick={onClick}
         />
