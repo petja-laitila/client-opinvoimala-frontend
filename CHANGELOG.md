@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 - Add also page/test slug to document title
+- Removed probably unnecessary route tracker (GA does this automatically?)
 
 ### Added
 
