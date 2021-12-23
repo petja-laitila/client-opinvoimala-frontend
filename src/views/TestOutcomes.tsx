@@ -6,13 +6,14 @@ import Layout from '../components/Layout';
 import { useParams } from '../routes/hooks';
 import { useStore } from '../store/storeContext';
 import Watermark from '../components/Layout/Watermark';
-import { path } from '../routes/routes';
+import { path, rt } from '../routes/routes';
 import TestScore from '../components/tests/TestScore';
 import TestOutcome from '../components/tests/TestOutcome';
 import Annotation from '../components/Annotation';
 import Message from '../components/Message';
 import { TestOutcomes as TestOutcomesType } from '../store/models';
 import LinkList from '../components/LinkList';
+import { usePageTitle } from '../utils/hooks/usePageTitle';
 
 export const TestOutcomes = observer(() => {
   const history = useHistory();
@@ -35,6 +36,10 @@ export const TestOutcomes = observer(() => {
   const outcome = getTestOutcome(slug);
 
   const isLoading = testOutcomeState === 'FETCHING';
+
+  const pageTitle = test?.name ? `${test.name}, ${rt('outcome')}` : undefined;
+
+  usePageTitle({ title: pageTitle });
 
   useEffect(() => {
     if (!test && testState === 'IDLE') {

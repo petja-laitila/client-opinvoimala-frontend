@@ -18,6 +18,7 @@ import {
   saveTestToStorage,
 } from '../utils/storage';
 import { ANALYTICS_EVENT, sendAnalyticsEvent } from '../utils/analytics';
+import { usePageTitle } from '../utils/hooks/usePageTitle';
 
 const SAVE_PROGRESS_TO_STORAGE = true;
 
@@ -67,6 +68,8 @@ export const Test: React.FC = observer(() => {
     currentQuestion: undefined,
     testAnswers: [],
   });
+
+  usePageTitle({ title: test?.name });
 
   /**
    * Set new test progress when test changed.

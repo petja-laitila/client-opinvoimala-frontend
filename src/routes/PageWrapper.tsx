@@ -20,8 +20,10 @@ const PageWrapper: React.FC<Props> = ({ title, children }) => {
    * Set page title
    */
   useEffect(() => {
-    const baseTitle = settings?.appName ?? t('app_name') ?? '';
-    document.title = title ? `${baseTitle} - ${title}` : baseTitle;
+    if (title) {
+      const baseTitle = settings?.appName ?? t('app_name') ?? '';
+      document.title = `${baseTitle} - ${title}`;
+    }
   }, [settings, t, title]);
 
   return <>{children}</>;
