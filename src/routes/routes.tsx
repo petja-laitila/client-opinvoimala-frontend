@@ -47,6 +47,7 @@ const checkAuth = (component: JSX.Element, isUnauthorized?: boolean) => {
 const appRoutes: (Route | NavLinkRoute)[] = [
   {
     path: '/',
+    title: '',
     component: () => <FrontPage />,
     exact: true,
     isPublic: true,
