@@ -7,11 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-## [0.2.6] - 2021-12-21
+## [0.2.7] - 2021-12-23
 
 ### Added
 
-- Asterisk is required annotations
+- Asterisk is required annotation
 - User sees which tests affecs well being profile
 
 ### Changed
