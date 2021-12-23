@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Add also page/test slug to document title
+- Removed probably unnecessary route tracker (GA does this automatically?)
+
 ## [0.2.7] - 2021-12-23
 
 ### Added

@@ -47,6 +47,7 @@ const checkAuth = (component: JSX.Element, isUnauthorized?: boolean) => {
 const appRoutes: (Route | NavLinkRoute)[] = [
   {
     path: '/',
+    title: '',
     component: () => <FrontPage />,
     exact: true,
     isPublic: true,
@@ -95,7 +96,6 @@ const appRoutes: (Route | NavLinkRoute)[] = [
   },
   {
     path: `/${path('content_page')}/:slug`,
-    title: rt('content_page'),
     component: () => <ContentPage />,
     exact: true,
     isPublic: true,
@@ -109,14 +109,12 @@ const appRoutes: (Route | NavLinkRoute)[] = [
   },
   {
     path: `/${path('tests')}/:slug`,
-    title: rt('tests'),
     component: () => <Test />,
     exact: true,
     isPublic: true,
   },
   {
     path: `/${path('tests')}/:slug/${path('outcome')}`,
-    title: rt('outcome'),
     component: () => <TestOutcomes />,
     exact: true,
     isPublic: true,

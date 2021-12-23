@@ -10,6 +10,7 @@ import LinkList from '../components/LinkList';
 import InnerHtmlDiv from '../components/InnerHtmlDiv';
 import { Divider } from 'semantic-ui-react';
 import Cards from '../components/Cards';
+import { usePageTitle } from '../utils/hooks/usePageTitle';
 
 const StyledInnerHtmlDiv = styled(InnerHtmlDiv)`
   h1 {
@@ -42,6 +43,8 @@ export const ContentPage = observer(() => {
   const page = getPage(slug);
 
   const isLoading = state === 'FETCHING';
+
+  usePageTitle({ title: page?.title });
 
   const fetchPageFromApi = useCallback(
     async (slug: string) => {
