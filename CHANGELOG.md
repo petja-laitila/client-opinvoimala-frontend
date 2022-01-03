@@ -10,6 +10,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 - Show chat only for logged-in-users
+- Watermark is hidden for screen readers
+- Moved asterisk-annotation on top of each form
+
+### Added
+
+- aria-hidden attribute to all Divider components
 
 ## [0.2.8] - 2021-12-23
 

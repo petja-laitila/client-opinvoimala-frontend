@@ -92,6 +92,12 @@ export const ChangePassword: React.FC = observer(() => {
           )}
         </Transition.Group>
 
+        <Annotation
+          simple
+          text={t('annotation.asterisk_is_required')}
+          prefix={<span style={{ color: COLORS.accent }}>* </span>}
+        />
+
         <h3>{t('view.change_password.current_password_title')}</h3>
 
         <Input
@@ -105,7 +111,7 @@ export const ChangePassword: React.FC = observer(() => {
           onChange={handleChange(setCurrentPassword)}
         />
 
-        <Divider hidden />
+        <Divider hidden aria-hidden="true" />
 
         <h3>{t('view.change_password.new_password_title')}</h3>
         <p>{t('view.change_password.new_password_info')}</p>
@@ -142,7 +148,7 @@ export const ChangePassword: React.FC = observer(() => {
           )}
         </Transition.Group>
 
-        <Divider hidden />
+        <Divider hidden aria-hidden="true" />
 
         <Button
           id="change-password-view__change_password-button"
@@ -152,12 +158,6 @@ export const ChangePassword: React.FC = observer(() => {
           noMargin
         />
       </form>
-
-      <Annotation
-        simple
-        text={t('annotation.asterisk_is_required')}
-        prefix={<span style={{ color: COLORS.accent }}>* </span>}
-      />
     </Layout>
   );
 });

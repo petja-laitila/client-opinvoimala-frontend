@@ -115,6 +115,12 @@ export const Register: React.FC<Props> = observer(() => {
   return (
     <Layout hero={hero} wrapperSize="sm">
       <form onSubmit={handleSubmit}>
+        <Annotation
+          simple
+          text={t('annotation.asterisk_is_required')}
+          prefix={<span style={{ color: COLORS.accent }}>* </span>}
+        />
+
         <h3>{t('view.register.email_title')}</h3>
         <p>{t('view.register.email_info')}</p>
 
@@ -129,7 +135,7 @@ export const Register: React.FC<Props> = observer(() => {
           onChange={handleChange(setEmail)}
         />
 
-        <Divider hidden />
+        <Divider hidden aria-hidden="true" />
 
         <h3>{t('view.register.password_title')}</h3>
 
@@ -173,7 +179,7 @@ export const Register: React.FC<Props> = observer(() => {
           )}
         </Transition.Group>
 
-        <Divider hidden />
+        <Divider hidden aria-hidden="true" />
 
         <Button
           id="register-view__register-button"
@@ -181,12 +187,6 @@ export const Register: React.FC<Props> = observer(() => {
           type="submit"
           disabled={isBusy}
           noMargin
-        />
-
-        <Annotation
-          simple
-          text={t('annotation.asterisk_is_required')}
-          prefix={<span style={{ color: COLORS.accent }}>* </span>}
         />
       </form>
     </Layout>
