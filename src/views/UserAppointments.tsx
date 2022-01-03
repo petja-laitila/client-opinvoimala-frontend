@@ -12,7 +12,7 @@ import Message from '../components/Message';
 import NoPrint from '../components/NoPrint';
 import { useStore } from '../store/storeContext';
 import { getApiErrorMessages } from '../utils/api';
-import useWindowDimensions from '../utils/hooks';
+import { useWindowDimensions } from '../utils/hooks';
 
 export const UserAppointments: React.FC = observer(() => {
   const { t } = useTranslation();

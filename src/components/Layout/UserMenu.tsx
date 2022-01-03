@@ -6,7 +6,7 @@ import { path, rt } from '../../routes/routes';
 import Icon from '../Icon';
 import Button from '../inputs/Button';
 import DropdownMenu from '../DropdownMenu';
-import useWindowDimensions from '../../utils/hooks';
+import { useWindowDimensions } from '../../utils/hooks';
 import Drawer from '../Drawer';
 import { useStore } from '../../store/storeContext';
 import { LinkIn } from '../../store/models';

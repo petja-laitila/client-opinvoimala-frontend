@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { useHistory } from 'react-router';
 import styled from 'styled-components';
 import { Image } from '../../store/models';
-import useWindowDimensions from '../../utils/hooks';
+import { useWindowDimensions } from '../../utils/hooks';
 import Icon from '../Icon';
 import { Button } from '../inputs';
 import NoPrint from '../NoPrint';

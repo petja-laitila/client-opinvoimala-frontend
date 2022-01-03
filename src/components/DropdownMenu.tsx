@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import { LinkIn } from '../store/models';
 import { Colors } from '../theme/styled';
-import { useOutsideClickAction } from '../utils/hooks';
+import { useOutsideClickAction } from '../utils/hooks/useOutsideClickAction';
 import Link from './Link';
 
 const StyledDropdownMenu = styled.div<{

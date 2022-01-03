@@ -6,7 +6,7 @@ import { observer } from 'mobx-react-lite';
 import { useStore } from '../../store/storeContext';
 import Link from '../Link';
 import { Divider, Grid, Icon } from 'semantic-ui-react';
-import useWindowDimensions from '../../utils/hooks';
+import { useWindowDimensions } from '../../utils/hooks';
 import NoPrint from '../NoPrint';
 
 const StyledFooter = styled.footer`

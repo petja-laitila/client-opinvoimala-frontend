@@ -11,7 +11,7 @@ import Annotation from '../components/Annotation';
 import { Question, QuestionOption } from '../store/models';
 import TestQuestion from '../components/tests/TestQuestion';
 import { Button } from '../components/inputs';
-import useWindowDimensions from '../utils/hooks';
+import { useWindowDimensions } from '../utils/hooks';
 import {
   clearTestFromStorage,
   getTestFromStorage,

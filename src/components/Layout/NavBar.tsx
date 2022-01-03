@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { useStore } from '../../store/storeContext';
 import DropdownMenu from '../DropdownMenu';
 import { Link } from '../../store/models';
-import useWindowDimensions from '../../utils/hooks';
+import { useWindowDimensions } from '../../utils/hooks';
 import Drawer from '../Drawer';
 import Button from '../inputs/Button';
 import Icon from '../Icon';

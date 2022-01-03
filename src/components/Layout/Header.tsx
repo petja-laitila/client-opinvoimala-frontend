@@ -3,7 +3,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { useStore } from '../../store/storeContext';
-import useWindowDimensions from '../../utils/hooks';
+import { useWindowDimensions } from '../../utils/hooks';
 import NoPrint from '../NoPrint';
 import NavBar from './NavBar';
 import UserMenu from './UserMenu';
