@@ -12,7 +12,7 @@ import MaintenancePage from './views/auth/MaintenancePage';
 
 const App: React.FC = observer(() => {
   const {
-    auth: { state: authState },
+    auth: { state: authState, isLoggedIn },
     settings: { state: settingsState, fetchSettings, settings, maintenance },
     navigation: { state: navigationState },
     appointments: { appointmentState },
@@ -60,7 +60,7 @@ const App: React.FC = observer(() => {
     <ThemeProvider theme={theme}>
       <Cookiebot cbid={cookiebotDomainGroupId} />
       <Analytics gaMeasurementId={googleAnalyticsMeasurementId} />
-      <Chat giosgCompanyId={giosgCompanyId} />
+      {isLoggedIn && <Chat giosgCompanyId={giosgCompanyId} />}
 
       <Dimmer inverted active={appIsLoading} style={{ position: 'fixed' }}>
         <Loader size="massive" />
