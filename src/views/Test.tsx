@@ -46,7 +46,6 @@ export const Test: React.FC = observer(() => {
   const history = useHistory();
   const { slug } = useParams();
   const slugRef = useRef<string>();
-  const questionAnchor = useRef<HTMLDivElement>(null);
   const { isMobile } = useWindowDimensions();
 
   const {
@@ -171,13 +170,11 @@ export const Test: React.FC = observer(() => {
       case 'previous':
         if (currentQuestion > 0) {
           setCurrentQuestion(currentQuestion - 1);
-          questionAnchor?.current?.scrollIntoView();
         }
         return;
       case 'next':
         if (currentQuestion + 1 < testProgress.testAnswers.length) {
           setCurrentQuestion(currentQuestion + 1);
-          questionAnchor?.current?.scrollIntoView();
         }
         return;
       default:
@@ -253,8 +250,6 @@ export const Test: React.FC = observer(() => {
 
   return (
     <Layout wrapperSize="sm" hero={hero} isLoading={isBusy}>
-      <div ref={questionAnchor} style={{ visibility: 'hidden' }} />
-
       {currentTestAnswer && (
         <TestQuestion
           questionNo={getQuestionNo()}

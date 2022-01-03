@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import styled from 'styled-components';
 import { QuestionOption } from '../../store/models';
 import InnerHtmlDiv from '../InnerHtmlDiv';
@@ -19,10 +19,19 @@ const TestQuestion: React.FC<Props> = ({
   testAnswer,
   setAnswer,
 }) => {
+  const titleRef = useRef<HTMLHeadingElement>(null);
+  const questionRef = useRef<number>();
+
   const { question, answer } = testAnswer;
 
   const renderOptions = () => {
     if (!question.options.length) return null;
+
+    if (questionRef.current !== questionNo) {
+      // Question did change, "reset" focus to heading
+      questionRef.current = questionNo;
+      titleRef.current?.focus();
+    }
 
     switch (question.answerType) {
       case 'multiple_choice':
@@ -31,7 +40,6 @@ const TestQuestion: React.FC<Props> = ({
             options={question.options}
             selectedOption={answer}
             onSelect={setAnswer}
-            autoFocus
           />
         );
       case 'dropdown':
@@ -40,7 +48,6 @@ const TestQuestion: React.FC<Props> = ({
             options={question.options}
             selectedOption={answer}
             onSelect={setAnswer}
-            autoFocus
           />
         );
       case 'slider':
@@ -60,7 +67,6 @@ const TestQuestion: React.FC<Props> = ({
             onChange={(text: string) =>
               setAnswer({ id: -1, label: text ?? '' })
             }
-            autoFocus
           />
         );
       case 'none':
@@ -71,10 +77,13 @@ const TestQuestion: React.FC<Props> = ({
   };
 
   const questionNumber = questionNo !== undefined ? `${questionNo}) ` : '';
+  const title = `${questionNumber}${question.title}`;
 
   return (
     <div>
-      <h2>{`${questionNumber}${question.title}`}</h2>
+      <h2 ref={titleRef} tabIndex={-1} style={{ outline: 0 }}>
+        {title}
+      </h2>
 
       {question.content && <InnerHtmlDiv html={question.content} />}
 
