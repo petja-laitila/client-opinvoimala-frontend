@@ -20,6 +20,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 
 - Set focus to question heading when question changed
+- Focus outline colors
 
 ## [0.2.8] - 2021-12-23
 

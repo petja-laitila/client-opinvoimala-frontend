@@ -25,6 +25,19 @@ export const GlobalStyle = createGlobalStyle`
   *:focus {
     outline-color: ${p => p.theme.color.secondary};
   }
+
+  button:focus,
+  a:focus {
+    outline-color: ${p => p.theme.color.accent};
+  }
+
+  input:focus {
+    border-color: ${p => p.theme.color.secondary} !important;
+  }
+
+  input[type="checkbox"]:focus + label::before {
+    outline: ${p => p.theme.color.accent} auto 1px;
+  }
   
   hr {
     border: 1px solid rgba(0, 0, 0, 0.1);
@@ -133,15 +146,6 @@ export const GlobalStyle = createGlobalStyle`
   label {
     user-select: none;
     ${p => p.theme.font.size.sm};
-  }
-
-  input {
-    &:focus {
-      border-color: ${p => p.theme.color.accent} !important;
-    }
-  }
-  input[type="checkbox"]:focus + label::before {
-    outline: ${p => p.theme.color.accent} auto 1px;
   }
 
   #CybotCookiebotDialogPoweredbyCybot,
