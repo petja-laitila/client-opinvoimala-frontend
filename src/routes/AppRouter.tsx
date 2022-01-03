@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, Suspense } from 'react';
 import { observer } from 'mobx-react-lite';
 import {
   Route as RouterRoute,
@@ -25,32 +25,36 @@ const AppRouter: FC<Props> = observer(({ routes = appRoutes }) => {
 
   return (
     <Router>
-      <ScrollToTop />
-      <Switch>
-        {publicRoutes.map(route => (
-          <RouterRoute
-            key={route.path}
-            path={route.path}
-            component={() => (
-              <PageWrapper title={route.title}>{route.component()}</PageWrapper>
-            )}
-            exact={route.exact}
-          />
-        ))}
-        {authRoutes.map(route => (
-          <RouterRoute
-            key={route.path}
-            path={route.path}
-            component={() => (
-              <PageWrapper title={route.title}>
-                {route.component({ unauthorized: !isLoggedIn })}
-              </PageWrapper>
-            )}
-            exact={route.exact}
-          />
-        ))}
-        <NotFound404 />
-      </Switch>
+      <Suspense fallback={<div>...</div>}>
+        <ScrollToTop />
+        <Switch>
+          {publicRoutes.map(route => (
+            <RouterRoute
+              key={route.path}
+              path={route.path}
+              component={() => (
+                <PageWrapper title={route.title}>
+                  {route.component()}
+                </PageWrapper>
+              )}
+              exact={route.exact}
+            />
+          ))}
+          {authRoutes.map(route => (
+            <RouterRoute
+              key={route.path}
+              path={route.path}
+              component={() => (
+                <PageWrapper title={route.title}>
+                  {route.component({ unauthorized: !isLoggedIn })}
+                </PageWrapper>
+              )}
+              exact={route.exact}
+            />
+          ))}
+          <NotFound404 />
+        </Switch>
+      </Suspense>
     </Router>
   );
 });

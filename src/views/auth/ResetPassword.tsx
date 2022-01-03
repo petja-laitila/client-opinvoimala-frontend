@@ -146,3 +146,5 @@ export const ResetPassword: React.FC<Props> = observer(() => {
     </Layout>
   );
 });
+
+export default ResetPassword;

@@ -81,3 +81,5 @@ export const FrontPage: React.FC = observer(() => {
     </Layout>
   );
 });
+
+export default FrontPage;

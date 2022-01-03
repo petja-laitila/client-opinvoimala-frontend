@@ -56,3 +56,5 @@ export const Tests: React.FC = observer(() => {
     </Layout>
   );
 });
+
+export default Tests;

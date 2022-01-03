@@ -103,3 +103,5 @@ export const TestOutcomes = observer(() => {
     </Layout>
   );
 });
+
+export default TestOutcomes;

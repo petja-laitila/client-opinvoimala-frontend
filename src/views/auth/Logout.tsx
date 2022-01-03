@@ -65,3 +65,5 @@ export const Logout: React.FC<Props> = observer(() => {
     </Layout>
   );
 });
+
+export default Logout;

@@ -136,3 +136,5 @@ export const WellBeingProfile: React.FC = observer(() => {
     </Layout>
   );
 });
+
+export default WellBeingProfile;

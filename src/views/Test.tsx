@@ -291,3 +291,5 @@ export const Test: React.FC = observer(() => {
     </Layout>
   );
 });
+
+export default Test;

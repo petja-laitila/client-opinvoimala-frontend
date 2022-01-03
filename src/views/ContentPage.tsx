@@ -106,3 +106,5 @@ export const ContentPage = observer(() => {
     </Layout>
   );
 });
+
+export default ContentPage;

@@ -1,21 +1,21 @@
+import { lazy } from 'react';
 import i18n from '../i18n';
-import {
-  FrontPage,
-  ContentPage,
-  Register,
-  Logout,
-  ChangePassword,
-  ForgotPassword,
-  ResetPassword,
-  Test,
-  Tests,
-  UserAppointments,
-  TestOutcomes,
-  WellBeingProfile,
-} from '../views';
-import Unauthorized from '../views/Unauthorized';
-import CookieDeclaration from '../views/CookieDeclaration';
 import { slug } from '../utils/string';
+
+const FrontPage = lazy(() => import('../views/FrontPage'));
+const ContentPage = lazy(() => import('../views/ContentPage'));
+const Register = lazy(() => import('../views/auth/Register'));
+const Logout = lazy(() => import('../views/auth/Logout'));
+const ChangePassword = lazy(() => import('../views/auth/ChangePassword'));
+const ForgotPassword = lazy(() => import('../views/auth/ForgotPassword'));
+const ResetPassword = lazy(() => import('../views/auth/ResetPassword'));
+const Test = lazy(() => import('../views/Test'));
+const Tests = lazy(() => import('../views/Tests'));
+const UserAppointments = lazy(() => import('../views/UserAppointments'));
+const TestOutcomes = lazy(() => import('../views/TestOutcomes'));
+const WellBeingProfile = lazy(() => import('../views/WellBeingProfile'));
+const Unauthorized = lazy(() => import('../views/Unauthorized'));
+const CookieDeclaration = lazy(() => import('../views/CookieDeclaration'));
 
 interface ComponentProps {
   unauthorized?: boolean;

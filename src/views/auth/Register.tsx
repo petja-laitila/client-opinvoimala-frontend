@@ -192,3 +192,5 @@ export const Register: React.FC<Props> = observer(() => {
     </Layout>
   );
 });
+
+export default Register;

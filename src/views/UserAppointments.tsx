@@ -124,3 +124,5 @@ export const UserAppointments: React.FC = observer(() => {
     </Layout>
   );
 });
+
+export default UserAppointments;

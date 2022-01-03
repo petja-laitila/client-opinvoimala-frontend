@@ -161,3 +161,5 @@ export const ChangePassword: React.FC = observer(() => {
     </Layout>
   );
 });
+
+export default ChangePassword;
