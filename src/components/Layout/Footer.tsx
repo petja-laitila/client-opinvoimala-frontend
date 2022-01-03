@@ -15,6 +15,10 @@ const StyledFooter = styled.footer`
 
   ${p => p.theme.font.size.sm};
 
+  h1 {
+    ${p => p.theme.font.h4};
+  }
+
   .footer__description-text {
     margin: ${p => p.theme.spacing.md} 0;
     width: 40%;
@@ -127,7 +131,7 @@ const Footer: React.FC = observer(() => {
 
   const renderInfo = () => (
     <>
-      <h4>{settings?.appName ?? t('app_name')}</h4>
+      <h1>{settings?.appName ?? t('app_name')}</h1>
 
       {description && <p>{description}</p>}
 
