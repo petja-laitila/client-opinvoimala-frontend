@@ -26,7 +26,6 @@ yarn build
 ## Branches
 
 - `dev` - Finished features
-- `stage` - Staging version
 - `master` - Production version
 
 ## Digital Ocean deploy
@@ -36,19 +35,25 @@ yarn build
 Create & push new tag `*-stage` (e.g. yyyymmdd-HHMM-stage)
 
 ```sh
-git checkout stage
-# Make sure that all changes are merged into stage
+git checkout dev
+# Make sure that all changes are merged into dev
 git tag [tag]
-git push origin stage --tags
+git push origin dev --tags
 ```
+
+_(It's recommend to deploy staging versions from dev branch)_
 
 ### Upgrade production
 
-Create & push new tag `*-production` (e.g. 0.0.1-production)
+Please deploy production versions always from the master branch!
+
+1. Update changelog & bump version number in package.json and commit changes
+2. Create & push new tag `*-production` (e.g. 0.0.1-production)
 
 ```sh
 git checkout master
-# Make sure that all changes are merged into master
+# Make sure all changes are merged into master and
+# Update changelog & package.json (and commit changes)
 git tag [tag]
 git push origin master --tags
 ```
