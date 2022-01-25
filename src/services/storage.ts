@@ -5,7 +5,7 @@ interface StorageProps {
   target?: TargetStorage;
 }
 
-const DEFAULT_TARGET: TargetStorage = 'session';
+const DEFAULT_TARGET: TargetStorage = 'local';
 
 interface WriteStorageProps extends StorageProps {
   value: Object | null;

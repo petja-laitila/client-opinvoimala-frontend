@@ -101,8 +101,10 @@ const Container = styled.div`
         }
       }
       &__main-column {
-        h1 {
-          line-height: 43px;
+        .heading-container {
+          h1 {
+            line-height: 43px;
+          }
         }
         &.align-center {
           text-align: center;

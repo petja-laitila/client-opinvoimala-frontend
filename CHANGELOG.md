@@ -9,6 +9,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- OPI-83: Added Kuormitusmittari scripts
+
+### Changed
+
+- OPI-82: Save AUTH_TOKEN to the local storage (instead of the session storage)
+
+### Fixed
+
+- OPI-81: Exercises have different text than "reqular" tests
+- OPI-81: Removed watermark from frontpage
+
+## [0.2.10] - 2022-01-17
+
+### Added
+
 - OPI-80: Test categories can have custom links to point category page
 - OPI-80: Toggle test summary on/off in well-being-profile
 - OPI-80: Default texts for test summary
