@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- OPI-82: Save AUTH_TOKEN to the local storage (instead of the session storage)
+
 ### Fixed
 
 - OPI-81: Exercises have different text than "reqular" tests
