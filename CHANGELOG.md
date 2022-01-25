@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- OPI-83: Added Kuormitusmittari scripts
+
 ### Changed
 
 - OPI-82: Save AUTH_TOKEN to the local storage (instead of the session storage)
