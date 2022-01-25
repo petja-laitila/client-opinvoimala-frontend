@@ -58,6 +58,7 @@ export const Test: React.FC = observer(() => {
   const { name, description, categories = [] } = test ?? {};
 
   const isBusy = testState === 'FETCHING';
+  const isExercise = test?.type === 'exercise';
 
   const [fetchFailCount, setFetchFailCount] = useState(0);
   const [errorMsg, setErrorMsg] = useState<string>();
@@ -271,7 +272,7 @@ export const Test: React.FC = observer(() => {
         {isFinalQuestion ? (
           <Button
             id="test-controls__submit-button"
-            text={t('action.show_result')}
+            text={isExercise ? t('action.done') : t('action.show_result')}
             onClick={handleTestCompleted}
             type="submit"
             disabled={isProgressDisabled}
@@ -287,7 +288,7 @@ export const Test: React.FC = observer(() => {
         {isMobile && <div>{getProgressText()}</div>}
       </TestControls>
 
-      <Annotation text={t('annotation.test')} />
+      {!isExercise && <Annotation text={t('annotation.test')} />}
     </Layout>
   );
 });

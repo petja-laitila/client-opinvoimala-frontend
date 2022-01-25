@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+- OPI-81: Exercises have different text than "reqular" tests
+- OPI-81: Removed watermark from frontpage
+
 ## [0.2.10] - 2022-01-17
 
 ### Added
