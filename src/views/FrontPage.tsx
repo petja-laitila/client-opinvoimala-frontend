@@ -62,8 +62,6 @@ export const FrontPage: React.FC = observer(() => {
         reversed="computer tablet mobile"
         style={{ position: 'relative', marginTop: '80px' }}
       >
-        <Watermark right={-20} />
-        <Watermark bottom={-10} left={-80} />
         <Grid.Row columns={2}>
           {details && (
             <Grid.Column mobile={16} tablet={16} computer={8}>
