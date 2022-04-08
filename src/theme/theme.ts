@@ -31,10 +31,10 @@ export const BREAKPOINTS = Object.freeze({
 
 export const fontSize = (sm: number, md: number, lineHeight?: number) => {
   return `
-    font-size: ${md}px;
+    font-size: ${md}rem;
     line-height: ${lineHeight ?? 160}%;
     @media (max-width: ${BREAKPOINTS.mobile}px) {
-      font-size: ${sm}px;
+      font-size: ${sm}rem;
     }
   `;
 };
@@ -72,18 +72,18 @@ export const theme: DefaultTheme = {
     main: 'Open sans',
     secondary: 'Urbanist',
     size: {
-      xs: fontSize(12, 14),
-      sm: fontSize(14, 16),
-      md: fontSize(16, 20),
-      lg: fontSize(18, 22),
-      xl: fontSize(22, 28),
+      xs: fontSize(0.75, 0.875),
+      sm: fontSize(0.875, 1),
+      md: fontSize(1, 1.25),
+      lg: fontSize(1.125, 1.375),
+      xl: fontSize(1.375, 1.75),
     },
-    h1: fontSize(36, 64),
-    h2: fontSize(28, 36, 120),
-    h3: fontSize(24, 28, 120),
-    h4: fontSize(20, 22, 120),
-    h5: fontSize(18, 20, 120),
-    h6: fontSize(16, 18, 120),
+    h1: fontSize(1, 4),
+    h2: fontSize(1.75, 2.25, 120),
+    h3: fontSize(1.5, 1.75, 120),
+    h4: fontSize(1.25, 1.375, 120),
+    h5: fontSize(1.125, 1.25, 120),
+    h6: fontSize(1, 1.125, 120),
   },
 };
 

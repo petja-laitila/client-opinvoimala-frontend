@@ -11,7 +11,7 @@ const ToggleButton = styled.button<{ size: ToggleButtonSize }>`
   align-items: center;
   width: 100%;
   font-family: ${p => p.theme.font.secondary};
-  font-size: ${p => (p.size === 'sm' ? 16 : 20)}px;
+  font-size: ${p => (p.size === 'sm' ? 1 : 1.25)}rem;
   text-align: left;
   margin: ${p => p.theme.spacing.md} 0;
   padding: ${p => (p.size === 'sm' ? p.theme.spacing.md : p.theme.spacing.lg)};

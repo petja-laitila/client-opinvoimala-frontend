@@ -2,7 +2,6 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import styled from 'styled-components';
 import Stars from '../Stars';
-import NoCompletedTests from './NoCompletedTests';
 
 const Container = styled.div`
   display: flex;

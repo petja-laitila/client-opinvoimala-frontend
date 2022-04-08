@@ -14,6 +14,7 @@ import { ReactComponent as Completed } from '../assets/icons/completed-check.svg
 import { ReactComponent as Download } from '../assets/icons/download.svg';
 import { ReactComponent as Lock } from '../assets/icons/lock.svg';
 import { ReactComponent as Menu } from '../assets/icons/menu.svg';
+import { ReactComponent as Minus } from '../assets/icons/minus.svg';
 import { ReactComponent as Plus } from '../assets/icons/plus.svg';
 import { ReactComponent as SignIn } from '../assets/icons/sign-in.svg';
 import { ReactComponent as User } from '../assets/icons/md-person.svg';
@@ -32,6 +33,7 @@ const Icons = {
   Download,
   Lock,
   Menu,
+  Minus,
   Plus,
   SignIn,
   User,

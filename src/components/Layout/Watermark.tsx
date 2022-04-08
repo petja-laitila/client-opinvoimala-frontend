@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { ReactComponent as WatermarkNegativeSvg } from '../../assets/watermark-negative.svg';
 import { ReactComponent as WatermarkDefaultSvg } from '../../assets/watermark.svg';
+import { useWindowDimensions } from '../../utils/hooks';
 
 const Container = styled.div<{ position: string }>`
   position: absolute;
@@ -28,6 +29,7 @@ interface Position {
 interface Props extends Position {
   width?: number;
   isNegative?: boolean;
+  showOnlyOnScreensAbove?: number;
 }
 
 const getPositionCss = ({ top, right, bottom, left }: Position) => {
@@ -46,10 +48,17 @@ const Watermark: React.FC<Props> = ({
   right,
   bottom,
   left,
+  showOnlyOnScreensAbove,
 }) => {
+  const { width: windowWidth } = useWindowDimensions();
+
   const positionCss = getPositionCss({ top, right, bottom, left });
 
   const Image = isNegative ? WatermarkNegativeSvg : WatermarkDefaultSvg;
+
+  if (showOnlyOnScreensAbove && windowWidth < showOnlyOnScreensAbove) {
+    return null;
+  }
 
   return (
     <Container position={positionCss} aria-hidden="true">

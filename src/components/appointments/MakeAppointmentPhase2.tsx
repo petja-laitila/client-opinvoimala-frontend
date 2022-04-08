@@ -39,7 +39,7 @@ const TimePickerContainer = styled.div`
     list-style-type: none;
     padding: 0;
     font-family: ${p => p.theme.font.secondary};
-    font-size: 16px;
+    font-size: 1rem;
     li {
       margin: ${p => p.theme.spacing.md} 0;
       .appointment-time {

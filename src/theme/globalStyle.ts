@@ -2,11 +2,14 @@ import { createGlobalStyle } from 'styled-components';
 import { COLORS, fontSize } from './theme';
 
 export const GlobalStyle = createGlobalStyle`
+  html {
+    font-size: 16px;
+  }
   body {
     font-family: 'Open Sans', sans-serif;
     background-color: ${COLORS.grey3};
     color: ${COLORS.text};
-    ${fontSize(16, 20)};
+    ${fontSize(1, 1.25)};
     letter-spacing: -0.01em;
     line-height: 160%;
   }
@@ -84,20 +87,20 @@ export const GlobalStyle = createGlobalStyle`
   }
 
   h1 {
-    ${fontSize(36, 64, 120)}
+    ${fontSize(2.25, 4, 120)}
     word-wrap: break-word;
   }
 
   h2 {
-    ${fontSize(28, 36, 120)}
+    ${fontSize(1.75, 2.25, 120)}
   }
 
   h3 {
-    ${fontSize(24, 28, 120)}
+    ${fontSize(1.5, 1.75, 120)}
   }
 
   h4 {
-    ${fontSize(20, 22, 120)}
+    ${fontSize(1.25, 1.375, 120)}
   }
 
   figure {

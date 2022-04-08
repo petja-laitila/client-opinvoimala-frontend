@@ -6,7 +6,6 @@ import { Link, TestsSummaryCategory } from '../../store/models';
 import Stars from '../Stars';
 import { path } from '../../routes/routes';
 import Icon from '../Icon';
-import NoCompletedTests from './NoCompletedTests';
 import { linkTargetUrl } from '../../utils/links';
 
 const Container = styled.div`

@@ -12,7 +12,7 @@ import { Divider } from 'semantic-ui-react';
 import Cards from '../components/Cards';
 import { usePageTitle } from '../utils/hooks/usePageTitle';
 
-const StyledInnerHtmlDiv = styled(InnerHtmlDiv)`
+const InnerHtmlContainer = styled.div`
   h1 {
     ${p => p.theme.font.h2};
   }
@@ -24,6 +24,13 @@ const StyledInnerHtmlDiv = styled(InnerHtmlDiv)`
   }
   h4 {
     ${p => p.theme.font.h5};
+  }
+
+  @media ${p => p.theme.breakpoint.mobile} {
+    figure,
+    img {
+      width: 100% !important;
+    }
   }
 `;
 
@@ -91,9 +98,13 @@ export const ContentPage = observer(() => {
 
   return (
     <Layout wrapperSize="sm" hero={hero} isLoading={isLoading}>
-      <Watermark right={-80} top={-40} />
+      <Watermark right={-80} top={-40} showOnlyOnScreensAbove={1400} />
 
-      {page?.content && <StyledInnerHtmlDiv html={page.content} />}
+      {page?.content && (
+        <InnerHtmlContainer>
+          <InnerHtmlDiv html={page.content} />
+        </InnerHtmlContainer>
+      )}
 
       {page?.cards && (
         <>

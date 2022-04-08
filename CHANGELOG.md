@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- OPI-96/OPI-98: Accessibility/UI updates & fixes
+
 ## [0.2.11] - 2022-01-25
 
 ### Added

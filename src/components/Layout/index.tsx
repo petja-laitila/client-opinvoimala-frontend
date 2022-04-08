@@ -37,9 +37,9 @@ const DiagonalSeparator = styled.div`
   }
 
   @media ${p => p.theme.breakpoint.mobile} {
-    height: 100px;
+    height: 120px;
     background: linear-gradient(
-      -184deg,
+      -183deg,
       ${p => p.theme.color.primaryLight} 50%,
       transparent 0%
     );

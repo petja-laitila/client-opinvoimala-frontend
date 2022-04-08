@@ -86,7 +86,8 @@ export const TestOutcomes = observer(() => {
 
   return (
     <Layout wrapperSize="sm" hero={hero} isLoading={isLoading}>
-      <Watermark right={-80} top={-40} />
+      <Watermark right={-80} top={-40} showOnlyOnScreensAbove={1400} />
+
       <TestScore points={points} maxPoints={maximumPoints} stars={stars} />
 
       {visibleOutcomes.map(outcome => (
