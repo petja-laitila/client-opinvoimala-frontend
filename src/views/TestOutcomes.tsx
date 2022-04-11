@@ -36,6 +36,7 @@ export const TestOutcomes = observer(() => {
   const outcome = getTestOutcome(slug);
 
   const isLoading = testOutcomeState === 'FETCHING';
+  const isTest = test?.type === 'test';
 
   const pageTitle = test?.name ? `${test.name}, ${rt('outcome')}` : undefined;
 
@@ -57,7 +58,6 @@ export const TestOutcomes = observer(() => {
 
   const hero = {
     title: test?.name ?? '',
-    lead: test?.description,
     goBackText: t('route.tests'),
     onGoBackClick: () => history.push(`/${path('tests')}`),
     image: test?.categories[0]?.image,
@@ -98,7 +98,7 @@ export const TestOutcomes = observer(() => {
         <Message content={t('view.test_outcome.no_matching_outcomes')} />
       )}
 
-      <Annotation text={t('annotation.test')} />
+      {isTest && <Annotation text={t('annotation.test')} />}
 
       {linkList && <LinkList list={linkList} />}
     </Layout>

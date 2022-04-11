@@ -65,8 +65,8 @@
       "tests_by_category": "Tutustu aiheen testeihin",
       "no_tests_completed": "Ei suoritettuja testejä",
       "completed_tests": "Suoritetut testit ja harjoitukset",
-      "tests": "Testit",
-      "all_tests": "Kaikki testit",
+      "tests": "Testit ja harjoitukset",
+      "all_tests": "Kaikki testit ja harjoitukset",
       "exercises": "Harjoitukset",
       "all_exercises": "Lisää harjoituksia",
       "make_appointment": "Varaa aika"
@@ -81,7 +81,8 @@
       "exercises": "Harjoitukset",
       "action": {
         "start_test": "Tee testi",
-        "show_all_from_category": "Näytä kaikki aiheen testit"
+        "start_exercise": "Tee harjoitus",
+        "show_all_from_category": "Näytä kaikki aiheen testit ja harjoitukset"
       },
       "show_outcome": "Suoritettu! Klikkaa nähdäksesi lopputuleman.",
       "affects_user_profile": "Vaikuttaa hyvinvointiprofiilisi tuloksiin."

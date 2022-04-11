@@ -4,7 +4,6 @@ import { useTranslation } from 'react-i18next';
 import { useHistory } from 'react-router';
 import { HashLink } from 'react-router-hash-link';
 import { Divider } from 'semantic-ui-react';
-import Annotation from '../components/Annotation';
 import Icon from '../components/Icon';
 import Layout from '../components/Layout';
 import NoPrint from '../components/NoPrint';
@@ -15,7 +14,6 @@ import { useStore } from '../store/storeContext';
 import { ANALYTICS_EVENT, sendAnalyticsEvent } from '../utils/analytics';
 
 const VISIBLE_TESTS = 9;
-const VISIBLE_EXERCISES = 3;
 
 export const WellBeingProfile: React.FC = observer(() => {
   const { t } = useTranslation();
@@ -29,9 +27,6 @@ export const WellBeingProfile: React.FC = observer(() => {
       affectsProfileTests,
       categoriesState,
       fetchCategories,
-      affectsProfileExercises,
-      exercisesState,
-      fetchExercises,
     },
   } = useStore();
 
@@ -45,10 +40,6 @@ export const WellBeingProfile: React.FC = observer(() => {
   useEffect(() => {
     if (categoriesState === 'NOT_FETCHED') fetchCategories();
   }, [categoriesState, fetchCategories]);
-
-  useEffect(() => {
-    if (exercisesState === 'NOT_FETCHED') fetchExercises();
-  }, [exercisesState, fetchExercises]);
 
   const heroActions = [
     {
@@ -73,7 +64,7 @@ export const WellBeingProfile: React.FC = observer(() => {
     actions: heroActions,
   };
 
-  const getTestsLink = (type: 'tests' | 'exercises') => {
+  const getTestsLink = (type: 'tests') => {
     let isVisible = false;
     let label = '';
     let to = `/${path('tests')}`;
@@ -82,11 +73,6 @@ export const WellBeingProfile: React.FC = observer(() => {
       case 'tests':
         isVisible = affectsProfileTests?.length > VISIBLE_TESTS;
         label = t('view.well_being_profile.all_tests');
-        break;
-      case 'exercises':
-        isVisible = affectsProfileExercises.length > VISIBLE_EXERCISES;
-        label = t('view.well_being_profile.all_exercises');
-        to = `${to}#exercises`;
         break;
     }
 
@@ -106,8 +92,6 @@ export const WellBeingProfile: React.FC = observer(() => {
 
       <Divider section hidden aria-hidden="true" />
 
-      <Annotation text={t('annotation.well_being_profile')} />
-
       <NoPrint>
         <Divider section hidden aria-hidden="true" />
 
@@ -120,17 +104,6 @@ export const WellBeingProfile: React.FC = observer(() => {
           disableExpand
         >
           {getTestsLink('tests')}
-        </TestsList>
-
-        <TestsList
-          id="exercises"
-          title={t('view.well_being_profile.exercises')}
-          items={affectsProfileExercises}
-          initialItemCount={VISIBLE_EXERCISES}
-          showBadges={['completedByUser']}
-          disableExpand
-        >
-          {getTestsLink('exercises')}
         </TestsList>
       </NoPrint>
     </Layout>
