@@ -97,7 +97,10 @@ const TestsList: React.FC<Props> = ({
   const getLink = (test: SimpleTest) =>
     makeLink({
       id: test.id,
-      label: t('view.tests.action.start_test'),
+      label:
+        test.type === 'exercise'
+          ? t('view.tests.action.start_exercise')
+          : t('view.tests.action.start_test'),
       type: 'test',
       target: {
         ...test,

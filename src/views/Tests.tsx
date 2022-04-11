@@ -9,25 +9,14 @@ export const Tests: React.FC = observer(() => {
   const { t } = useTranslation();
 
   const {
-    tests: {
-      categories,
-      categoriesState,
-      fetchCategories,
-      exercises,
-      exercisesState,
-      fetchExercises,
-    },
+    tests: { categories, categoriesState, fetchCategories },
   } = useStore();
 
-  const isBusy = [categoriesState, exercisesState].includes('FETCHING');
+  const isBusy = [categoriesState].includes('FETCHING');
 
   useEffect(() => {
     if (categoriesState === 'NOT_FETCHED') fetchCategories();
   }, [categoriesState, fetchCategories]);
-
-  useEffect(() => {
-    if (exercisesState === 'NOT_FETCHED') fetchExercises();
-  }, [exercisesState, fetchExercises]);
 
   const hero = {
     title: t('route.tests'),
@@ -44,15 +33,6 @@ export const Tests: React.FC = observer(() => {
           showBadges={['completedByUser', 'affectsUserProfile']}
         />
       ))}
-
-      {exercises && (
-        <TestsList
-          id={'exercises'}
-          title={t('view.tests.exercises')}
-          items={exercises}
-          showBadges={['completedByUser', 'affectsUserProfile']}
-        />
-      )}
     </Layout>
   );
 });

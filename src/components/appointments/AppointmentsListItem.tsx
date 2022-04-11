@@ -9,7 +9,7 @@ import NoPrint from '../NoPrint';
 
 const ListItem = styled.li`
   font-family: ${p => p.theme.font.secondary};
-  font-size: 16px;
+  font-size: 1rem;
   display: flex;
   align-items: center;
   justify-content: space-between;

@@ -151,9 +151,7 @@ const Hero: React.FC<HeroProps> = ({
 }) => {
   const { t } = useTranslation();
   const history = useHistory();
-  const { isMobile, width } = useWindowDimensions();
-
-  const showWatermarkThreshold = wrapperSize === 'sm' ? 1400 : 1600;
+  const { isMobile } = useWindowDimensions();
 
   const handleGoBack = () => {
     if (onGoBackClick) {
@@ -194,9 +192,12 @@ const Hero: React.FC<HeroProps> = ({
 
   return (
     <Container>
-      {width > showWatermarkThreshold && (
-        <Watermark isNegative left={-220} top={-20} />
-      )}
+      <Watermark
+        isNegative
+        left={-220}
+        top={-20}
+        showOnlyOnScreensAbove={wrapperSize === 'sm' ? 1400 : 1600}
+      />
 
       <div className={`hero__main-column align-${align}`}>
         {(showGoBack || goBackText || onGoBackClick) && (

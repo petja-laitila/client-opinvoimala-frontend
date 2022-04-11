@@ -98,7 +98,7 @@ export const ChangePassword: React.FC = observer(() => {
           prefix={<span style={{ color: COLORS.accent }}>* </span>}
         />
 
-        <h3>{t('view.change_password.current_password_title')}</h3>
+        <h2>{t('view.change_password.current_password_title')}</h2>
 
         <Input
           required
@@ -113,7 +113,7 @@ export const ChangePassword: React.FC = observer(() => {
 
         <Divider hidden aria-hidden="true" />
 
-        <h3>{t('view.change_password.new_password_title')}</h3>
+        <h2>{t('view.change_password.new_password_title')}</h2>
         <p>{t('view.change_password.new_password_info')}</p>
 
         <Input

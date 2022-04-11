@@ -121,7 +121,7 @@ export const Register: React.FC<Props> = observer(() => {
           prefix={<span style={{ color: COLORS.accent }}>* </span>}
         />
 
-        <h3>{t('view.register.email_title')}</h3>
+        <h2>{t('view.register.email_title')}</h2>
         <p>{t('view.register.email_info')}</p>
 
         <Input
@@ -137,7 +137,7 @@ export const Register: React.FC<Props> = observer(() => {
 
         <Divider hidden aria-hidden="true" />
 
-        <h3>{t('view.register.password_title')}</h3>
+        <h2>{t('view.register.password_title')}</h2>
 
         <p>{t('view.register.password_info')}</p>
 

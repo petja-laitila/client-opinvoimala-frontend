@@ -74,7 +74,7 @@ const AccordionMenu: React.FC<Props> = ({ id, label, items }) => {
           onClick={toggleAccordion}
         >
           {label}
-          <Icon type="Plus" color="primary" />
+          <Icon type={isOpen ? 'Minus' : 'Plus'} color="primary" />
         </button>
       </div>
 

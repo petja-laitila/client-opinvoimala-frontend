@@ -12,7 +12,7 @@ const Container = styled.div`
       border-bottom: none;
     }
     &__current-month {
-      font-size: 14px;
+      font-size: 0.875rem;
       padding-bottom: ${p => p.theme.spacing.md};
     }
 
@@ -32,7 +32,7 @@ const Container = styled.div`
       width: ${DAY_SIZE}px;
       height: ${DAY_SIZE * 0.5}px;
       line-height: ${DAY_SIZE}px;
-      font-size: 12px;
+      font-size: 0.75rem;
       color: ${p => p.theme.color.secondary};
     }
 
@@ -40,7 +40,7 @@ const Container = styled.div`
       width: ${DAY_SIZE}px;
       height: ${DAY_SIZE}px;
       line-height: ${DAY_SIZE}px;
-      font-size: 16px;
+      font-size: 1rem;
       border-radius: 20px;
       color: ${p => p.theme.color.foreground};
 

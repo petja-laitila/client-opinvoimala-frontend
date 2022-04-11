@@ -1,7 +1,15 @@
 import React from 'react';
+import styled from 'styled-components';
 import { observer } from 'mobx-react-lite';
 import { useStore } from '../store/storeContext';
 import { useCookiebotConsent } from '../utils/hooks/useCookiebotConsent';
+
+const Container = styled.div`
+  position: relative;
+  p {
+    line-height: 160% !important;
+  }
+`;
 
 const noConsentContainerStyle = `
   min-height: 100px;
@@ -17,7 +25,7 @@ const noConsentContainerStyle = `
   border-radius: 8px;
 
   color: #666;
-  font-size: 14px;
+  font-size: 0.875rem;
   font-style: italic;
 `;
 
@@ -49,12 +57,7 @@ const InnerHtmlDiv: React.FC<Props> = observer(({ html }) => {
     __html = __html.replaceAll(embedContentRegex, placeholderElement);
   }
 
-  return (
-    <div
-      style={{ position: 'relative' }}
-      dangerouslySetInnerHTML={{ __html }}
-    ></div>
-  );
+  return <Container dangerouslySetInnerHTML={{ __html }}></Container>;
 });
 
 export default InnerHtmlDiv;

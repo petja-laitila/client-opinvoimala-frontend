@@ -4,7 +4,6 @@ import styled from 'styled-components';
 import { useStore } from '../store/storeContext';
 import Layout from '../components/Layout';
 import { Divider, Grid } from 'semantic-ui-react';
-import Watermark from '../components/Layout/Watermark';
 import InnerHtmlDiv from '../components/InnerHtmlDiv';
 import Cards from '../components/Cards';
 
