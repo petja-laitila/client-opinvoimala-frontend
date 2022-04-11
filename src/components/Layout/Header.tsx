@@ -19,7 +19,7 @@ const StyledHeader = styled.header`
     align-items: center;
     justify-content: space-between;
 
-    @media ${p => p.theme.breakpoint.mobile} {
+    @media ${p => p.theme.breakpoint.mobile} and not print {
       height: ${HEADER_HEIGHT_MOBILE}px;
     }
 

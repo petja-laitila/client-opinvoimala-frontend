@@ -12,6 +12,10 @@ export const GlobalStyle = createGlobalStyle`
     ${fontSize(1, 1.25)};
     letter-spacing: -0.01em;
     line-height: 160%;
+
+    @media print {
+      background-color: ${COLORS.background};
+    }
   }
 
   .dimmer {

@@ -14,6 +14,7 @@ import Message from '../components/Message';
 import { TestOutcomes as TestOutcomesType } from '../store/models';
 import LinkList from '../components/LinkList';
 import { usePageTitle } from '../utils/hooks/usePageTitle';
+import NoPrint from '../components/NoPrint';
 
 export const TestOutcomes = observer(() => {
   const history = useHistory();
@@ -60,6 +61,7 @@ export const TestOutcomes = observer(() => {
     title: test?.name ?? '',
     goBackText: t('route.tests'),
     onGoBackClick: () => history.push(`/${path('tests')}`),
+    showDownload: true,
     image: test?.categories[0]?.image,
     smallImage: true,
   };
@@ -100,7 +102,11 @@ export const TestOutcomes = observer(() => {
 
       {isTest && <Annotation text={t('annotation.test')} />}
 
-      {linkList && <LinkList list={linkList} />}
+      {linkList && (
+        <NoPrint>
+          <LinkList list={linkList} />
+        </NoPrint>
+      )}
     </Layout>
   );
 });

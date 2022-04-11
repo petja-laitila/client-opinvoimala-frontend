@@ -60,7 +60,8 @@ const Container = styled.div`
       width: 35%;
     }
 
-    &__back-button-label {
+    &__back-button-label,
+    &__download-button-label {
       display: flex;
       align-items: center;
 
@@ -128,6 +129,7 @@ export interface HeroProps {
   goBackText?: string;
   showGoBack?: boolean;
   onGoBackClick?: () => void;
+  showDownload?: boolean;
   actions?: {
     id: string;
     text?: string | JSX.Element;
@@ -146,6 +148,7 @@ const Hero: React.FC<HeroProps> = ({
   goBackText,
   showGoBack,
   onGoBackClick,
+  showDownload,
   actions,
   wrapperSize,
 }) => {
@@ -161,6 +164,10 @@ const Hero: React.FC<HeroProps> = ({
     }
   };
 
+  const handleDownload = () => {
+    window.print();
+  };
+
   const goBackButton = (
     <Button
       id="hero__back-button"
@@ -170,6 +177,20 @@ const Hero: React.FC<HeroProps> = ({
         <div className="hero__back-button-label">
           <Icon type="ChevronLeft" />
           {goBackText ?? t('action.go_back')}
+        </div>
+      }
+    />
+  );
+
+  const downloadButton = (
+    <Button
+      id="hero__download-button"
+      onClick={handleDownload}
+      isSmall
+      text={
+        <div className="hero__download-button-label">
+          <Icon type="Download" />
+          {t('action.download')}
         </div>
       }
     />
@@ -200,9 +221,12 @@ const Hero: React.FC<HeroProps> = ({
       />
 
       <div className={`hero__main-column align-${align}`}>
-        {(showGoBack || goBackText || onGoBackClick) && (
-          <NoPrint>{goBackButton}</NoPrint>
-        )}
+        <NoPrint>
+          <div className="action-buttons">
+            {(showGoBack || goBackText || onGoBackClick) && goBackButton}
+            {showDownload && downloadButton}
+          </div>
+        </NoPrint>
 
         <div className="heading-container">
           <h1>{title}</h1>

@@ -22,6 +22,15 @@ const Container = styled.div`
     position: relative;
     padding-bottom: 60px;
   }
+
+  @media print {
+    .header {
+      &__header,
+      &__hero {
+        background-color: ${p => p.theme.color.background};
+      }
+    }
+  }
 `;
 
 const DiagonalSeparator = styled.div`
@@ -43,6 +52,11 @@ const DiagonalSeparator = styled.div`
       ${p => p.theme.color.primaryLight} 50%,
       transparent 0%
     );
+  }
+
+  @media print {
+    height: 70px;
+    background: transparent;
   }
 `;
 
