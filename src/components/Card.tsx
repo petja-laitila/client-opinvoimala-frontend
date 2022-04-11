@@ -1,7 +1,7 @@
 import { observer } from 'mobx-react-lite';
 import React from 'react';
 import styled from 'styled-components';
-import { Link as LinkType } from '../store/models';
+import { Link as LinkType, Image } from '../store/models';
 import { useStore } from '../store/storeContext';
 import { linkIsPublic } from '../utils/links';
 import Link from './Link';
@@ -14,6 +14,24 @@ const Container = styled.article<{ isLocked?: boolean }>`
   justify-content: flex-start;
   ${p => p.theme.shadows[0]};
 
+  img {
+    width: 100%;
+    object-fit: cover;
+    margin: 0;
+
+    border-radius: 0;
+    border-top-left-radius: ${p => p.theme.borderRadius.sm};
+    border-top-right-radius: ${p => p.theme.borderRadius.sm};
+
+    height: 150px;
+    @media ${p => p.theme.breakpoint.tablet} {
+      height: 200px;
+    }
+    @media ${p => p.theme.breakpoint.mobile} {
+      height: 250px;
+    }
+  }
+
   main {
     position: relative;
     background-color: ${p => (p.isLocked ? p.theme.color.grey3 : 'none')};
@@ -21,8 +39,14 @@ const Container = styled.article<{ isLocked?: boolean }>`
     border-top-left-radius: ${p => p.theme.borderRadius.sm};
     border-top-right-radius: ${p => p.theme.borderRadius.sm};
     flex: 1;
-    padding: ${p => p.theme.spacing.lg} ${p => p.theme.spacing.lg};
+    padding-bottom: ${p => p.theme.spacing.lg};
     min-height: 200px;
+
+    h1,
+    p,
+    ul {
+      padding: 0 ${p => p.theme.spacing.lg};
+    }
 
     .card__badge {
       position: absolute;
@@ -34,6 +58,8 @@ const Container = styled.article<{ isLocked?: boolean }>`
       ${p => p.theme.font.h4};
       line-height: 28px;
       padding-right: 48px;
+      margin-top: ${p => p.theme.spacing.lg};
+      margin-bottom: ${p => p.theme.spacing.md};
     }
 
     p {
@@ -94,6 +120,7 @@ const TagList = styled.ul`
 interface Props {
   title?: string | null;
   text?: string | null;
+  image?: Image | null;
   tags?: string[];
   link?: LinkType | null;
   isLocked?: boolean;
@@ -101,7 +128,7 @@ interface Props {
 }
 
 const Card: React.FC<Props> = observer(
-  ({ title, text, tags, link, isLocked, badges }) => {
+  ({ title, text, image, tags, link, isLocked, badges }) => {
     const {
       auth: { isLoggedIn },
     } = useStore();
@@ -110,9 +137,13 @@ const Card: React.FC<Props> = observer(
 
     return (
       <Container isLocked={isLocked || (isLinkPublic === false && !isLoggedIn)}>
+        {image && <img src={image.url} alt={image.alternativeText ?? ''} />}
+
         <main>
           {title && <h1>{title}</h1>}
+
           {text && <p>{text}</p>}
+
           {!!tags?.length && (
             <TagList>
               {tags.map((tag, i) => (
@@ -120,6 +151,7 @@ const Card: React.FC<Props> = observer(
               ))}
             </TagList>
           )}
+
           {!!badges?.length && (
             <div className="card__badge">
               {badges.map((badge, i) => (
