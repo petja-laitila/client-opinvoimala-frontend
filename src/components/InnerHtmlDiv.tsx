@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { observer } from 'mobx-react-lite';
 import { useStore } from '../store/storeContext';
@@ -40,8 +40,23 @@ const InnerHtmlDiv: React.FC<Props> = observer(({ html }) => {
 
   const cookieConsent = useCookiebotConsent(isCookiebotActivated);
 
+  /**
+   * Detect embedded Pym.js content and initialize Pym if found any
+   */
+  useEffect(() => {
+    const pymSrcRegex = /<div[^>]*data-pym-src[^>]*><\/div>/gi;
+    // @ts-ignore
+    if (window.pym && html.match(pymSrcRegex)) {
+      // @ts-ignore
+      window.pym.autoInit();
+    }
+  }, [html]);
+
   let __html = html;
 
+  /**
+   * Replace all embedded iframes with placeholder text if cookies are not accepted
+   */
   if (!cookieConsent?.marketing) {
     // Matches an <iframe ... src="xyz"></iframe> element and captures its src-value as a group $1.
     const embedContentRegex = /<iframe[^>]*src="([^"]*)"[^<]*<\/iframe>/gi;
