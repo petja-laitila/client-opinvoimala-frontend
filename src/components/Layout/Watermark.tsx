@@ -17,6 +17,10 @@ const Container = styled.div<{ position: string }>`
       width: 80px;
     }
   }
+
+  @media print {
+    display: none;
+  }
 `;
 
 interface Position {

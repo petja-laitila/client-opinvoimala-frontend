@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- OPI-97: Test outcomes are printable (=downloadable)
+
 ### Changed
 
 - OPI-96/OPI-98: Accessibility/UI updates & fixes
