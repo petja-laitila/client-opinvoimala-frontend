@@ -23,13 +23,7 @@ const Container = styled.article<{ isLocked?: boolean }>`
     border-top-left-radius: ${p => p.theme.borderRadius.sm};
     border-top-right-radius: ${p => p.theme.borderRadius.sm};
 
-    height: 150px;
-    @media ${p => p.theme.breakpoint.tablet} {
-      height: 200px;
-    }
-    @media ${p => p.theme.breakpoint.mobile} {
-      height: 250px;
-    }
+    aspect-ratio: 16 / 9;
   }
 
   main {
@@ -63,6 +57,7 @@ const Container = styled.article<{ isLocked?: boolean }>`
     }
 
     p {
+      margin-top: ${p => p.theme.spacing.sm};
       ${p => p.theme.font.size.sm};
       overflow: hidden;
       text-overflow: ellipsis;
