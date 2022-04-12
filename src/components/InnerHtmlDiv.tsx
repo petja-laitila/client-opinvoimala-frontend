@@ -44,9 +44,8 @@ const InnerHtmlDiv: React.FC<Props> = observer(({ html }) => {
    * Detect embedded Pym.js content and initialize Pym if found any
    */
   useEffect(() => {
-    const pymSrcRegex = /<div[^>]*data-pym-src[^>]*><\/div>/gi;
     // @ts-ignore
-    if (window.pym && html.match(pymSrcRegex)) {
+    if (window.pym && html.includes('data-pym-src')) {
       // @ts-ignore
       window.pym.autoInit();
     }
