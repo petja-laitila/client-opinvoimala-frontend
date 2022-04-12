@@ -16,6 +16,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - OPI-96/OPI-98: Accessibility/UI updates & fixes
 
+### Fixed
+
+- OPI-99: Initialize Pym.js if embedded pym content is found
+
 ## [0.2.11] - 2022-01-25
 
 ### Added
