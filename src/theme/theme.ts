@@ -43,17 +43,17 @@ export const theme: DefaultTheme = {
   color: COLORS,
 
   borderRadius: {
-    sm: '4px',
-    md: '10px',
-    lg: '15px',
-    xl: '25px',
+    sm: '0.25rem',
+    md: '0.625rem',
+    lg: '1rem',
+    xl: '1.5rem',
   },
 
   spacing: {
-    sm: '5px',
-    md: '10px',
-    lg: '20px',
-    xl: '40px',
+    sm: '0.375rem',
+    md: '0.625rem',
+    lg: '1.5rem',
+    xl: '2.5rem',
   },
 
   breakpoint: {
