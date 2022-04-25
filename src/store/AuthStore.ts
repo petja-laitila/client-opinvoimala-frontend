@@ -142,12 +142,33 @@ export const AuthStore = types
 
     const logout = flow(function* () {
       self.state = 'PROCESSING';
+
       self.jwt = null;
       self.user = null;
       Storage.write({ key: 'AUTH_TOKEN', value: null });
       Storage.write({ key: 'TESTS_IN_PROGRESS', value: null });
       yield api.logout();
+
+      const { tests, contentPages } = getParent(self);
+      tests.reset();
+      contentPages.reset();
+
       self.state = 'IDLE';
+    });
+
+    const deleteAccount = flow(function* (params: API.DeleteAccount = {}) {
+      self.state = 'PROCESSING';
+
+      const response: API.GeneralResponse<API.RES.DeleteAccount> =
+        yield api.deleteAccount(params);
+
+      if (response.kind === 'ok') {
+        self.state = 'IDLE';
+        return { success: true };
+      } else {
+        self.state = 'ERROR';
+        return { success: false, error: response.data };
+      }
     });
 
     return {
@@ -159,6 +180,7 @@ export const AuthStore = types
       forgotPassword,
       resetPassword,
       logout,
+      deleteAccount,
     };
   });
 
