@@ -24,7 +24,7 @@ const Container = styled.div`
     }
   }
 
-  @media ${p => p.theme.breakpoint.tablet} and not print {
+  @media ${p => p.theme.breakpoint.tablet} {
     flex-direction: column;
     > div {
       :not(:last-child) {
@@ -38,6 +38,10 @@ const Container = styled.div`
         }
       }
     }
+  }
+
+  @media print {
+    flex-direction: row;
   }
 `;
 
