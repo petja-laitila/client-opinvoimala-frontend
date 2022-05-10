@@ -1,3 +1,4 @@
+import { DateTime } from 'luxon';
 import {
   Instance,
   types,
@@ -7,8 +8,18 @@ import {
   applySnapshot,
 } from 'mobx-state-tree';
 import adminApi from '../../services/api/ApiAdmin';
+import {
+  formatDateTime,
+  localizedDate,
+  mergeDateAndTime,
+} from '../../utils/date';
 import { byStartTime } from '../../utils/sort';
-import { Appointment, AppointmentModel, AppointmentStatus } from '../models';
+import {
+  Appointment,
+  AppointmentModel,
+  AppointmentStatus,
+  RepeatRule,
+} from '../models';
 
 const States = [
   'NOT_FETCHED' as const,
@@ -48,6 +59,88 @@ export const AdminAppointmentsStore = types
         ({ status, repeatGroup }) =>
           status === AppointmentStatus.booked && repeatGroup === group
       );
+    },
+
+    getOverlappingAppointments(
+      isoStartDate: string,
+      isoEndDate: string,
+      repeatRule?: RepeatRule,
+      isoRepeatUntil?: string,
+      repeatGroup?: number | null
+    ) {
+      const appointments = getSnapshot(self.data);
+
+      const start = localizedDate(isoStartDate);
+      const end = localizedDate(isoEndDate);
+      const repeatUntil = isoRepeatUntil
+        ? localizedDate(isoRepeatUntil).endOf('day')
+        : end.endOf('day');
+
+      // Get start & end times for first appointment in a group
+      const firstAppointmentTimes = (repeatGroup?: number | null) => {
+        const group = appointments.filter(a => a.repeatGroup === repeatGroup);
+        if (group.length) {
+          const firstInGroup = group.sort((a, b) =>
+            a.startTime.localeCompare(b.startTime)
+          )[0];
+          return {
+            start: mergeDateAndTime(localizedDate(firstInGroup.startTime), end),
+            end: mergeDateAndTime(localizedDate(firstInGroup.endTime), end),
+          };
+        }
+        return { start, end };
+      };
+
+      // Find all appointments that overlap with given start/end time
+      const searchOverlappingTimes = (start: DateTime, end: DateTime) => {
+        const list: string[] = [];
+        appointments.forEach(appointment => {
+          if (appointment.repeatGroup !== repeatGroup) {
+            const startTime = localizedDate(appointment.startTime);
+            const endTime = localizedDate(appointment.endTime);
+            const startOverlaps = start >= startTime && start < endTime;
+            const endOverlaps = end <= endTime && end > startTime;
+            if (startOverlaps || endOverlaps) {
+              const startString = formatDateTime(appointment.startTime);
+              const endString = formatDateTime(appointment.endTime, {
+                format: 'T',
+              });
+              const text = `${startString}\u2013${endString} (ID: ${appointment.id})`;
+              list.push(text);
+            }
+          }
+        });
+        return list;
+      };
+
+      let overlapList: string[] = [];
+
+      if (repeatRule === RepeatRule.once) {
+        overlapList = searchOverlappingTimes(start, end);
+      } else {
+        let currentDate = firstAppointmentTimes(repeatGroup).start;
+        let currentEndDate = firstAppointmentTimes(repeatGroup).end;
+        while (currentDate <= repeatUntil) {
+          overlapList = [
+            ...overlapList,
+            ...searchOverlappingTimes(currentDate, currentEndDate),
+          ];
+          switch (repeatRule) {
+            case RepeatRule.daily:
+              currentDate = currentDate.plus({ days: 1 });
+              currentEndDate = mergeDateAndTime(currentDate, end);
+              break;
+            case RepeatRule.weekly:
+              currentDate = currentDate.plus({ weeks: 1 });
+              currentEndDate = mergeDateAndTime(currentDate, end);
+              break;
+            default:
+              currentDate = repeatUntil;
+          }
+        }
+      }
+
+      return overlapList;
     },
   }))
   .actions(self => {
@@ -147,12 +240,9 @@ export const AdminAppointmentsStore = types
         yield adminApi.deleteAppointment(params);
 
       if (response.kind === 'ok') {
-        const { deletedIds } = response.data;
-        const appointments = getSnapshot(self.data);
-        const updatedAppointments = appointments.filter(
-          appointment => !deletedIds.includes(appointment.id)
-        );
-        self.data = cast(updatedAppointments);
+        // Remaining appointments (in a same goup with the ones just deleted)
+        // are sometimes updated as well (until date). Fetch all appointments to get up-to-date data.
+        fetchAppointments();
         self.appointmentState = 'IDLE';
         return { success: true };
       } else {

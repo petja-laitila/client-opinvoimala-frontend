@@ -9,7 +9,7 @@ export enum AppointmentStatus {
 }
 
 export enum RepeatRule {
-  oncel = 'once',
+  once = 'once',
   daily = 'daily',
   weekly = 'weekly',
 }

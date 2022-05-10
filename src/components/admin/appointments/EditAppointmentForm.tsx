@@ -103,6 +103,7 @@ const EditAppointmentForm: React.FC<Props> = ({
       createAppointment,
       editAppointment,
       deleteAppointment,
+      getOverlappingAppointments,
     },
     specialists: {
       specialists,
@@ -131,6 +132,7 @@ const EditAppointmentForm: React.FC<Props> = ({
   const [repeatUntil, setRepeatUntil] = useState(defaultDate);
 
   const [errorMsgs, setErrorMsgs] = useState<string[]>([]);
+  const [overlapMsgs, setOverlapMsgs] = useState<string[]>([]);
 
   // Refs
   const appointmentRef = useRef<number>();
@@ -184,6 +186,30 @@ const EditAppointmentForm: React.FC<Props> = ({
     // Update repeatUntil if date was set later than the current until date
     setRepeatUntil(repeatUntil => (date > repeatUntil ? date : repeatUntil));
   }, [date]);
+
+  /**
+   * Detect overlapping appointments to show warning to user
+   */
+  useEffect(() => {
+    setOverlapMsgs([]);
+    if (date || endDate || repeatOption || repeatUntil) {
+      const overlappingAppointments = getOverlappingAppointments(
+        date.toISOString(),
+        endDate.toISOString(),
+        repeatOption.id as RepeatRule,
+        repeatUntil.toISOString(),
+        appointment?.repeatGroup
+      );
+      setOverlapMsgs(overlappingAppointments);
+    }
+  }, [
+    appointment?.repeatGroup,
+    date,
+    endDate,
+    getOverlappingAppointments,
+    repeatOption,
+    repeatUntil,
+  ]);
 
   const handleSubmit = async (repeatScope = RepeatScope.none) => {
     const startTime = date.toISOString();
@@ -369,6 +395,17 @@ const EditAppointmentForm: React.FC<Props> = ({
               icon="warning sign"
               header={t('view.admin.appointments.form.error.heading')}
               list={errorMsgs}
+            />
+          </div>
+        )}
+        {!!overlapMsgs.length && (
+          <div>
+            <Message
+              warning
+              icon="warning sign"
+              header={t('view.admin.appointments.form.overlap.heading')}
+              content={t('view.admin.appointments.form.overlap.text')}
+              list={overlapMsgs}
             />
           </div>
         )}

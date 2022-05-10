@@ -234,6 +234,10 @@
           "submit": "Luo varaus",
           "error": {
             "heading": "Vastaanottoajan tallennus ei onnistunut"
+          },
+          "overlap": {
+            "heading": "Päällekkäisiä aikoja havaittu",
+            "text": "Varoitus: Olet luomassa/muokkaamassa yllä listattujen vastaanottoaikojen kanssa päällekkäin osuvia aikoja."
           }
         },
         "repeat": {
