@@ -6,3 +6,6 @@ export * from './ImageModel';
 export * from './PageModel';
 export * from './EventModel';
 export * from './tests';
+export * from './SpecialistModel';
+export * from './SpecialistRoleModel';
+export * from './AppointmentModel';
