@@ -36,7 +36,7 @@ const Container = styled.article<{ isLocked?: boolean }>`
     padding-bottom: ${p => p.theme.spacing.lg};
     min-height: 200px;
 
-    h1,
+    h2,
     p,
     ul {
       padding: 0 ${p => p.theme.spacing.lg};
@@ -48,7 +48,7 @@ const Container = styled.article<{ isLocked?: boolean }>`
       right: ${p => p.theme.spacing.lg};
     }
 
-    h1 {
+    h2 {
       ${p => p.theme.font.h4};
       line-height: 28px;
       padding-right: 48px;
@@ -66,7 +66,7 @@ const Container = styled.article<{ isLocked?: boolean }>`
       -webkit-box-orient: vertical;
     }
 
-    h1,
+    h2,
     p {
       color: ${p => (p.isLocked ? p.theme.color.grey : undefined)};
     }
@@ -135,7 +135,7 @@ const Card: React.FC<Props> = observer(
         {image && <img src={image.url} alt={image.alternativeText ?? ''} />}
 
         <main>
-          {title && <h1>{title}</h1>}
+          {title && <h2>{title}</h2>}
 
           {text && <p>{text}</p>}
 
