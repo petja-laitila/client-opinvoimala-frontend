@@ -21,7 +21,7 @@ type StatusFilter = AppointmentStatus | 'show_all';
 
 const AdminAppointments: React.FC = observer(() => {
   const { t } = useTranslation();
-  const { isTablet } = useWindowDimensions();
+  const { isMobile, isTablet } = useWindowDimensions();
 
   const [appointment, setAppointment] = useState<AppointmentIn>();
   const [statusFilter, setStatusFilter] = useState<StatusFilter>('show_all');
@@ -133,7 +133,7 @@ const AdminAppointments: React.FC = observer(() => {
     return (
       <DropdownMenu
         showArrow
-        align="right"
+        align={isMobile ? 'left' : 'right'}
         menuWidth={180}
         triggerButton={{
           label: t(`view.appointments.status.${statusFilter}`),

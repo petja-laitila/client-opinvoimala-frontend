@@ -20,6 +20,17 @@ const Container = styled.section`
     list-style-type: none;
     padding: 0;
   }
+
+  @media ${p => p.theme.breakpoint.mobile} {
+    > header {
+      flex-direction: column;
+      align-items: flex-start;
+      button {
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+      }
+    }
+  }
 `;
 
 interface Props {
