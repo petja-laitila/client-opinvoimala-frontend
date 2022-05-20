@@ -9,6 +9,7 @@ import { AppointmentsStore } from './AppointmentsStore';
 import { EventsStore } from './EventsStore';
 import { TestsStore } from './TestsStore';
 import { GoalsStore } from './GoalsStore';
+import { UserInterestsStore } from './UserInterestsStore';
 
 const RootStoreModel = types.model({
   auth: types.optional(AuthStore, { state: 'IDLE' }),
@@ -42,6 +43,10 @@ const RootStoreModel = types.model({
   goals: types.optional(GoalsStore, {
     state: 'NOT_FETCHED',
     goalState: 'IDLE',
+  }),
+  userInterests: types.optional(UserInterestsStore, {
+    state: 'NOT_FETCHED',
+    userTagsState: 'IDLE',
   }),
 });
 

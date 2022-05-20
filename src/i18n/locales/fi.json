@@ -215,6 +215,17 @@
       "confirm_changes": "Tallenna muutokset",
       "description_placeholder": "Kirjoita tavoite tähän"
     },
+    "user_tags": {
+      "title": "Sinua voi kiinnostaa",
+      "choose_tags": "Valitse aihepiiri",
+      "no_tags_chosen": "Et ole valinnut yhtään aihepiiriä",
+      "all_tags_chosen": "Kaikki aihepiirit valittu",
+      "form": {
+        "title": "Kiinnostuksen kohteet",
+        "add_tags": "Valitse lisää aihepiirejä",
+        "remove_tags": "Poista valittuja"
+      }
+    },
     "admin": {
       "appointments": {
         "title": "Vastaanotto",

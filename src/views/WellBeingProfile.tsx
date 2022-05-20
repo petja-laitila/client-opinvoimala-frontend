@@ -6,6 +6,7 @@ import { HashLink } from 'react-router-hash-link';
 import { Divider } from 'semantic-ui-react';
 import Icon from '../components/Icon';
 import { Goals } from '../components/goals/Goals';
+import { UserInterests } from '../components/UserInterests';
 import Layout from '../components/Layout';
 import NoPrint from '../components/NoPrint';
 import TestsList from '../components/tests/TestsList';
@@ -94,6 +95,9 @@ export const WellBeingProfile: React.FC = observer(() => {
       <Goals />
 
       <NoPrint>
+        <Divider section hidden aria-hidden="true" />
+        <UserInterests />
+
         <Divider section hidden aria-hidden="true" />
 
         <TestsList
