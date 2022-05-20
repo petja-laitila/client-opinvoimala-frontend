@@ -11,7 +11,7 @@ const getBaseUrl = () => {
   const isStage = window.location.hostname.includes('.stage.geniem.io');
   const isProduction = !isStage && process.env.NODE_ENV === 'production';
 
-  if (isDevelopment) return URL.stage;
+  if (isDevelopment) return URL.local;
   if (isProduction) return URL.production;
   return URL.stage;
 };
