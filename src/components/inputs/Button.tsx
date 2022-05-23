@@ -157,31 +157,29 @@ export const Button: FC<Props> = ({
     return className;
   };
 
-  return (
-    <Tooltip
-      content={tooltip}
-      disabled={tooltip === ''}
-      trigger={
-        <StyledButton
-          aria-label={ariaLabel}
-          id={id}
-          data-testid={id}
-          type={type}
-          onClick={handleClick}
-          className={getClassName()}
-          disabled={disabled}
-          color={color}
-          negativeText={negativeText}
-          isSmall={isSmall || isIconButton}
-          noMargin={noMargin}
-          autoFocus={autoFocus}
-        >
-          {text}
-          {icon}
-        </StyledButton>
-      }
-    />
+  const button = (
+    <StyledButton
+      aria-label={ariaLabel}
+      id={id}
+      data-testid={id}
+      type={type}
+      onClick={handleClick}
+      className={getClassName()}
+      disabled={disabled}
+      color={color}
+      negativeText={negativeText}
+      isSmall={isSmall || isIconButton}
+      noMargin={noMargin}
+      autoFocus={autoFocus}
+    >
+      {text}
+      {icon}
+    </StyledButton>
   );
+
+  if (tooltip?.length) return <Tooltip content={tooltip} trigger={button} />;
+
+  return button;
 };
 
 export default Button;

@@ -15,10 +15,9 @@ export interface Props extends PopupProps {
   content?: string;
 }
 
-const Tooltip: React.FC<Props> = ({ content, trigger, disabled }) => {
+const Tooltip: React.FC<Props> = ({ content, trigger }) => {
   return (
     <StyledPopup
-      disabled={disabled}
       content={content}
       position="top center"
       size="tiny"
