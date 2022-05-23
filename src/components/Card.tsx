@@ -116,6 +116,7 @@ interface Props {
   isLocked?: boolean;
   badges?: JSX.Element[] | null;
   headingLevel?: HeadingLevel;
+  customLinkLabel?: string;
 }
 
 const Card: React.FC<Props> = observer(
@@ -128,12 +129,14 @@ const Card: React.FC<Props> = observer(
     isLocked,
     badges,
     headingLevel = 'h2',
+    customLinkLabel,
   }) => {
     const {
       auth: { isLoggedIn },
     } = useStore();
 
     const isLinkPublic = link ? linkIsPublic(link) : undefined;
+    const linkLabel = customLinkLabel ? customLinkLabel : link?.label;
 
     return (
       <Container isLocked={isLocked || (isLinkPublic === false && !isLoggedIn)}>
@@ -167,7 +170,7 @@ const Card: React.FC<Props> = observer(
 
         {link && (
           <footer>
-            <Link link={link} label={link.label} showArrow center />
+            <Link link={link} label={linkLabel} showArrow center />
           </footer>
         )}
       </Container>

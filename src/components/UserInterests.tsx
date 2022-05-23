@@ -31,16 +31,30 @@ export const UserInterests: React.FC = observer(() => {
     fetchUserInterests();
   }, [userData, fetchUserInterests]);
 
-  const carouselElements = userInterests.map(interest => (
-    <Grid.Column key={`interest-${interest.type}-${interest.id}`}>
-      <Card
-        title={interest.title}
-        text={interest.description}
-        tags={interest.tags}
-        link={interest.link}
-      />
-    </Grid.Column>
-  ));
+  const setLinkLabel = (type: string) => {
+    switch (type) {
+      case (type = 'exercise'):
+        return t('view.tests.action.start_exercise');
+      case (type = 'test'):
+        return t('view.tests.action.start_test');
+      case (type = 'page'):
+        return t('view.content_pages.navigate_to_page');
+    }
+  };
+  console.log(userInterests);
+  const carouselElements = userInterests.map(interest => {
+    return (
+      <Grid.Column key={`interest-${interest.type}-${interest.id}`}>
+        <Card
+          title={interest.title}
+          text={interest.description}
+          tags={interest.tags}
+          link={interest.link}
+          customLinkLabel={interest.type && setLinkLabel(interest.type)}
+        />
+      </Grid.Column>
+    );
+  });
 
   const openTagsModal = () => {
     setTagsFormOpen(true);
