@@ -113,6 +113,10 @@ const Goal = styled.li<{ done?: boolean }>`
   }
 `;
 
+const AddGoalButton = styled.div`
+  display: flex;
+`;
+
 export const Goals: React.FC = observer(() => {
   const {
     goals: { goals, goalsInfo, fetchGoals, state },
@@ -141,6 +145,14 @@ export const Goals: React.FC = observer(() => {
   if (state === 'FETCHING') {
     return <LoadingPlaceholder.Content />;
   }
+
+  const canAddGoals = goals.some(goal => {
+    return goal.done === true;
+  });
+
+  const tooltipText = canAddGoals
+    ? ''
+    : `${t('view.user_goals.max_goals_added')}`;
 
   return (
     <section>
@@ -194,13 +206,18 @@ export const Goals: React.FC = observer(() => {
 
       <Divider hidden aria-hidden="true" />
 
-      <Button
-        id="user-goals__add-goal-button"
-        text={t('view.user_goals.add')}
-        color="primary"
-        icon={<SemanticIcon name="plus square outline" size="large" />}
-        onClick={handleNewGoal}
-      />
+      <AddGoalButton>
+        <Button
+          id="user-goals__add-goal-button"
+          text={t('view.user_goals.add')}
+          color="primary"
+          icon={<SemanticIcon name="plus square outline" size="large" />}
+          onClick={handleNewGoal}
+          tooltip={tooltipText}
+          disabled={!canAddGoals}
+        />
+      </AddGoalButton>
+
       {isTablet ? (
         <GoalDrawer goalObject={goalObject} setGoalObject={setGoalObject} />
       ) : (

@@ -2,6 +2,7 @@ import React, { FC } from 'react';
 import styled from 'styled-components';
 import { Colors } from '../../theme/styled';
 import { sendAnalyticsEvent } from '../../utils/analytics';
+import Tooltip from '../Tooltip';
 
 const StyledButton = styled.button<{
   color: ColorType;
@@ -120,6 +121,7 @@ export interface Props {
     name: string;
     variables?: any;
   };
+  tooltip?: string;
 }
 
 export const Button: FC<Props> = ({
@@ -138,6 +140,7 @@ export const Button: FC<Props> = ({
   autoFocus = false,
   ariaLabel,
   gaEvent,
+  tooltip = '',
 }) => {
   const isIconButton = !!icon && !text;
 
@@ -155,23 +158,29 @@ export const Button: FC<Props> = ({
   };
 
   return (
-    <StyledButton
-      aria-label={ariaLabel}
-      id={id}
-      data-testid={id}
-      type={type}
-      onClick={handleClick}
-      className={getClassName()}
-      disabled={disabled}
-      color={color}
-      negativeText={negativeText}
-      isSmall={isSmall || isIconButton}
-      noMargin={noMargin}
-      autoFocus={autoFocus}
-    >
-      {text}
-      {icon}
-    </StyledButton>
+    <Tooltip
+      content={tooltip}
+      disabled={tooltip === ''}
+      trigger={
+        <StyledButton
+          aria-label={ariaLabel}
+          id={id}
+          data-testid={id}
+          type={type}
+          onClick={handleClick}
+          className={getClassName()}
+          disabled={disabled}
+          color={color}
+          negativeText={negativeText}
+          isSmall={isSmall || isIconButton}
+          noMargin={noMargin}
+          autoFocus={autoFocus}
+        >
+          {text}
+          {icon}
+        </StyledButton>
+      }
+    />
   );
 };
 
