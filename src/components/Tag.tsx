@@ -35,7 +35,7 @@ const Container = styled.li`
     display: flex;
     align-items: center;
     padding: 0;
-    margin-left: ${p => p.theme.spacing.md};
+    
   }
 
   button.tag-inner-container {
@@ -43,6 +43,10 @@ const Container = styled.li`
       border-radius: ${p => p.theme.borderRadius.sm};
       border: 1px solid ${p => p.theme.color.secondary};
     }
+  }
+
+  .tag-text {
+    margin-right ${p => p.theme.spacing.md};
   }
 `;
 
@@ -63,7 +67,7 @@ const Tag: React.FC<Props> = observer(({ name, handleClick, handleRemove }) => {
         </button>
       ) : (
         <div className="tag-inner-container">
-          <span>{name}</span>
+          <span className="tag-text">{name}</span>
           {handleRemove && (
             <Tooltip
               content={t('action.delete')}
