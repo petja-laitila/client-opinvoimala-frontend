@@ -140,7 +140,7 @@ export const Button: FC<Props> = ({
   autoFocus = false,
   ariaLabel,
   gaEvent,
-  tooltip = '',
+  tooltip,
 }) => {
   const isIconButton = !!icon && !text;
 

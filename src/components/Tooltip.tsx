@@ -11,7 +11,6 @@ const StyledPopup = styled(Popup)`
 `;
 
 export interface Props extends PopupProps {
-  text?: string;
   content?: string;
 }
 

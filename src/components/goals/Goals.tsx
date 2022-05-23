@@ -146,12 +146,14 @@ export const Goals: React.FC = observer(() => {
     return <LoadingPlaceholder.Content />;
   }
 
-  const canAddGoals = goals.some(goal => {
-    return goal.done === true;
-  });
+  const canAddGoals =
+    goals.length < 4 ||
+    goals.some(goal => {
+      return goal.done === true;
+    });
 
   const tooltipText = canAddGoals
-    ? ''
+    ? undefined
     : `${t('view.user_goals.max_goals_added')}`;
 
   return (
