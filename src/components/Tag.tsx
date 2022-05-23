@@ -45,7 +45,7 @@ const Container = styled.li`
     }
   }
 
-  .tag-text {
+  .tag-name {
     margin-right ${p => p.theme.spacing.md};
   }
 `;
@@ -67,7 +67,7 @@ const Tag: React.FC<Props> = observer(({ name, handleClick, handleRemove }) => {
         </button>
       ) : (
         <div className="tag-inner-container">
-          <span className="tag-text">{name}</span>
+          <span className="tag-name">{name}</span>
           {handleRemove && (
             <Tooltip
               content={t('action.delete')}
