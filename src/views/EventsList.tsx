@@ -5,7 +5,7 @@ import { Event as EventType } from '../store/models';
 import styled from 'styled-components';
 import Message from '../components/Message';
 
-const EventsContainer = styled.li`
+const EventsContainer = styled.ul`
   list-style-type: none;
   padding: 0;
   width: 100%;

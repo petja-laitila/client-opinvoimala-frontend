@@ -69,6 +69,17 @@ const EventText = styled.div`
   }
 `;
 
+const EventLinks = styled.ul`
+  display: flex;
+  flex-direction: column;
+  padding-left: 0;
+  list-style-type: none;
+
+  a {
+    display: inline-block;
+  }
+`;
+
 interface Props {
   event: EventType;
   isSimple?: boolean;
@@ -94,10 +105,13 @@ const Event: React.FC<Props> = ({ event, isSimple = false }) => {
           <div>{`${startTime}\u2013${endTime}`}</div>
           <h3>{title}</h3>
           <div className="event-description">{description}</div>
-
-          {links.map(link => (
-            <Link link={link} label={link.label} />
-          ))}
+          <EventLinks>
+            {links.map(link => (
+              <li key={link.id}>
+                <Link link={link} label={link.label} />
+              </li>
+            ))}
+          </EventLinks>
         </EventText>
         {!isSimple && !!link && (
           <div>
