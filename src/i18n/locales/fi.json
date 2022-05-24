@@ -213,7 +213,8 @@
       "mark_done": "Merkitse valmiiksi",
       "delete_goal": "Poista tavoite",
       "confirm_changes": "Tallenna muutokset",
-      "description_placeholder": "Kirjoita tavoite tähän"
+      "description_placeholder": "Kirjoita tavoite tähän",
+      "max_goals_added": "Maksimimäärä tavoitteita täynnä"
     },
     "user_tags": {
       "title": "Sinua voi kiinnostaa",

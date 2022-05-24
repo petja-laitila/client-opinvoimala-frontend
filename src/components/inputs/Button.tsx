@@ -2,6 +2,7 @@ import React, { FC } from 'react';
 import styled from 'styled-components';
 import { Colors } from '../../theme/styled';
 import { sendAnalyticsEvent } from '../../utils/analytics';
+import Tooltip from '../Tooltip';
 
 const StyledButton = styled.button<{
   color: ColorType;
@@ -120,6 +121,7 @@ export interface Props {
     name: string;
     variables?: any;
   };
+  tooltip?: string;
 }
 
 export const Button: FC<Props> = ({
@@ -138,6 +140,7 @@ export const Button: FC<Props> = ({
   autoFocus = false,
   ariaLabel,
   gaEvent,
+  tooltip,
 }) => {
   const isIconButton = !!icon && !text;
 
@@ -154,7 +157,7 @@ export const Button: FC<Props> = ({
     return className;
   };
 
-  return (
+  const button = (
     <StyledButton
       aria-label={ariaLabel}
       id={id}
@@ -173,6 +176,10 @@ export const Button: FC<Props> = ({
       {icon}
     </StyledButton>
   );
+
+  if (tooltip?.length) return <Tooltip content={tooltip} trigger={button} />;
+
+  return button;
 };
 
 export default Button;
