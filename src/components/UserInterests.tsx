@@ -31,7 +31,7 @@ export const UserInterests: React.FC = observer(() => {
     fetchUserInterests();
   }, [userData, fetchUserInterests]);
 
-  const setLinkLabel = (type: string) => {
+  const getLinkLabel = (type: string) => {
     switch (type) {
       case (type = 'exercise'):
         return t('view.tests.action.start_exercise');
@@ -39,18 +39,24 @@ export const UserInterests: React.FC = observer(() => {
         return t('view.tests.action.start_test');
       case (type = 'page'):
         return t('view.content_pages.navigate_to_page');
+      default:
+        return null;
     }
   };
-  console.log(userInterests);
+
   const carouselElements = userInterests.map(interest => {
+    const link = interest.link && {
+      ...interest.link,
+      label: getLinkLabel(interest.type),
+    };
+
     return (
       <Grid.Column key={`interest-${interest.type}-${interest.id}`}>
         <Card
           title={interest.title}
           text={interest.description}
           tags={interest.tags}
-          link={interest.link}
-          customLinkLabel={interest.type && setLinkLabel(interest.type)}
+          link={link}
         />
       </Grid.Column>
     );
