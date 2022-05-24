@@ -88,7 +88,8 @@
     },
     "content_pages": {
       "error": "Virhe",
-      "unauthorized_info": "Kirjaudu sisään nähdäksesi tämän sivun sisällön"
+      "unauthorized_info": "Kirjaudu sisään nähdäksesi tämän sivun sisällön",
+      "navigate_to_page": "Tutustu sisältöön"
     },
     "tests": {
       "error": "Virhe",

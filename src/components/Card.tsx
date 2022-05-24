@@ -116,6 +116,7 @@ interface Props {
   isLocked?: boolean;
   badges?: JSX.Element[] | null;
   headingLevel?: HeadingLevel;
+  customLinkLabel?: string;
 }
 
 const Card: React.FC<Props> = observer(
