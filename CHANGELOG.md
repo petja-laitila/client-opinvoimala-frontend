@@ -19,7 +19,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-- OPI-96/OPI-98: Accessibility/UI updates & fixes
+- OPI-96/OPI-98/OPI-90: Accessibility/UI updates & fixes
 
 ### Fixed
 
