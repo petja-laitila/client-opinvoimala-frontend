@@ -76,10 +76,7 @@ const EventLinks = styled.ul`
   list-style-type: none;
 
   a {
-    div {
-      display: flex;
-      width: 100%;
-    }
+    display: inline-block;
   }
 `;
 
@@ -110,7 +107,7 @@ const Event: React.FC<Props> = ({ event, isSimple = false }) => {
           <div className="event-description">{description}</div>
           <EventLinks>
             {links.map(link => (
-              <li>
+              <li key={link.id}>
                 <Link link={link} label={link.label} />
               </li>
             ))}

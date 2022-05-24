@@ -31,11 +31,17 @@ export const GlobalStyle = createGlobalStyle`
 
   *:focus {
     outline-color: ${p => p.theme.color.secondary};
-  }
+    :-moz-focusring {
+      outline: solid ${p => p.theme.color.secondary}
+    }
+  } 
 
   button:focus,
   a:focus {
     outline-color: ${p => p.theme.color.accent};
+    :-moz-focusring {
+      outline: solid ${p => p.theme.color.accent}
+    }
   }
 
   input:focus {
