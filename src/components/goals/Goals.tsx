@@ -13,6 +13,8 @@ import { Goal as GoalType } from '../../store/models';
 import { GoalModal } from './GoalModal';
 import GoalDrawer from './GoalDrawer';
 
+const MAX_ACTIVE_GOALS = 4;
+
 const Header = styled.header`
   display: flex;
   justify-content: space-between;
@@ -146,11 +148,8 @@ export const Goals: React.FC = observer(() => {
     return <LoadingPlaceholder.Content />;
   }
 
-  const canAddGoals =
-    goals.length < 4 ||
-    goals.some(goal => {
-      return goal.done === true;
-    });
+  const activeGoals = goals.filter(({ done }) => !done);
+  const canAddGoals = activeGoals.length < MAX_ACTIVE_GOALS;
 
   const tooltipText = canAddGoals
     ? undefined
