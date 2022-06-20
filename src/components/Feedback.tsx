@@ -224,7 +224,6 @@ export const Feedback: React.FC<Props> = observer(
         icon: <Icon type="Thumbs" />,
         onClick: () => handleFeedbackButtonClick('like'),
         negativeText: !likeButtonActive,
-        disabled: isBusy,
       },
       {
         type: 'disLike',
@@ -234,7 +233,6 @@ export const Feedback: React.FC<Props> = observer(
         icon: <Icon className="dislike-icon" type={'Thumbs'} />,
         onClick: () => handleFeedbackButtonClick('dislike'),
         negativeText: !dislikeButtonActive,
-        disabled: isBusy,
       },
     ];
 
