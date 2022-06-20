@@ -59,6 +59,12 @@ const TestStates = [
   'UNAUTHORIZED' as const,
 ];
 
+const FeedbackStates = [
+  'IDLE' as const,
+  'PROCESSING' as const,
+  'ERROR' as const,
+];
+
 export const TestsStore = types
   .model({
     categoriesState: types.enumeration('State', States),
@@ -75,6 +81,8 @@ export const TestsStore = types
 
     testsSummaryState: types.enumeration('State', TestStates),
     testsSummaryData: types.maybe(TestsSummaryModel),
+
+    feedbackState: types.enumeration('FeedbackState', FeedbackStates),
   })
   .views(self => ({
     get categories() {
@@ -300,6 +308,8 @@ export const TestsStore = types
     });
 
     const sendFeedback = flow(function* (params: API.SendFeedback) {
+      self.feedbackState = 'PROCESSING';
+
       const response: API.GeneralResponse<API.RES.SendFeedback> =
         yield api.sendFeedback(params);
 
@@ -310,10 +320,10 @@ export const TestsStore = types
             return { ...test, feedback: response.data };
           })
         );
-
+        self.feedbackState = 'IDLE';
         return { success: true };
       } else {
-        self.testState = 'ERROR';
+        self.feedbackState = 'ERROR';
         return { success: false };
       }
     });

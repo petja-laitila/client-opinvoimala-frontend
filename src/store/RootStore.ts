@@ -24,6 +24,7 @@ const RootStoreModel = types.model({
   }),
   contentPages: types.optional(ContentPageStore, {
     state: 'IDLE',
+    feedbackState: 'IDLE',
   }),
   appointments: types.optional(AppointmentsStore, {
     appointmentsState: 'NOT_FETCHED',
@@ -39,6 +40,7 @@ const RootStoreModel = types.model({
     testState: 'IDLE',
     testOutcomeState: 'IDLE',
     testsSummaryState: 'IDLE',
+    feedbackState: 'IDLE',
   }),
   goals: types.optional(GoalsStore, {
     state: 'NOT_FETCHED',

@@ -233,7 +233,8 @@
       }
     },
     "user_feedback": {
-      "title": "Oliko tämä sisältö sinulle hyödyllinen?"
+      "title": "Oliko tämä sisältö sinulle hyödyllinen?",
+      "error": "Palautteen lähetys ei onnistunut, yritä myöhemmin uudelleen."
     },
     "admin": {
       "appointments": {

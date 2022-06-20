@@ -1,7 +1,7 @@
 import { observer } from 'mobx-react-lite';
 import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Label, Segment } from 'semantic-ui-react';
+import { Label, Loader, Segment, Transition } from 'semantic-ui-react';
 import styled from 'styled-components';
 import { useStore } from '../store/storeContext';
 import Storage from '../services/storage';
@@ -9,6 +9,7 @@ import Icon from './Icon';
 import { Button } from './inputs';
 import { Feedback as FeedbackType } from '../store/models';
 import { Colors } from '../theme/styled';
+import Message from './Message';
 
 export type FeedbackChangeType =
   | 'like'
@@ -39,6 +40,7 @@ const Buttons = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-bottom: ${p => p.theme.spacing.lg};
 
   .dislike-icon {
     transform: rotate(180deg);
@@ -70,8 +72,14 @@ export const Feedback: React.FC<Props> = observer(
     const { t } = useTranslation();
 
     const {
-      contentPages: { sendFeedback: sendPageFeedback },
-      tests: { sendFeedback: sendTestFeedback },
+      contentPages: {
+        sendFeedback: sendPageFeedback,
+        feedbackState: contentFeedbackState,
+      },
+      tests: {
+        sendFeedback: sendTestFeedback,
+        feedbackState: testFeedbackState,
+      },
     } = useStore();
 
     const [likeButtonActive, setLikeButtonActive] = useState(false);
@@ -97,6 +105,13 @@ export const Feedback: React.FC<Props> = observer(
     const likes = feedback?.likes;
 
     const dislikes = feedback?.dislikes;
+
+    const isBusy =
+      contentFeedbackState === 'PROCESSING' ||
+      testFeedbackState === 'PROCESSING';
+
+    const error =
+      contentFeedbackState === 'ERROR' || testFeedbackState === 'ERROR';
 
     const getButtonColor = (buttonState: boolean) => {
       return buttonState ? 'primary' : 'grey3';
@@ -131,25 +146,31 @@ export const Feedback: React.FC<Props> = observer(
       });
     };
 
-    const submitFeedback = (feedbackType: FeedbackChangeType) => {
+    const submitFeedback = async (feedbackType: FeedbackChangeType) => {
+      let feedbackSent = false;
+
       switch (contentType) {
         case 'page':
-          sendPageFeedback({
+          const { success: pageSuccess } = await sendPageFeedback({
             id: id,
             contentType: contentType,
             feedbackType: feedbackType,
           });
-
+          feedbackSent = pageSuccess;
           break;
+
         case 'test':
-          sendTestFeedback({
+          const { success: testSuccess } = await sendTestFeedback({
             id: id,
             contentType: contentType,
             feedbackType: feedbackType,
           });
+          feedbackSent = testSuccess;
           break;
       }
-      storeFeedbackLocally(feedbackType);
+      if (feedbackSent) storeFeedbackLocally(feedbackType);
+
+      return feedbackSent;
     };
 
     const updateFeedbackButtonStates = (type: 'like' | 'dislike') => {
@@ -157,21 +178,23 @@ export const Feedback: React.FC<Props> = observer(
       setDislikeButtonActive(prev => (type === 'dislike' ? !prev : false));
     };
 
-    const handleFeedbackButtonClick = (type: 'like' | 'dislike') => {
+    const handleFeedbackButtonClick = async (type: 'like' | 'dislike') => {
+      let feedbackSentSuccessfully: boolean = false;
+
       if (!likeButtonActive && !dislikeButtonActive) {
         // Both buttons are untouched
-        submitFeedback(type); // 'like' or 'dislike'
+        feedbackSentSuccessfully = await submitFeedback(type); // 'like' or 'dislike'
       } else if (!likeButtonActive && dislikeButtonActive) {
         // User has already pressed dislike
         const feedback = type === 'like' ? 'dislike-to-like' : 'undislike';
-        submitFeedback(feedback);
+        feedbackSentSuccessfully = await submitFeedback(feedback);
       } else if (likeButtonActive && !dislikeButtonActive) {
         // User has already pressed like
         const feedback = type === 'like' ? 'unlike' : 'like-to-dislike';
-        submitFeedback(feedback);
+        feedbackSentSuccessfully = await submitFeedback(feedback);
       }
 
-      updateFeedbackButtonStates(type);
+      if (feedbackSentSuccessfully) updateFeedbackButtonStates(type);
     };
 
     const feedbackButtons = [
@@ -183,6 +206,7 @@ export const Feedback: React.FC<Props> = observer(
         icon: <Icon type="Thumbs" />,
         onClick: () => handleFeedbackButtonClick('like'),
         negativeText: !likeButtonActive,
+        disabled: isBusy,
       },
       {
         type: 'disLike',
@@ -192,11 +216,24 @@ export const Feedback: React.FC<Props> = observer(
         icon: <Icon className="dislike-icon" type={'Thumbs'} />,
         onClick: () => handleFeedbackButtonClick('dislike'),
         negativeText: !dislikeButtonActive,
+        disabled: isBusy,
       },
     ];
 
     return (
       <FeedbackContainer>
+        <Loader disabled={!isBusy} active size="large" />
+        <Transition.Group>
+          {error && (
+            <div>
+              <Message
+                error
+                icon="warning sign"
+                header={t('view.user_feedback.error')}
+              />
+            </div>
+          )}
+        </Transition.Group>
         <Header>{title}</Header>
         <Buttons>
           {feedbackButtons.map(
@@ -222,6 +259,7 @@ export const Feedback: React.FC<Props> = observer(
                   onClick={onClick}
                   negativeText={negativeText}
                   iconPosition="left"
+                  disabled={isBusy}
                 />
               </Segment>
             )
