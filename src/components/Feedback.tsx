@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react-lite';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Label, Loader, Segment, Transition } from 'semantic-ui-react';
 import styled from 'styled-components';
@@ -26,6 +26,7 @@ const FeedbackContainer = styled.div`
 `;
 
 const Header = styled.div`
+  position: relative;
   display: flex;
   justify-content: center;
   text-align: center;
@@ -34,6 +35,10 @@ const Header = styled.div`
   font-weight: bold;
   font-family: ${p => p.theme.font.secondary};
   margin-bottom: ${p => p.theme.spacing.lg};
+
+  @media ${p => p.theme.breakpoint.mobile} {
+    ${p => p.theme.font.h4};
+  }
 `;
 
 const Buttons = styled.div`
@@ -87,11 +92,25 @@ export const Feedback: React.FC<Props> = observer(
 
     const locallyStoredFeedback = Storage.read({ key: 'FEEDBACK_LIKES' });
 
+    const contentTypeRef = useRef<string>();
+    const slugRef = useRef<string>();
+
+    /**
+     * Set initial button states on mount (or when content changes)
+     */
     useEffect(() => {
-      if (locallyStoredFeedback?.[contentType]?.[slug] === undefined)
-        setInitialButtonStates(null);
-      else {
-        setInitialButtonStates(locallyStoredFeedback[contentType][slug]);
+      const contentTypeChanged = contentTypeRef.current !== contentType;
+      const slugChanged = slugRef.current !== slug;
+
+      if (contentTypeChanged || slugChanged) {
+        contentTypeRef.current = contentType;
+        slugRef.current = slug;
+
+        if (locallyStoredFeedback?.[contentType]?.[slug] === undefined)
+          setInitialButtonStates(null);
+        else {
+          setInitialButtonStates(locallyStoredFeedback[contentType][slug]);
+        }
       }
     }, [locallyStoredFeedback, contentType, slug]);
 
@@ -106,12 +125,11 @@ export const Feedback: React.FC<Props> = observer(
 
     const dislikes = feedback?.dislikes;
 
-    const isBusy =
-      contentFeedbackState === 'PROCESSING' ||
-      testFeedbackState === 'PROCESSING';
+    const isBusy = [contentFeedbackState, testFeedbackState].includes(
+      'PROCESSING'
+    );
 
-    const error =
-      contentFeedbackState === 'ERROR' || testFeedbackState === 'ERROR';
+    const error = [contentFeedbackState, testFeedbackState].includes('ERROR');
 
     const getButtonColor = (buttonState: boolean) => {
       return buttonState ? 'primary' : 'grey3';
@@ -179,7 +197,7 @@ export const Feedback: React.FC<Props> = observer(
     };
 
     const handleFeedbackButtonClick = async (type: 'like' | 'dislike') => {
-      let feedbackSentSuccessfully: boolean = false;
+      let feedbackSentSuccessfully = false;
 
       if (!likeButtonActive && !dislikeButtonActive) {
         // Both buttons are untouched
@@ -222,7 +240,6 @@ export const Feedback: React.FC<Props> = observer(
 
     return (
       <FeedbackContainer>
-        <Loader disabled={!isBusy} active size="large" />
         <Transition.Group>
           {error && (
             <div>
@@ -234,7 +251,10 @@ export const Feedback: React.FC<Props> = observer(
             </div>
           )}
         </Transition.Group>
-        <Header>{title}</Header>
+        <Header>
+          {title}
+          <Loader disabled={!isBusy} active size="large" />
+        </Header>
         <Buttons>
           {feedbackButtons.map(
             ({ type, count, text, color, icon, onClick, negativeText }) => (
