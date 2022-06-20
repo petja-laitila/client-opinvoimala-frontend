@@ -19,6 +19,12 @@ const States = [
   'UNAUTHORIZED' as const,
 ];
 
+const ContentPageFeedbackStates = [
+  'IDLE' as const,
+  'PROCESSING' as const,
+  'ERROR' as const,
+];
+
 const make404page = (params: API.GetContentPages, title: string) => ({
   id: params.id ?? -1,
   title,
@@ -44,6 +50,10 @@ export interface ContentPageIn extends SnapshotIn<typeof ContentPageModel> {}
 export const ContentPageStore = types
   .model({
     state: types.enumeration('State', States),
+    feedbackState: types.enumeration(
+      'ContentPageFeedbackStates',
+      ContentPageFeedbackStates
+    ),
     data: types.maybe(ContentPageModel),
   })
   .views(self => ({
@@ -90,6 +100,7 @@ export const ContentPageStore = types
     });
 
     const sendFeedback = flow(function* (params: API.SendFeedback) {
+      self.feedbackState = 'PROCESSING';
       const response: API.GeneralResponse<API.RES.SendFeedback> =
         yield api.sendFeedback(params);
 
@@ -104,9 +115,10 @@ export const ContentPageStore = types
             };
           }),
         });
+        self.feedbackState = 'IDLE';
         return { success: true };
       } else {
-        self.state = 'ERROR';
+        self.feedbackState = 'ERROR';
         return { success: false };
       }
     });
