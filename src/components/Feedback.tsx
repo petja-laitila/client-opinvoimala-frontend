@@ -5,7 +5,7 @@ import { Label, Loader, Segment, Transition } from 'semantic-ui-react';
 import styled from 'styled-components';
 import { useStore } from '../store/storeContext';
 import Storage from '../services/storage';
-import Icon from './Icon';
+import { Icon as SemanticIcon } from 'semantic-ui-react';
 import { Button } from './inputs';
 import { Feedback as FeedbackType } from '../store/models';
 import { Colors } from '../theme/styled';
@@ -47,10 +47,6 @@ const Buttons = styled.div`
   align-items: center;
   margin-bottom: ${p => p.theme.spacing.lg};
 
-  .dislike-icon {
-    transform: rotate(180deg);
-  }
-
   .button-segment {
     z-index: 0 !important;
     padding: 0;
@@ -62,6 +58,7 @@ const Buttons = styled.div`
 
   .button-badge {
     border-radius: ${p => p.theme.borderRadius.lg};
+    top: -5px !important;
   }
 `;
 
@@ -221,7 +218,7 @@ export const Feedback: React.FC<Props> = observer(
         count: likes,
         text: t('action.yes'),
         color: getButtonColor(likeButtonActive) as keyof Colors,
-        icon: <Icon type="Thumbs" />,
+        icon: <SemanticIcon name="thumbs up" size="large" />,
         onClick: () => handleFeedbackButtonClick('like'),
         negativeText: !likeButtonActive,
       },
@@ -230,7 +227,7 @@ export const Feedback: React.FC<Props> = observer(
         count: dislikes,
         text: t('action.no'),
         color: getButtonColor(dislikeButtonActive) as keyof Colors,
-        icon: <Icon className="dislike-icon" type={'Thumbs'} />,
+        icon: <SemanticIcon name="thumbs down" size="large" />,
         onClick: () => handleFeedbackButtonClick('dislike'),
         negativeText: !dislikeButtonActive,
       },
