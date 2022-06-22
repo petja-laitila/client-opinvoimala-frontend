@@ -16,6 +16,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - OPI-90: Events
 - OPI-93: Admin/Appointments (Manage appointments as a specialist)
 - OPI-94: User interests (users can get recommendations according to chosen tags)
+- OPI-91: Feedback component to content pages & tests
+- OPI-101: Admin/Roles Specialists can manage own roles
 
 ### Changed
 
