@@ -1,6 +1,6 @@
 {
   "name": "client-opinvoimala-frontend",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "private": true,
   "dependencies": {
     "apisauce": "^2.1.1",
