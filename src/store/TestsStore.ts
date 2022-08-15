@@ -5,6 +5,7 @@ import {
   cast,
   getSnapshot,
   applySnapshot,
+  getParent,
 } from 'mobx-state-tree';
 import i18n from '../i18n';
 import api from '../services/api/Api';
@@ -172,6 +173,10 @@ export const TestsStore = types
       if (response.kind === 'ok') {
         self.categoriesData = cast(response.data);
         self.categoriesState = 'FETCHED';
+      } else if (response.data.statusCode === 401) {
+        self.categoriesState = 'ERROR';
+        const { auth } = getParent(self);
+        auth.logout();
       } else {
         self.categoriesState = 'ERROR';
       }
@@ -210,6 +215,11 @@ export const TestsStore = types
         self.testState = 'IDLE';
       } else if (response.data.statusCode === 403) {
         self.testState = 'UNAUTHORIZED';
+        throw response.data;
+      } else if (response.data.statusCode === 401) {
+        self.testState = 'UNAUTHORIZED';
+        const { auth } = getParent(self);
+        auth.logout();
         throw response.data;
       } else {
         const page404 = make404Test(params, i18n.t('error.test_not_found'));
@@ -263,6 +273,11 @@ export const TestsStore = types
       } else if (response.data.statusCode === 403) {
         self.testOutcomeState = 'UNAUTHORIZED';
         throw response.data;
+      } else if (response.data.statusCode === 401) {
+        self.testOutcomeState = 'UNAUTHORIZED';
+        const { auth } = getParent(self);
+        auth.logout();
+        throw response.data;
       } else {
         self.testOutcomeState = 'ERROR';
       }
@@ -283,6 +298,11 @@ export const TestsStore = types
       } else if (response.data.statusCode === 403) {
         self.testOutcomeState = 'UNAUTHORIZED';
         throw response.data;
+      } else if (response.data.statusCode === 401) {
+        self.testOutcomeState = 'UNAUTHORIZED';
+        const { auth } = getParent(self);
+        auth.logout();
+        throw response.data;
       } else {
         self.testOutcomeState = 'ERROR';
       }
@@ -301,6 +321,11 @@ export const TestsStore = types
         self.testsSummaryState = 'IDLE';
       } else if (response.data.statusCode === 403) {
         self.testsSummaryState = 'UNAUTHORIZED';
+        throw response.data;
+      } else if (response.data.statusCode === 401) {
+        self.testsSummaryState = 'UNAUTHORIZED';
+        const { auth } = getParent(self);
+        auth.logout();
         throw response.data;
       } else {
         self.testsSummaryState = 'ERROR';

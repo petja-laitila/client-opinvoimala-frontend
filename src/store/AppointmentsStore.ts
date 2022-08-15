@@ -5,6 +5,7 @@ import {
   cast,
   getSnapshot,
   applySnapshot,
+  getParent,
 } from 'mobx-state-tree';
 import api from '../services/api/Api';
 import { ANALYTICS_EVENT, sendAnalyticsEvent } from '../utils/analytics';
@@ -114,6 +115,10 @@ export const AppointmentsStore = types
       if (response.kind === 'ok') {
         self.userAppointments = cast(response.data);
         self.userAppointmentsState = 'FETCHED';
+      } else if (response.data.statusCode === 401) {
+        self.userAppointmentsState = 'ERROR';
+        const { auth } = getParent(self);
+        auth.logout();
       } else {
         self.userAppointmentsState = 'ERROR';
       }
