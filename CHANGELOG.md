@@ -7,12 +7,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.3.3] - 2022-08-15
+
+### Fixed
+
+- OPI-102: Logout user when receiving 401 from API
+
 ## [0.3.2] - 2022-06-23
 
 ### Fixed
 
 - OPI-88: Corrected the fix to prevent crash with image null check
-- OPI-102: Logout user when receiving 401 from API
 
 ## [0.3.1] - 2022-06-22
 
