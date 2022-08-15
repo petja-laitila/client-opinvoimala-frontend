@@ -1,5 +1,12 @@
 import { DateTime } from 'luxon';
-import { Instance, types, flow, cast, getSnapshot } from 'mobx-state-tree';
+import {
+  Instance,
+  types,
+  flow,
+  cast,
+  getSnapshot,
+  getParent,
+} from 'mobx-state-tree';
 import api from '../services/api/Api';
 import { isPastDate, localizedDate, today } from '../utils/date';
 import { repeatEvent } from '../utils/events';
@@ -58,6 +65,10 @@ export const EventsStore = types
       if (response.kind === 'ok') {
         self.data = cast(response.data);
         self.state = 'FETCHED';
+      } else if (response.data.statusCode === 401) {
+        self.state = 'ERROR';
+        const { auth } = getParent(self);
+        auth.logout();
       } else {
         self.state = 'ERROR';
       }
