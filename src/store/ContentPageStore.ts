@@ -7,6 +7,7 @@ import {
   SnapshotOut,
   SnapshotIn,
   applySnapshot,
+  getParent,
 } from 'mobx-state-tree';
 import i18n from '../i18n';
 import api from '../services/api/Api';
@@ -90,6 +91,11 @@ export const ContentPageStore = types
         self.state = 'IDLE';
       } else if (response.data.statusCode === 403) {
         self.state = 'UNAUTHORIZED';
+        throw response.data;
+      } else if (response.data.statusCode === 401) {
+        self.state = 'UNAUTHORIZED';
+        const { auth } = getParent(self);
+        auth.logout();
         throw response.data;
       } else {
         const page404 = make404page(params, i18n.t('error.page_not_found'));

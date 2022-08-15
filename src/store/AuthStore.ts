@@ -178,6 +178,10 @@ export const AuthStore = types
         self.user = cast(response.data);
         self.state = 'IDLE';
         return { success: true };
+      } else if (response.data.statusCode === 401) {
+        self.state = 'ERROR';
+        const { auth } = getParent(self);
+        auth.logout();
       } else {
         self.state = 'ERROR';
         return { success: false, error: response.data };
