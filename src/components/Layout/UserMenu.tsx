@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import { useTranslation } from 'react-i18next';
 import { observer } from 'mobx-react-lite';
@@ -11,7 +11,6 @@ import { useWindowDimensions } from '../../utils/hooks';
 import Drawer from '../Drawer';
 import { useStore } from '../../store/storeContext';
 import Link, { LinkItem } from '../Link';
-import DeleteAccountModal from '../../views/auth/DeleteAccountModal';
 import { useAdminStore } from '../../store/admin/adminStoreContext';
 import { useHistory } from 'react-router-dom';
 
@@ -97,8 +96,6 @@ const UserMenu: React.FC<Props> = observer(({ admin }) => {
 
   const { isTablet } = useWindowDimensions();
 
-  const [deleteAccountOpen, setDeleteAccountOpen] = useState(false);
-
   const {
     auth: { isLoggedIn, openLoginModal },
   } = useStore();
@@ -164,25 +161,16 @@ const UserMenu: React.FC<Props> = observer(({ admin }) => {
         internal: `/${path('events')}`,
       },
       {
-        id: 'change_password',
-        label: rt('change_password'),
+        id: 'user_profile',
+        label: rt('user_profile'),
         type: 'internal',
-        internal: `/${path('change_password')}`,
+        internal: `/${path('user_profile')}`,
       },
       {
         id: 'logout',
         label: rt('logout'),
         type: 'internal',
         internal: `/${path('logout')}`,
-      },
-      {
-        id: 'delete_account',
-        label: t('view.delete_account.title'),
-        type: 'button',
-        onClick: () => {
-          setDeleteAccountOpen(true);
-        },
-        style: 'alert',
       },
     ];
 
@@ -193,12 +181,6 @@ const UserMenu: React.FC<Props> = observer(({ admin }) => {
         ) : (
           <DesktopMenu items={items} />
         )}
-        <DeleteAccountModal
-          isOpen={deleteAccountOpen}
-          onClose={() => {
-            setDeleteAccountOpen(false);
-          }}
-        />
       </>
     );
   } else if (!admin) {

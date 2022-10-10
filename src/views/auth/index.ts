@@ -1,4 +1,4 @@
-export * from './ChangePassword';
+export * from './UserProfile';
 export * from './ForgotPassword';
 export * from './LoginModal';
 export * from './Logout';

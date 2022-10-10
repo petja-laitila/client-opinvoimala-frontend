@@ -6,7 +6,7 @@ const FrontPage = lazy(() => import('../views/FrontPage'));
 const ContentPage = lazy(() => import('../views/ContentPage'));
 const Register = lazy(() => import('../views/auth/Register'));
 const Logout = lazy(() => import('../views/auth/Logout'));
-const ChangePassword = lazy(() => import('../views/auth/ChangePassword'));
+const UserProfile = lazy(() => import('../views/auth/UserProfile'));
 const ForgotPassword = lazy(() => import('../views/auth/ForgotPassword'));
 const ResetPassword = lazy(() => import('../views/auth/ResetPassword'));
 const Test = lazy(() => import('../views/Test'));
@@ -90,9 +90,9 @@ const appRoutes: (Route | NavLinkRoute)[] = [
     isPublic: false,
   },
   {
-    path: `/${path('change_password')}`,
-    title: rt('change_password'),
-    component: props => checkAuth(<ChangePassword />, props?.unauthorized),
+    path: `/${path('user_profile')}`,
+    title: rt('user_profile'),
+    component: props => checkAuth(<UserProfile />, props?.unauthorized),
     exact: true,
     isPublic: false,
   },

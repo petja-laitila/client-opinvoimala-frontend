@@ -9,8 +9,10 @@ import { validatePassword } from '../../utils/string';
 import Message from '../../components/Message';
 import Annotation from '../../components/Annotation';
 import { COLORS } from '../../theme';
+import Heading from '../../components/Heading';
+import DeleteAccountModal from './DeleteAccountModal';
 
-export const ChangePassword: React.FC = observer(() => {
+export const UserProfile: React.FC = observer(() => {
   const { t } = useTranslation();
 
   const {
@@ -22,6 +24,8 @@ export const ChangePassword: React.FC = observer(() => {
   const [password2, setPassword2] = useState('');
   const [errorMsgs, setErrorMsgs] = useState<string[]>([]);
   const [passwordChanged, setPasswordChanged] = useState(false);
+
+  const [deleteAccountOpen, setDeleteAccountOpen] = useState(false);
 
   const isValidPw = password1 === password2 && validatePassword(password1);
   const isValidForm = !!currentPassword.length && isValidPw;
@@ -74,11 +78,12 @@ export const ChangePassword: React.FC = observer(() => {
   };
 
   const hero = {
-    title: t('route.change_password'),
+    title: t('route.user_profile'),
   };
 
   return (
     <Layout hero={hero} wrapperSize="sm">
+      <Heading level="h2">{t('action.change_password')}</Heading>
       <form onSubmit={handleSubmit}>
         <Transition.Group>
           {passwordChanged && (
@@ -98,7 +103,7 @@ export const ChangePassword: React.FC = observer(() => {
           prefix={<span style={{ color: COLORS.accent }}>* </span>}
         />
 
-        <h2>{t('view.change_password.current_password_title')}</h2>
+        <h3>{t('view.change_password.current_password_title')}</h3>
 
         <Input
           required
@@ -113,7 +118,7 @@ export const ChangePassword: React.FC = observer(() => {
 
         <Divider hidden aria-hidden="true" />
 
-        <h2>{t('view.change_password.new_password_title')}</h2>
+        <h3>{t('view.change_password.new_password_title')}</h3>
         <p>{t('view.change_password.new_password_info')}</p>
 
         <Input
@@ -158,8 +163,29 @@ export const ChangePassword: React.FC = observer(() => {
           noMargin
         />
       </form>
+
+      <Divider section />
+
+      <div>
+        <h2>{t('view.delete_account.title')}</h2>
+        <Button
+          id="user-profile-view__delete-account-button"
+          text={t('view.delete_account.title')}
+          disabled={isBusy}
+          color="accent"
+          onClick={() => {
+            setDeleteAccountOpen(true);
+          }}
+        />
+        <DeleteAccountModal
+          isOpen={deleteAccountOpen}
+          onClose={() => {
+            setDeleteAccountOpen(false);
+          }}
+        />
+      </div>
     </Layout>
   );
 });
 
-export default ChangePassword;
+export default UserProfile;

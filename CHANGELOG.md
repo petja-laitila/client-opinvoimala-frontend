@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- OPI-107: View for user's profile (including change password & delete account)
+
 ### Fixed
 
 - OPI-104: Fixed card badge's positioning

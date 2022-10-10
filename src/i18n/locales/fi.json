@@ -54,7 +54,7 @@
     "outcome": "Lopputulema",
     "appointments": "Varaukset",
     "events": "Tapahtumat",
-    "change_password": "Vaihda salasana",
+    "user_profile": "Omat tiedot",
     "forgot_password": "Salasana unohtunut",
     "reset_password": "Salasanan palautus",
     "logout": "Kirjaudu ulos",
