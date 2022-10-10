@@ -110,7 +110,7 @@ export const ContentPage = observer(() => {
       {page?.cards && (
         <>
           <Divider section hidden aria-hidden="true" />
-          <Cards cards={page.cards} columns={3} />
+          <Cards title={page.cardsTitle} cards={page.cards} columns={3} />
         </>
       )}
 

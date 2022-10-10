@@ -32,6 +32,7 @@ const make404page = (params: API.GetContentPages, title: string) => ({
   slug: params.slug ?? '',
   lead: null,
   content: null,
+  cardsTitle: null,
   cards: null,
   linkList: {
     title: null,

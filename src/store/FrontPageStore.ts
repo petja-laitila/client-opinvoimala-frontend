@@ -23,6 +23,7 @@ const FrontPageModel = types.model({
   lead: types.maybeNull(types.string),
   details: types.maybeNull(types.string),
   detailsImage: types.maybeNull(ImageModel),
+  cardsTitle: types.maybeNull(types.string),
   cards: types.maybeNull(types.array(CardModel)),
 });
 

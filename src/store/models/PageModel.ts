@@ -9,6 +9,7 @@ export const PageModel = types.model({
   slug: types.maybeNull(types.string),
   lead: types.maybeNull(types.string),
   content: types.maybeNull(types.string),
+  cardsTitle: types.maybeNull(types.string),
   cards: types.maybeNull(types.array(CardModel)),
   linkList: types.maybeNull(LinkListModel),
   feedback: types.maybeNull(FeedbackModel),

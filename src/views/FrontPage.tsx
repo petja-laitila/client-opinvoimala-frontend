@@ -30,7 +30,7 @@ export const FrontPage: React.FC = observer(() => {
     frontPage: { state, frontPage, fetchFrontPage },
   } = useStore();
 
-  const { details, detailsImage, cards } = frontPage ?? {};
+  const { details, detailsImage, cards, cardsTitle } = frontPage ?? {};
 
   const isLoading = state === 'NOT_FETCHED' || state === 'FETCHING';
 
@@ -51,7 +51,7 @@ export const FrontPage: React.FC = observer(() => {
     <Layout hero={hero} isLoading={isLoading}>
       <Divider section hidden aria-hidden="true" />
 
-      {cards && <Cards cards={cards} />}
+      {cards && <Cards title={cardsTitle} cards={cards} />}
 
       <Divider section hidden aria-hidden="true" />
 
