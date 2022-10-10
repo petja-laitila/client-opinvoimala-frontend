@@ -105,7 +105,7 @@
         "show_all_from_category": "Näytä kaikki aiheen testit ja harjoitukset"
       },
       "show_outcome": "Suoritettu! Klikkaa nähdäksesi lopputuleman.",
-      "affects_user_profile": "Vaikuttaa hyvinvointiprofiilisi tuloksiin."
+      "affects_user_profile": "Osa omaa profiilia."
     },
     "test": {
       "progressText": "Kysymys {{current}}/{{total}}"
