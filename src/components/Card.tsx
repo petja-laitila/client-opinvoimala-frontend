@@ -44,18 +44,29 @@ const Container = styled.article<{ isLocked?: boolean }>`
       padding: 0 ${p => p.theme.spacing.lg};
     }
 
-    .card__badge {
-      position: absolute;
-      top: ${p => p.theme.spacing.lg};
-      right: ${p => p.theme.spacing.lg};
-    }
+    .card__heading-row {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
 
-    .card-heading {
-      ${p => p.theme.font.h4};
-      line-height: 28px;
-      padding-right: 48px;
       margin-top: ${p => p.theme.spacing.lg};
       margin-bottom: ${p => p.theme.spacing.md};
+      padding-right: ${p => p.theme.spacing.lg};
+
+      .card-heading {
+        ${p => p.theme.font.h4};
+        line-height: 28px;
+      }
+
+      .card__badges {
+        display: flex;
+        align-items: center;
+        > div {
+          :not(:first-child) {
+            padding-left: ${p => p.theme.spacing.sm};
+          }
+        }
+      }
     }
 
     p {
@@ -141,11 +152,20 @@ const Card: React.FC<Props> = observer(
         {image && <img src={image.url} alt={image.alternativeText ?? ''} />}
 
         <main>
-          {title && (
-            <Heading level={headingLevel} className="card-heading">
-              {title}
-            </Heading>
-          )}
+          <div className="card__heading-row">
+            {title && (
+              <Heading level={headingLevel} className="card-heading">
+                {title}
+              </Heading>
+            )}
+            {!!badges?.length && (
+              <div className="card__badges">
+                {badges.map((badge, i) => (
+                  <div key={i}>{badge}</div>
+                ))}
+              </div>
+            )}
+          </div>
 
           {text && <p>{text}</p>}
 
@@ -155,14 +175,6 @@ const Card: React.FC<Props> = observer(
                 <Tag key={`${tag}-${i}`} name={tag} />
               ))}
             </TagList>
-          )}
-
-          {!!badges?.length && (
-            <div className="card__badge">
-              {badges.map((badge, i) => (
-                <span key={i}>{badge}</span>
-              ))}
-            </div>
           )}
         </main>
 
