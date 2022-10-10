@@ -19,6 +19,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 - OPI-105: Changed "Affects user profile" translation text
+- OPI-110: When logging in from forgot/reset password view, redirect to front page
 
 ## [0.3.3] - 2022-08-15
 

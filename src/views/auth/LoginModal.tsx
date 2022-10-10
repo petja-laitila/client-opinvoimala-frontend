@@ -1,7 +1,7 @@
 import { observer } from 'mobx-react-lite';
 import React, { ChangeEvent, Dispatch, SetStateAction, useState } from 'react';
 import { Trans, useTranslation } from 'react-i18next';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { Divider, Loader, Transition } from 'semantic-ui-react';
 import styled from 'styled-components';
 import { path } from '../../routes/routes';
@@ -46,6 +46,8 @@ interface Props extends ModalProps {}
 export const LoginModal: React.FC<Props> = observer(({ ...props }) => {
   const { t } = useTranslation();
 
+  const history = useHistory();
+
   const {
     auth: { state, showLoginModal, closeLoginModal, login },
   } = useStore();
@@ -61,6 +63,7 @@ export const LoginModal: React.FC<Props> = observer(({ ...props }) => {
     (event: ChangeEvent<HTMLInputElement>) => {
       setErrorMsgs([]);
       setter(event.currentTarget.value);
+      console.log(history.location.pathname.includes(path('forgot_password')));
     };
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -74,6 +77,14 @@ export const LoginModal: React.FC<Props> = observer(({ ...props }) => {
         setEmail('');
         setPassword('');
         closeLoginModal();
+        const pathname = history.location.pathname;
+        if (
+          pathname.includes(path('forgot_password')) ||
+          pathname.includes(path('reset_password'))
+        ) {
+          // Go to front page
+          history.push('/');
+        }
       } else {
         setErrorMsgs(getApiErrorMessages(error.data));
       }
