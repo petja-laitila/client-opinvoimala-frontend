@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - OPI-107: View for user's profile (including change password & delete account)
 - OPI-106: Cards can have title field
+- OPI-108: Show cards in test outcomes
 
 ### Fixed
 

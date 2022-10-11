@@ -17,6 +17,7 @@ import LinkList from '../components/LinkList';
 import { usePageTitle } from '../utils/hooks/usePageTitle';
 import NoPrint from '../components/NoPrint';
 import Feedback from '../components/Feedback';
+import Cards from '../components/Cards';
 
 export const TestOutcomes = observer(() => {
   const history = useHistory();
@@ -103,6 +104,13 @@ export const TestOutcomes = observer(() => {
       )}
 
       {isTest && <Annotation text={t('annotation.test')} />}
+
+      {outcome?.cards && (
+        <>
+          <Divider section hidden aria-hidden="true" />
+          <Cards title={outcome.cardsTitle} cards={outcome.cards} columns={3} />
+        </>
+      )}
 
       {linkList && (
         <NoPrint>

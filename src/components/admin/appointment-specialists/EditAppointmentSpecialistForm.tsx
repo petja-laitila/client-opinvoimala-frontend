@@ -253,7 +253,7 @@ const EditappointmentSpecialistsForm: React.FC<Props> = observer(
           noMargin
         />
 
-        {!!errorMsgs.length && <Divider hidden />}
+        {!!errorMsgs.length && <Divider hidden aria-hidden="true" />}
 
         <Transition.Group>
           {!!errorMsgs.length && (
@@ -270,7 +270,7 @@ const EditappointmentSpecialistsForm: React.FC<Props> = observer(
           )}
         </Transition.Group>
 
-        <Divider hidden />
+        <Divider hidden aria-hidden="true" />
 
         <div className="appointment-specialist-form__buttons-container">
           <div className="left-column">

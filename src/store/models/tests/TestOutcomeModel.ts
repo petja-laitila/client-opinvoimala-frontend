@@ -1,5 +1,5 @@
 import { SnapshotOut, types } from 'mobx-state-tree';
-import { ImageModel, LinkModel } from '..';
+import { CardModel, ImageModel, LinkModel } from '..';
 
 export const TestOutcomeModel = types.model({
   id: types.identifierNumber,
@@ -21,6 +21,8 @@ export const TestOutcomesModel = types.model({
   matchingOutcomes: types.array(TestOutcomeModel),
   triggerOutcomes: types.array(TestOutcomeModel),
   allOutcomes: types.maybeNull(types.array(TestOutcomeModel)),
+  cardsTitle: types.maybeNull(types.string),
+  cards: types.maybeNull(types.array(CardModel)),
   linkListTitle: types.maybeNull(types.string),
   linkList: types.array(LinkModel),
 });

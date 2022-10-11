@@ -442,7 +442,7 @@ const EditAppointmentForm: React.FC<Props> = ({
         </div>
       </div>
 
-      {hasErrors && <Divider hidden />}
+      {hasErrors && <Divider hidden aria-hidden="true" />}
 
       <Transition.Group>
         {!!overlapMsgs.length && (

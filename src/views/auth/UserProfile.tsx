@@ -164,7 +164,7 @@ export const UserProfile: React.FC = observer(() => {
         />
       </form>
 
-      <Divider section />
+      <Divider section aria-hidden="true" />
 
       <div>
         <h2>{t('view.delete_account.title')}</h2>

@@ -25,7 +25,7 @@ const Cards: React.FC<Props> = ({
 }) => {
   return (
     <Container>
-      {title && <Heading level="h2">{title}</Heading>}
+      {!!title?.length && <Heading level="h2">{title}</Heading>}
       <Grid columns={columns} stackable doubling centered stretched>
         {cards?.map(card => (
           <Grid.Column key={card.id}>
