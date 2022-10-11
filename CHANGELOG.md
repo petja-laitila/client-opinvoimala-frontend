@@ -16,6 +16,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 
 - OPI-104: Fixed card badge's positioning
+- Wrap tag list to multiple lines if needed
 
 ### Changed
 

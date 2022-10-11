@@ -24,10 +24,12 @@ const Container = styled.div`
 `;
 
 const TagList = styled.ul`
-  display: flex;
   list-style-type: none;
   padding: 0;
-  margin: 0;
+  > li {
+    display: inline-block;
+    margin: 4px 0;
+  }
 `;
 
 interface Props {
