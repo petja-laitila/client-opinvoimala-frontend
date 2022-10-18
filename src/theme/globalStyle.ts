@@ -85,8 +85,8 @@ export const GlobalStyle = createGlobalStyle`
   }
 
   p, h1, h2, h3, h4, h5, h6 {
-    margin-top: 20px;
-    margin-bottom: 20px;
+    margin-top: 16px;
+    margin-bottom: 16px;
   }
   
   h1, h2, h3, h4, h5, h6 {

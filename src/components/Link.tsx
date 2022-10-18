@@ -59,13 +59,7 @@ interface Props {
   center?: boolean;
 }
 
-const Link: React.FC<Props> = ({
-  link,
-  label,
-  showArrow,
-  center,
-  children,
-}) => {
+const Link: React.FC<Props> = ({ link, label, showArrow, center }) => {
   const {
     auth: { isLoggedIn },
   } = useStore();
@@ -91,7 +85,6 @@ const Link: React.FC<Props> = ({
       )}
       <div className="link__label-container">
         {!linkLabel && showLock && <Icon type="Lock" />}
-        {children}
         {showArrow && (
           <Icon
             className="arrow-icon"

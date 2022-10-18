@@ -16,7 +16,7 @@ const Container = styled.section`
 
   ul {
     list-style-type: none;
-    padding: ${p => p.theme.spacing.sm} 0 0 0;
+    padding: 0;
 
     li {
       a {

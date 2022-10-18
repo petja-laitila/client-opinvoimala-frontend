@@ -162,7 +162,7 @@ const Footer: React.FC = observer(() => {
     <ul className="footer__links-list">
       {links?.map(link => (
         <li key={link.id}>
-          <Link link={link}>{link.label}</Link>
+          <Link link={link} label={link.label} />
         </li>
       ))}
     </ul>

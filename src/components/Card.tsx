@@ -139,7 +139,7 @@ const Card: React.FC<Props> = observer(
     link,
     isLocked,
     badges,
-    headingLevel = 'h2',
+    headingLevel = 'h3',
   }) => {
     const {
       auth: { isLoggedIn },

@@ -85,7 +85,7 @@ const AccordionMenu: React.FC<Props> = ({ id, label, items }) => {
       >
         {items.map(link => (
           <li key={`accordion-item-${link.id}`} className="accordion__item">
-            <Link link={link}>{link.label}</Link>
+            <Link link={link} label={link.label} />
           </li>
         ))}
       </ul>

@@ -78,7 +78,7 @@ const MobileMenu: React.FC<{ items: LinkItem[] }> = ({ items }) => {
       <ul className="drawer__link-list">
         {items.map(link => (
           <li key={link.id}>
-            <Link link={link}>{link.label}</Link>
+            <Link link={link} label={link.label} />
           </li>
         ))}
       </ul>
