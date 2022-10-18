@@ -10,13 +10,13 @@ import Link from './Link';
 const Container = styled.section`
   margin: ${p => p.theme.spacing.xl} 0;
 
-  h1 {
-    ${p => p.theme.font.h2};
+  h2 {
+    ${p => p.theme.font.h3};
   }
 
   ul {
     list-style-type: none;
-    padding: 0;
+    padding: ${p => p.theme.spacing.sm} 0 0 0;
 
     li {
       a {
@@ -77,7 +77,7 @@ const LinkList: React.FC<Props> = ({ list, initialItemCount }) => {
 
   return (
     <Container>
-      {title && <h1>{title}</h1>}
+      {title && <h2>{title}</h2>}
 
       <ul>
         {visibleItems.map(link => (

@@ -8,6 +8,15 @@ import Heading, { HeadingLevel } from './Heading';
 const Container = styled.div`
   margin-top: ${p => p.theme.spacing.xl};
   margin-bottom: ${p => p.theme.spacing.xl};
+
+  > .grid {
+    margin-top: ${p => p.theme.spacing.sm};
+    margin-bottom: ${p => p.theme.spacing.sm};
+  }
+
+  h2 {
+    ${p => p.theme.font.h3};
+  }
 `;
 
 interface Props {

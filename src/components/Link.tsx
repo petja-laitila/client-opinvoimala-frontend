@@ -79,16 +79,18 @@ const Link: React.FC<Props> = ({
   const isPublic = isButton ? true : linkIsPublic(link as LinkIn);
   const showLock = !isPublic && !isLoggedIn;
 
+  const linkLabel = label ?? link.page?.title ?? link.test?.title;
+
   const content = (
     <Content center={center} linkStyle={link.style ?? 'normal'}>
-      {label && (
+      {linkLabel && (
         <div className="link__label-container">
           {showLock && <Icon type="Lock" />}
-          {label}
+          {linkLabel}
         </div>
       )}
       <div className="link__label-container">
-        {!label && showLock && <Icon type="Lock" />}
+        {!linkLabel && showLock && <Icon type="Lock" />}
         {children}
         {showArrow && (
           <Icon

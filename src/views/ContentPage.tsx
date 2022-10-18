@@ -12,6 +12,7 @@ import { Divider } from 'semantic-ui-react';
 import Cards from '../components/Cards';
 import { usePageTitle } from '../utils/hooks/usePageTitle';
 import Feedback from '../components/Feedback';
+import NoPrint from '../components/NoPrint';
 
 const InnerHtmlContainer = styled.div`
   h1 {
@@ -114,7 +115,12 @@ export const ContentPage = observer(() => {
         </>
       )}
 
-      {page?.linkList && <LinkList list={page.linkList} initialItemCount={5} />}
+      {page?.linkList && (
+        <NoPrint>
+          <Divider section hidden aria-hidden="true" />
+          <LinkList list={page.linkList} initialItemCount={5} />
+        </NoPrint>
+      )}
 
       {page?.feedback?.showFeedback && (
         <>

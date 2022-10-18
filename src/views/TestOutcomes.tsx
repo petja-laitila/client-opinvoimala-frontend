@@ -114,6 +114,7 @@ export const TestOutcomes = observer(() => {
 
       {linkList && (
         <NoPrint>
+          <Divider section hidden aria-hidden="true" />
           <LinkList list={linkList} initialItemCount={5} />
         </NoPrint>
       )}
