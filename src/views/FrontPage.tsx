@@ -51,7 +51,7 @@ export const FrontPage: React.FC = observer(() => {
     <Layout hero={hero} isLoading={isLoading}>
       <Divider section hidden aria-hidden="true" />
 
-      {cards && <Cards title={cardsTitle} cards={cards} />}
+      {cards && <Cards title={cardsTitle} titleSize="h2" cards={cards} />}
 
       <Divider section hidden aria-hidden="true" />
 
