@@ -3,7 +3,7 @@ import { SemanticWIDTHS, Grid } from 'semantic-ui-react';
 import styled from 'styled-components';
 import { Card as CardType } from '../store/models';
 import Card from './Card';
-import Heading, { HeadingLevel, HeadingSize } from './Heading';
+import Heading, { HeadingSize } from './Heading';
 
 const Container = styled.div<{ headingSize: HeadingSize }>`
   margin-top: ${p => p.theme.spacing.xl};
@@ -24,7 +24,6 @@ interface Props {
   titleSize?: HeadingSize;
   cards: CardType[];
   columns?: SemanticWIDTHS;
-  headingLevel?: HeadingLevel;
 }
 
 const Cards: React.FC<Props> = ({
@@ -32,7 +31,6 @@ const Cards: React.FC<Props> = ({
   titleSize = 'h2',
   cards,
   columns = 4,
-  headingLevel,
 }) => {
   return (
     <Container headingSize={titleSize}>
