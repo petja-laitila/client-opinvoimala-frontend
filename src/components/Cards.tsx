@@ -40,7 +40,11 @@ const Cards: React.FC<Props> = ({
       <Grid columns={columns} stackable doubling centered stretched>
         {cards?.map(card => (
           <Grid.Column key={card.id}>
-            <Card key={card.id} headingLevel={headingLevel} {...card} />
+            <Card
+              key={card.id}
+              headingLevel={title?.length ? 'h3' : 'h2'}
+              {...card}
+            />
           </Grid.Column>
         ))}
       </Grid>
