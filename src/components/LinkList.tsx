@@ -11,7 +11,7 @@ const Container = styled.section`
   margin: ${p => p.theme.spacing.xl} 0;
 
   h2 {
-    ${p => p.theme.font.h3};
+    ${p => p.theme.font.h2};
   }
 
   ul {

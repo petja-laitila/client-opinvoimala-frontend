@@ -5,7 +5,7 @@ import InnerHtmlDiv from '../InnerHtmlDiv';
 
 const Container = styled.div`
   margin: ${p => p.theme.spacing.xl} 0;
-  h1 {
+  h2 {
     ${p => p.theme.font.h2};
   }
   img {
@@ -30,7 +30,7 @@ const StyledInnerHtmlDiv = styled(InnerHtmlDiv)`
 
 const TestOutcome: React.FC<TestOutcomeType> = ({ title, content, image }) => (
   <Container>
-    {title && <h1>{title}</h1>}
+    {title && <h2>{title}</h2>}
 
     {content && <StyledInnerHtmlDiv html={content} />}
 
