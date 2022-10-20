@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.4.0] - 2022-10-20
+
 ### Added
 
 - OPI-107: View for user's profile (including change password & delete account)
