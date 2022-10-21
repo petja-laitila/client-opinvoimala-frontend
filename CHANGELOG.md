@@ -11,6 +11,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Link target can be entirely empty object (in case of draft)
 
+### Changed
+
+- Cards & Link list title size from h2 to h3
+
 ## [0.4.0] - 2022-10-20
 
 ### Added

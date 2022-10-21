@@ -28,7 +28,7 @@ interface Props {
 
 const Cards: React.FC<Props> = ({
   title,
-  titleSize = 'h2',
+  titleSize = 'h3',
   cards,
   columns = 4,
 }) => {
