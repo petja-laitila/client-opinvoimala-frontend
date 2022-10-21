@@ -1,7 +1,7 @@
 import { SnapshotIn, SnapshotOut, types } from 'mobx-state-tree';
 
 const InternalLinkTargetModel = types.model({
-  id: types.number,
+  id: types.maybeNull(types.number),
   title: types.maybeNull(types.string),
   slug: types.maybeNull(types.string),
   isPublic: types.maybeNull(types.boolean),

@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+- Link target can be entirely empty object (in case of draft)
+
 ## [0.4.0] - 2022-10-20
 
 ### Added
