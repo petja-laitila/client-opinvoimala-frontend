@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Smaller heading size for test questions & test outcomes
+
 ## [0.4.1] - 2022-10-21
 
 ### Fixed

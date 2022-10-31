@@ -6,7 +6,7 @@ import InnerHtmlDiv from '../InnerHtmlDiv';
 const Container = styled.div`
   margin: ${p => p.theme.spacing.xl} 0;
   h2 {
-    ${p => p.theme.font.h2};
+    ${p => p.theme.font.h3};
   }
   img {
     margin: ${p => p.theme.spacing.xl} 0;

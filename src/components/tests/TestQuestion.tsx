@@ -4,6 +4,12 @@ import { QuestionOption } from '../../store/models';
 import InnerHtmlDiv from '../InnerHtmlDiv';
 import { MultiSelect, TextArea, Select, Slider } from '../inputs';
 
+const Container = styled.div`
+  h2 {
+    ${p => p.theme.font.h3};
+  }
+`;
+
 const OptionsContainer = styled.div`
   margin: ${p => p.theme.spacing.xl} 0;
 `;
@@ -81,7 +87,7 @@ const TestQuestion: React.FC<Props> = ({
   const title = `${questionNumber}${question.title}`;
 
   return (
-    <div>
+    <Container>
       <h2 ref={titleRef} tabIndex={-1} style={{ outline: 0 }}>
         {title}
       </h2>
@@ -89,7 +95,7 @@ const TestQuestion: React.FC<Props> = ({
       {question.content && <InnerHtmlDiv html={question.content} />}
 
       <OptionsContainer>{renderOptions()}</OptionsContainer>
-    </div>
+    </Container>
   );
 };
 
