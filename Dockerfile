@@ -1,5 +1,5 @@
 # Build
-FROM node:18.8.0-alpine as build-deps
+FROM node:16-alpine as build-deps
 WORKDIR /usr/src/app
 
 COPY package.json yarn.lock ./
