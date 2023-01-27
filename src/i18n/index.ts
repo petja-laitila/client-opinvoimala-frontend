@@ -19,6 +19,7 @@ i18n.use(initReactI18next).init({
   defaultNS: 'translation',
 
   debug: false,
+  returnNull: false,
 
   resources: {
     fi: { translation: fi },

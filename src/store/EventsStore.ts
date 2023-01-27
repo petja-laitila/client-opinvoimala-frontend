@@ -12,6 +12,7 @@ import { isPastDate, localizedDate, today } from '../utils/date';
 import { repeatEvent } from '../utils/events';
 import { byDate } from '../utils/sort';
 import { EventModel } from './models/EventModel';
+import { RootStore } from './RootStore';
 
 const States = [
   'NOT_FETCHED' as const,
@@ -67,7 +68,7 @@ export const EventsStore = types
         self.state = 'FETCHED';
       } else if (response.data.statusCode === 401) {
         self.state = 'ERROR';
-        const { auth } = getParent(self);
+        const { auth } = getParent(self) as RootStore;
         auth.logout();
       } else {
         self.state = 'ERROR';

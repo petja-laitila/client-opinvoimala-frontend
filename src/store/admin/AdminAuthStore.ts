@@ -9,6 +9,7 @@ import {
 } from 'mobx-state-tree';
 import adminApi from '../../services/api/ApiAdmin';
 import Storage from '../../services/storage';
+import { AdminRootStore } from './AdminRootStore';
 
 const States = ['IDLE' as const, 'PROCESSING' as const, 'ERROR' as const];
 
@@ -84,7 +85,9 @@ export const AdminAuthStore = types
       self.user = null;
       Storage.write({ key: 'ADMIN_AUTH_TOKEN', value: null });
 
-      const { appointments, specialists, specialistRoles } = getParent(self);
+      const { appointments, specialists, specialistRoles } = getParent(
+        self
+      ) as AdminRootStore;
       appointments.reset();
       specialists.reset();
       specialistRoles.reset();

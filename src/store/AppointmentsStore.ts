@@ -12,6 +12,7 @@ import { ANALYTICS_EVENT, sendAnalyticsEvent } from '../utils/analytics';
 import { isFutureDate, isPastDate } from '../utils/date';
 import { byStartTime } from '../utils/sort';
 import { Appointment, AppointmentModel } from './models';
+import { RootStore } from './RootStore';
 
 const States = [
   'NOT_FETCHED' as const,
@@ -117,7 +118,7 @@ export const AppointmentsStore = types
         self.userAppointmentsState = 'FETCHED';
       } else if (response.data.statusCode === 401) {
         self.userAppointmentsState = 'ERROR';
-        const { auth } = getParent(self);
+        const { auth } = getParent(self) as RootStore;
         auth.logout();
       } else {
         self.userAppointmentsState = 'ERROR';

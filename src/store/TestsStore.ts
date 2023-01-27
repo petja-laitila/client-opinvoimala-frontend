@@ -19,6 +19,7 @@ import {
   TestsSummaryModel,
   SimpleTest,
 } from './models';
+import { RootStore } from './RootStore';
 
 const make404Test = (params: API.GetContentPages, name: string): Test => ({
   id: params.id ?? -1,
@@ -175,7 +176,7 @@ export const TestsStore = types
         self.categoriesState = 'FETCHED';
       } else if (response.data.statusCode === 401) {
         self.categoriesState = 'ERROR';
-        const { auth } = getParent(self);
+        const { auth } = getParent(self) as RootStore;
         auth.logout();
       } else {
         self.categoriesState = 'ERROR';
@@ -218,7 +219,7 @@ export const TestsStore = types
         throw response.data;
       } else if (response.data.statusCode === 401) {
         self.testState = 'UNAUTHORIZED';
-        const { auth } = getParent(self);
+        const { auth } = getParent(self) as RootStore;
         auth.logout();
         throw response.data;
       } else {
@@ -275,7 +276,7 @@ export const TestsStore = types
         throw response.data;
       } else if (response.data.statusCode === 401) {
         self.testOutcomeState = 'UNAUTHORIZED';
-        const { auth } = getParent(self);
+        const { auth } = getParent(self) as RootStore;
         auth.logout();
         throw response.data;
       } else {
@@ -300,7 +301,7 @@ export const TestsStore = types
         throw response.data;
       } else if (response.data.statusCode === 401) {
         self.testOutcomeState = 'UNAUTHORIZED';
-        const { auth } = getParent(self);
+        const { auth } = getParent(self) as RootStore;
         auth.logout();
         throw response.data;
       } else {
@@ -324,7 +325,7 @@ export const TestsStore = types
         throw response.data;
       } else if (response.data.statusCode === 401) {
         self.testsSummaryState = 'UNAUTHORIZED';
-        const { auth } = getParent(self);
+        const { auth } = getParent(self) as RootStore;
         auth.logout();
         throw response.data;
       } else {

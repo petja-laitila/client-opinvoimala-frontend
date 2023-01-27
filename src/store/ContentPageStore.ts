@@ -12,6 +12,7 @@ import {
 import i18n from '../i18n';
 import api from '../services/api/Api';
 import { Page, PageModel } from './models';
+import { RootStore } from './RootStore';
 
 const States = [
   'IDLE' as const,
@@ -95,7 +96,7 @@ export const ContentPageStore = types
         throw response.data;
       } else if (response.data.statusCode === 401) {
         self.state = 'UNAUTHORIZED';
-        const { auth } = getParent(self);
+        const { auth } = getParent(self) as RootStore;
         auth.logout();
         throw response.data;
       } else {

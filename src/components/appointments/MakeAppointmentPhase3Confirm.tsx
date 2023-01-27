@@ -38,7 +38,7 @@ export const MakeAppointmentPhase3Confirm: React.FC<Props> = observer(
       };
 
     if (!appointment) {
-      return t('error.appointment.make.appointment_not_selected');
+      return <>{t('error.appointment.make.appointment_not_selected')}</>;
     }
 
     return (

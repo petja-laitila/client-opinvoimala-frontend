@@ -11,6 +11,7 @@ import Storage from '../services/storage';
 import { ANALYTICS_EVENT, sendAnalyticsEvent } from '../utils/analytics';
 
 import { UserModel } from './models';
+import { RootStore } from './RootStore';
 
 const States = ['IDLE' as const, 'PROCESSING' as const, 'ERROR' as const];
 
@@ -77,7 +78,7 @@ export const AuthStore = types
         sendAnalyticsEvent(ANALYTICS_EVENT.USER_LOGGED_IN);
 
         // Reset tests store after successful login:
-        const { tests } = getParent(self);
+        const { tests } = getParent(self) as RootStore;
         tests.reset();
 
         self.user = cast(response.data.user);
@@ -145,7 +146,7 @@ export const AuthStore = types
       Storage.write({ key: 'TESTS_IN_PROGRESS', value: null });
       yield api.logout();
 
-      const { tests, contentPages } = getParent(self);
+      const { tests, contentPages } = getParent(self) as RootStore;
       tests.reset();
       contentPages.reset();
 
@@ -180,7 +181,7 @@ export const AuthStore = types
         return { success: true };
       } else if (response.data.statusCode === 401) {
         self.state = 'ERROR';
-        const { auth } = getParent(self);
+        const { auth } = getParent(self) as RootStore;
         auth.logout();
       } else {
         self.state = 'ERROR';
