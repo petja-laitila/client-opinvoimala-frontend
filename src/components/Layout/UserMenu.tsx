@@ -103,7 +103,7 @@ const UserMenu: React.FC<Props> = observer(({ admin }) => {
   const {
     auth: { isLoggedIn: isAdminLoggedIn, adminName, logout: adminLogout },
   } = useAdminStore();
-  const isAdminPath = history.location.pathname.includes(adminPath());
+  const isAdminPath = history?.location.pathname.includes(adminPath());
 
   const handleLoginClick = () => {
     openLoginModal();

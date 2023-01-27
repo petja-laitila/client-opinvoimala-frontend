@@ -4,12 +4,16 @@ import { StoreProvider } from '../store/storeContext';
 import { rootStore } from '../store/RootStore';
 import { theme, ThemeProvider } from '../theme';
 import '../i18n';
+import { AdminStoreProvider } from '../store/admin/adminStoreContext';
+import { adminRootStore } from '../store/admin/AdminRootStore';
 
 function render(ui: ReactElement, { ...renderOptions }: any = {}) {
   const Wrapper: React.FC = ({ children }) => {
     return (
       <StoreProvider value={rootStore}>
-        <ThemeProvider theme={theme}>{children}</ThemeProvider>
+        <AdminStoreProvider value={adminRootStore}>
+          <ThemeProvider theme={theme}>{children}</ThemeProvider>
+        </AdminStoreProvider>
       </StoreProvider>
     );
   };

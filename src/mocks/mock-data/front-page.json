@@ -1,7 +1,7 @@
 {
   "id": 1,
-  "main_title": "This is the main title for the front page!",
-  "subtitle": "This is the subtitle of the front page",
+  "title": "This is the main title for the front page!",
+  "lead": "This is the subtitle of the front page",
   "description": "Description text for the front page",
   "cards": [
     {
