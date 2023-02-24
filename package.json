@@ -1,6 +1,13 @@
 {
   "name": "client-opinvoimala-frontend",
   "version": "0.4.2",
+  "config": {
+    "apiUrl": {
+      "local": "http://localhost:1337",
+      "stage": "https://opinvoimala-api.stage.geniem.io",
+      "production": "https://opinvoimala-api.production.geniem.io"
+    }
+  },
   "private": true,
   "dependencies": {
     "apisauce": "2.1.6",
@@ -45,8 +52,12 @@
     "prettier": "2.8.3"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "REACT_APP_API_URL=$npm_package_config_apiUrl_local react-scripts start",
+    "start:stage": "REACT_APP_API_URL=$npm_package_config_apiUrl_stage react-scripts start",
+    "start:production": "REACT_APP_API_URL=$npm_package_config_apiUrl_production react-scripts start",
     "build": "react-scripts build",
+    "build:stage": "REACT_APP_API_URL=$npm_package_config_apiUrl_stage yarn build",
+    "build:production": "REACT_APP_API_URL=$npm_package_config_apiUrl_production yarn build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "prepare": "husky install"

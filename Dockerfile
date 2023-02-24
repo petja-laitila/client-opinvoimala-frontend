@@ -2,11 +2,13 @@
 FROM node:16-alpine as build-deps
 WORKDIR /usr/src/app
 
+ARG ENVIRONMENT
+
 COPY package.json yarn.lock ./
 RUN yarn install
 COPY . ./
 
-RUN yarn build
+RUN yarn build:${ENVIRONMENT}
 RUN yarn autoclean --force
 
 # Production environment

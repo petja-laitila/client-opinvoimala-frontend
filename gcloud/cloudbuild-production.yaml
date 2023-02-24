@@ -54,6 +54,8 @@ steps:
       [
         "build",
         "--pull",
+        '--build-arg',
+        'ENVIRONMENT=production',
         "-t",
         "gcr.io/$PROJECT_ID/${_PROJECT_NAME}:production-latest",
         ".",
