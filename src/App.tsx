@@ -78,7 +78,7 @@ const App: React.FC = observer(() => {
     <ThemeProvider theme={theme}>
       <Cookiebot cbid={cookiebotDomainGroupId} />
       <Analytics gaMeasurementId={googleAnalyticsMeasurementId} />
-      {isLoggedIn && <Chat giosgCompanyId={giosgCompanyId} />}
+      <Chat giosgCompanyId={giosgCompanyId} />
 
       <Dimmer inverted active={appIsLoading} style={{ position: 'fixed' }}>
         <Loader size="massive" />

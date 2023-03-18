@@ -10,6 +10,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## Changed
 
 - Upgraded (most of the) packages
+- OPI-114: Changed giosg (chat) script to new version
+- OPI-114: Chat is available for all users (no need to login)
 
 ## [0.4.2] - 2022-11-01
 
