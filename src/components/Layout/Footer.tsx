@@ -8,6 +8,7 @@ import Link from '../Link';
 import { Divider, Grid, Icon } from 'semantic-ui-react';
 import { useWindowDimensions } from '../../utils/hooks';
 import NoPrint from '../NoPrint';
+import Image from '../Image';
 
 const StyledFooter = styled.footer`
   background-color: ${p => p.theme.color.grey3};
@@ -177,7 +178,7 @@ const Footer: React.FC = observer(() => {
           <Grid verticalAlign="middle">
             {logos.map(({ id, url, alternativeText }) => (
               <div key={id} className="logo-area__image-container">
-                <img src={url} alt={alternativeText ?? ''} />
+                <Image apiSrc={url} alt={alternativeText} />
               </div>
             ))}
           </Grid>

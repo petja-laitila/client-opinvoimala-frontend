@@ -12,6 +12,7 @@ import LoadingPlaceholder from '../LoadingPlaceholder';
 import { Goal as GoalType } from '../../store/models';
 import { GoalModal } from './GoalModal';
 import GoalDrawer from './GoalDrawer';
+import Image from '../Image';
 
 const MAX_ACTIVE_GOALS = 4;
 
@@ -22,7 +23,7 @@ const Header = styled.header<{ hasImage: boolean }>`
 
   .goals-accomplished-container {
     display: flex;
-    justify: flex-end;
+    justify-content: flex-end;
     align-items: center;
     font-family: ${p => p.theme.font.secondary};
     color: ${p => p.theme.color.secondary};
@@ -173,9 +174,9 @@ export const Goals: React.FC = observer(() => {
               })}
             </div>
 
-            <img
-              src={goalsInfo.image?.url}
-              alt={goalsInfo.image?.alternativeText ?? ''}
+            <Image
+              apiSrc={goalsInfo.image?.url}
+              alt={goalsInfo.image?.alternativeText}
             />
           </div>
         </Header>
