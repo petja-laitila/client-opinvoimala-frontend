@@ -22,7 +22,7 @@ const Header = styled.header<{ hasImage: boolean }>`
 
   .goals-accomplished-container {
     display: flex;
-    justify-content: flex-end;
+    justify: flex-end;
     align-items: center;
     font-family: ${p => p.theme.font.secondary};
     color: ${p => p.theme.color.secondary};

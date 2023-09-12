@@ -7,12 +7,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-## Fixed
-
-- Image component to add api url prefix to src
-
-## [0.4.3] - 2023-03-18
-
 ## Changed
 
 - Upgraded (most of the) packages
