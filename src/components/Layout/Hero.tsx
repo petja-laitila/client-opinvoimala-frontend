@@ -2,14 +2,13 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { useHistory } from 'react-router';
 import styled from 'styled-components';
-import { Image as ImageType } from '../../store/models';
+import { Image } from '../../store/models';
 import { useWindowDimensions } from '../../utils/hooks';
 import Icon from '../Icon';
 import { Button } from '../inputs';
 import NoPrint from '../NoPrint';
 import Watermark from './Watermark';
 import { WrapperSize } from './Wrapper';
-import Image from '../Image';
 
 const Container = styled.div`
   margin-bottom: -40px;
@@ -124,7 +123,7 @@ const Container = styled.div`
 export interface HeroProps {
   title?: string | null | JSX.Element;
   lead?: string | JSX.Element | null;
-  image?: ImageType | null;
+  image?: Image | null;
   smallImage?: boolean;
   align?: string;
   goBackText?: string;
@@ -198,7 +197,7 @@ const Hero: React.FC<HeroProps> = ({
   );
 
   const imageEl = !image?.url ? undefined : (
-    <Image apiSrc={image?.url} alt="" width={smallImage ? '150px' : '300px'} />
+    <img src={image?.url} alt="" width={smallImage ? '150px' : '300px'} />
   );
 
   const actionButtons = actions?.map(({ id, text, icon, onClick }) => (

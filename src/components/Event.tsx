@@ -6,7 +6,6 @@ import { Event as EventType } from '../store/models';
 import { Button } from './inputs';
 import Icon from './Icon';
 import Link from './Link';
-import Image from './Image';
 
 const EventContainer = styled.li<{ isSimple: boolean }>`
   display: flex;
@@ -128,7 +127,7 @@ const Event: React.FC<Props> = ({ event, isSimple = false }) => {
       </div>
       <div>
         {!isSimple && (
-          <Image apiSrc={image?.url} alt={image?.alternativeText} />
+          <img src={image?.url} alt={image?.alternativeText ?? ''} />
         )}
       </div>
     </EventContainer>

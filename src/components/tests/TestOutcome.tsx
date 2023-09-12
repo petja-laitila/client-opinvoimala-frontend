@@ -2,7 +2,6 @@ import React from 'react';
 import styled from 'styled-components';
 import { TestOutcome as TestOutcomeType } from '../../store/models';
 import InnerHtmlDiv from '../InnerHtmlDiv';
-import Image from '../Image';
 
 const Container = styled.div`
   margin: ${p => p.theme.spacing.xl} 0;
@@ -35,9 +34,7 @@ const TestOutcome: React.FC<TestOutcomeType> = ({ title, content, image }) => (
 
     {content && <StyledInnerHtmlDiv html={content} />}
 
-    {image?.url && (
-      <Image apiSrc={image.url} alt={image.alternativeText ?? ''} />
-    )}
+    {image?.url && <img src={image.url} alt={image.alternativeText ?? ''} />}
   </Container>
 );
 

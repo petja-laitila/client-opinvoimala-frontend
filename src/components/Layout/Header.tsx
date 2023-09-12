@@ -10,7 +10,6 @@ import NoPrint from '../NoPrint';
 import NavBar from './NavBar';
 import UserMenu from './UserMenu';
 import Wrapper from './Wrapper';
-import Image from '../Image';
 
 export const HEADER_HEIGHT = 120; // px
 export const HEADER_HEIGHT_MOBILE = 70; // px
@@ -78,7 +77,7 @@ const Header: React.FC<Props> = observer(({ admin }) => {
         <div className="header__logo-container">
           {logo && (
             <Link to="/">
-              <Image apiSrc={logo.url} height={`${logoHeight}px`} alt="logo" />
+              <img src={logo.url} height={`${logoHeight}px`} alt="logo" />
             </Link>
           )}
           {admin && (

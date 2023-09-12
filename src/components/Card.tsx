@@ -1,13 +1,12 @@
 import { observer } from 'mobx-react-lite';
 import React from 'react';
 import styled from 'styled-components';
-import { Link as LinkType, Image as ImageType } from '../store/models';
+import { Link as LinkType, Image } from '../store/models';
 import { useStore } from '../store/storeContext';
 import { linkIsPublic } from '../utils/links';
 import Heading, { HeadingLevel } from './Heading';
 import Link from './Link';
 import Tag from './Tag';
-import Image from './Image';
 
 const Container = styled.article<{ isLocked?: boolean }>`
   background-color: ${p => p.theme.color.background};
@@ -122,7 +121,7 @@ const TagList = styled.ul`
 interface Props {
   title?: string | null;
   text?: string | null;
-  image?: ImageType | null;
+  image?: Image | null;
   tags?: string[];
   link?: LinkType | null;
   isLocked?: boolean;
@@ -150,7 +149,7 @@ const Card: React.FC<Props> = observer(
 
     return (
       <Container isLocked={isLocked || (isLinkPublic === false && !isLoggedIn)}>
-        {image && <Image apiSrc={image.url} alt={image.alternativeText} />}
+        {image && <img src={image.url} alt={image.alternativeText ?? ''} />}
 
         <main>
           <div className="card__heading-row">
