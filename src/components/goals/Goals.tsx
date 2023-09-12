@@ -12,7 +12,6 @@ import LoadingPlaceholder from '../LoadingPlaceholder';
 import { Goal as GoalType } from '../../store/models';
 import { GoalModal } from './GoalModal';
 import GoalDrawer from './GoalDrawer';
-import Image from '../Image';
 
 const MAX_ACTIVE_GOALS = 4;
 
@@ -174,9 +173,9 @@ export const Goals: React.FC = observer(() => {
               })}
             </div>
 
-            <Image
-              apiSrc={goalsInfo.image?.url}
-              alt={goalsInfo.image?.alternativeText}
+            <img
+              src={goalsInfo.image?.url}
+              alt={goalsInfo.image?.alternativeText ?? ''}
             />
           </div>
         </Header>

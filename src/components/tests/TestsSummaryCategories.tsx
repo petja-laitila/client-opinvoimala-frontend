@@ -7,7 +7,6 @@ import Stars from '../Stars';
 import { path } from '../../routes/routes';
 import Icon from '../Icon';
 import { linkTargetUrl } from '../../utils/links';
-import Image from '../Image';
 
 const Container = styled.div`
   height: 100%;
@@ -139,7 +138,7 @@ const TestsSummaryCategories: React.FC<Props> = ({ categories }) => {
             <li key={id}>
               <div className="test-summary-categories__image">
                 {image?.url && (
-                  <Image apiSrc={image.url} alt={image.alternativeText} />
+                  <img src={image.url} alt={image.alternativeText ?? ''} />
                 )}
               </div>
 
