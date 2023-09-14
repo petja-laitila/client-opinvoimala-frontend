@@ -42,8 +42,6 @@ yarn build:production
 - `dev` - Finished features
 - `master` - Production version
 
-## Digital Ocean deploy
-
 ### Upgrade stage
 
 Create & push new tag `*-stage` (e.g. yyyymmdd-HHMM-stage)
